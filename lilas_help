@@ -1,0 +1,112 @@
+
+usage : lilas [option | signalName=signalValue | resource ]*
+options list :
+  -verbose
+	more informations printed on log file. (equivalent to parameter value : verbose=true)
+  -logLevel=[ALL|FINEST|FINER|FINE|CONFIG|INFO|WARNING|SEVERE|OFF}
+	logging formatter level for trace message (default : SEVERE)
+  -fileLog{=path_to_file_log}
+	file to print loggin message. if null, logging message are printed on terminal. (default null)
+  -config=pathToConfigFile
+	path to the configuration file. By default lilas try to locate the file 'lilasConfig.xml' on current directory and parent. In case of no file founded,
+	a creation of a default configuration file begins.
+  -javaLibraryPath=path
+	used to set the java.library.path property of the java virtual machine
+  -dirSrc=path_to_source_folder
+	indicate the source folder of a lilas project. If not set, lilas use the current directory
+  -dirBin=path_to_binary_folder
+	indicate the binary folder of a lilas project (where the class are compiled). If not set, lilas use the source
+	folder (dirSrc)
+  -to=[java|xml|tst|svg|fpga|pc|vhdl|ucf|bit|list|jnlp]
+	convert a lilas module to :
+		java : a java class for the module resource (when lilas module has been changed)
+		xml : a xml instance call for the module resource
+		tst : a lilas module for testing the module resource. The generated module name is "xxx_tst.lilas" where xxx is the name module to test.
+			If a board is specified and a module xxx_boardName_pc exist, the test module has a variable configuration depending on constant
+			boolean signal isRemoteExecution.
+		svg : a graphic draw of the module resource in the svg format. If the option -awt is present, the module is draw in a window, otherwise an
+			svg file is created. The position of internal modules in the SVG window may be imposed via the positionSVG attribute whose associated 
+			value gives the column number where the call should appear the module. Similarly, the position of the module's communication ports can be 
+			imposed via the attribute position of an external signal return (possible values are LEFT, RIGHT, UP or DOWN).
+		fpga : a lilas module representing for implementing the module resource into a fpga board. The generated module name is "xxx_boardName_fpga.lilas"
+			where xxx is the name module to implement. This command also generate the lilas module to communicate with the fpga board.
+		pc : a lilas module to communicate with the fpga board (this lilas module is automatically created by the -to=fpga option). The generated module name 
+			is "xxx_boardName_pc.lilas"	where xxx is the name module to implement
+		vhdl : a vhdl definition for the logic part of the module resource (when lilas module has been changed); a vhdl test bench file is also created from the script definitions
+		ucf : generate a ucf file for logic module resource (this file is automatically created by the -to=bit option)
+		bit : compile the vhdl description of the module resource to generate the bitstream file for the fpga board.
+		list : print the path of all modules used directly or indirectly by a given module
+		jnlp : a java network launching protocol file for the module resource, in conjonction with the option -applet
+  -test
+	launch module ressource_tst with isRemoteExecution=false
+  -remote
+	launch module ressource_tst with isRemoteExecution=true; compile xxx.bit file if necessary (and all the generated vhdl files)
+  -applet
+	with this option, the -to=jnlp option generate a jnlp file for launching applet, otherwise the jnlp file is for launching java application
+  -force
+	force file creation even it is not necessary (java, vhdl, ...)
+  -noExec
+	by default, if there is no -to=xxx option, lilas convert the module resource into a java file and then execute this java program. This option suppress this execution.
+  -noCheck
+	by default,  the system checks whether the lilas files are valid and if the generated java files are up to date (otherwise, lilac system stops). 
+	With -noCheck option, lilas does not make this check and directly starts the execution.
+  -awt=[width:height[:awtName]]
+	create a graphic interface before launching the java module execution (if no name is given, a standard interface system is created)
+  -withHistoric[=[true|false]]
+	when false, suppresss the historic part in the awt interface in order to accelerate the java execution (default : true)
+  -script=scriptName
+	start the java execution of the execution module with the given script name instead of the script "main"
+  -board=[nexys3|ms6lx9|ms6lx25]
+	specify the board target (if not given in the module definition) when using -to=fpga or -to=pc options
+  -nexys3LoadCmd=[lilas|"djtgcfg prog -d Nexys3 --index 0 --file"]
+	if equals to "lilas", bitstream load is done by lilas, otherwise, load is done by executing the given command
+  -ms6LoadCmd=[lilas|"xc3sprog -c ftdi"]
+	if equals to "lilas", bitstream load is done by lilas, otherwise, load is done by executing the given command
+  -ftdiJava=[ftd2xx|ftdi]
+	indicate which library is used for ftdi communication (default ftd2xx)
+  -stepByStepMode[=[true|false]]
+	start the java execution with the step by step mode (only if the awt includes a step by step button). (default false)
+  -sequentialMode
+	start the java execution with a sequential mode. By defaut, all the thread are executed in parallel.
+  -simulatedTimeMode[=[true|false]]
+	use a simulated time for the java execution (for logic modules). (default false)
+  -activationTimeDefault=int_value
+	with simulatedTimeMode, give the value by default of the activation time of a module
+  -elementaryGateDelay=intValue
+	use to estimate gate delay of a module (default 100)
+  -bitValueDefault=[U|X|0|1|Z|W|L|H|-]
+	bit value used by default for init logic value creation (default U)
+  -STD_LOGIC_1164_modified_Mode=[true|false]
+	if false (default) use truth tables conform to STD_LOGIC_1164; if true, use modified truth tables to avoid 'X' value
+	as a result for logic operations on 'Z' value (for example 1 and Z give 1 unstead X)
+  -load
+	load the bit file onto fpga board
+  -extract
+	copy the file of the given ressource from the lilas path to the lilas source directory
+  -show[=[java|javaRoot|javaRoot_x|java_x|lilas_x]]
+	print the file content of the given ressource (onto a window if option -awt is also given, or onto the terminal). If
+	a show value is given, the file content is :
+		java : the java description of the java class associated to the module
+		javaRoot : the java description of the super class of the java class associated to the module
+	If the resource is a lilas module defined with a variable configuration, and if the show value ends with _x 
+	   (where 'x' is a positive integer) we consider the configuration number x).
+  -edit
+	start a very simple graphic editor for the module resource
+  -jarBib[=fileListResource]
+	create a jar file containing the given resource and all included resources. If a resourcesListFile is given, all 
+	ressources given by this file are also included. If the option -force is also given, the lilas modules are first compiled
+	as for -to=java option.
+  -clean
+	delete all the saved file (a save file is created under some circonstance by lilas) of the given resource module
+  -cleanFull
+	delete all the saved file and all the generated file (vhdl, ucf, bit, log) of the given resource module
+  -special[=argList]
+	execute the static main method of the class given by the resource name under the lilas environment (unstead of lilas.Main class). If given, argList is passed to the method.
+  -help
+	print this manual
+  -version
+	print the file "xml/Version.xml" which exist in each jar file of the lilas library. With -verbose option, print also
+	some java properties (user.dir, os.arch, os.name, os.version, user.home, java.home, java.version, java.library.path)
+  -interactive
+	start the java execution with an interactive debug command line.	
+Lilas completed !

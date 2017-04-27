@@ -1,0 +1,116 @@
+--------------------------------------------------------------------------------------------------
+install
+http://intranet-gei.insa-toulouse.fr:8181/Enseignements/SFO/MIC-3/Documents/gitSFOMIC3/lilasApp.zip
+--> la decompression produit le dir LILASHOME
+
+Dans LILASHOME/lib il y a
+	- les 2 jar essentiels de Mitch (plus les demos)
+		lilasV4.jar
+		appsfo.jar
+	- des jars 3rd party t.q. BATIK
+	- des .so pour les lib compilees avec des SDK non java t.q. adept
+
+Dans LILASHOME il y a un script installAPPSFO.sh qui
+	- met un alias pour lilas dans .bashrc
+	- met des paths et des vars sur l'outil xilinx dans .profile
+	- appelle une premiere fois lilas pour proposer creation lilasConfig.xml
+ulterieurement l'alias lilas fera reference a ce lilasConfig.xml
+lilasConfig.xml fait reference a
+	LILASHOME/lib
+	le dir de travail t.q. ~/APPSFO
+
+voici l'alias :
+alias lilas='java -jar /home/commetud/3eme\ Annee\ MIC/APPSFO/LILASHOME/lib/lilasV4.jar -config=/home_pers/noullet/APPSFO/lilasConfig.xml '
+
+le xilinx qui est reference est /usr/local/Xilinx134.old/ 
+(13Gb, monte sur netapp2.insa-toulouse.fr:/usrlocal/linux_etud)
+mais il y a des licenses
+    export LM_LICENSE_FILE=2100@srv-gei-ens1
+    export XILINXD_LICENSE_FILE=2100@srv-gei-ens1
+( srv-gei-ens1.insa-toulouse.fr has address 10.10.40.92 )
+
+--------------------------------------------------------------------------------------------------prelim : init
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=coeurAWT -test -script=initSimuCtr
+
+lilas /etape1/RomMicrocode.mem -extract
+lilas /etape1/RomTranscode.mem -extract
+lilas /etape1/RomProgramme.ass -extract
+
+fetch
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=coeurAWT -script=initEtape1 -test
+
+devt jeu instr
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=awtEtape1 -script=initEtape1 -test 
+
+audio (simu)
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=awtEtape1 -script=initEtape1 -test
+
+--------------------------------------------------------------------------------------------------
+carte nexys
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=debugAWT -script=initEtape1 -remote
+	- charge microcode et asm de l'etape 1
+	- en interactif on peut recharger un autre asm mais pas le microcode
+	- utiliser bouton ClkRefresh pour pas-a-pas
+
+
+
+lilas arch.processeurComplet.ProcesseurCompletTools.java -special="dump Registres 0:5"
+lilas arch.processeurComplet.ProcesseurCompletTools.java -special="dump Bus 0x0:0x10"
+lilas arch.processeurComplet.ProcesseurCompletTools.java -special="dump Pile"
+
+run
+lilas arch.processeurComplet.ProcesseurCompletTools.java -special="remoteResetAndStart"
+
+asm+load
+lilas -classToRun=assembleur.MainMIC3 -listing -chargement etape1/prog2.ass
+lilas -classToRun=assembleur.MainMIC3 -listing -chargement /etape3/RomProgramme.ass
+
+demos : (filtre audio, gamme temperee, compteur bibinaire bobby lapointe) 
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -script=demo1 -remote
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -script=demo2 -remote
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -script=demo3 -remote
+lilas /etape1/AudioFiltre.ass -extract
+
+--------------------------------------------------------------------------------------------------
+GPIO
+
+fichier source lilas de depart
+lilas /etape3/ControleGPIO.lilas -extract
+
+mini-simulateur
+lilas /arch/gpio/CarteGPIOTstSimulation.lilas -awt=awt
+
+simulation
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=awtEtape3 -script=initEtape3 -test
+--> etape3/ControleGPIO.lilas a ete compile dans 2 classes
+
+compilation vers VHDL puis test sur carte
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=debugAWT -script=initEtape3 -remote
+--> etape3/ControleGPIO.lilas a ete compile en vhdl
+    ensuite le processeur entier est regenere :
+	- dans /tmp :
+		- du vhdl (sauf etape3/ControleGPIO.vhd)
+		- un fichier .prj qui liste tout le vhdl (y compris etape3/ControleGPIO.vhd)
+		- un fichier .fileList qui liste en plus le .ucf
+		- des fichiers de params pour xilinx t.q. .xst et .ucf
+		- une liste de commandes pour xilinx ISE 13.4 : xilinx.sh
+	- dans ~/APPSFO/etape3/arch/processeurComplet :
+		- un .log
+		- un .bit
+--------------------------------------------------------------------------------------------------
+
+links
+guts
+http://intranet-gei.insa-toulouse.fr:8181/Git/gitLILASV4tst/LILASV4tst/src/arch/index.html
+
+lilas
+http://intranet-gei.insa-toulouse.fr:8181/LILASV4/Eclipse/doc/index.html?part=sect_language_logic
+
+packages
+http://intranet-gei.insa-toulouse.fr:8181/Enseignements/SFO/MIC-3/Documents/gitSFOMIC3/lilasApp.zip
+git clone https://github.com/michel-castan/LILASHOME
+dev packages
+http://intranet-gei.insa-toulouse.fr:8181/ArchiveEclipse/ArchiveLILASV4.zip
+http://intranet-gei.insa-toulouse.fr:8181/ArchiveEclipse/ArchiveLILASV4mic2.zip
+http://intranet-gei.insa-toulouse.fr:8181/ArchiveEclipse/ArchiveLILASV4mic3.zip
+
