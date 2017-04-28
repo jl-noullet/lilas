@@ -32,7 +32,7 @@ http://gitreal.codeschool.com/?utm_source=github&utm_medium=codeschool_option&ut
 git help <command name>
 
 git remote add origin https://github.com/jl-noullet/lilas
-	on a cree un repo qui s'appelle "origin", avec une branche "master"
+	on donne l'adresse d'un repo distant qui s'appelle "origin", avec une branche "master"
 	ceci enregistre l'URL. si on s'est trompe : gite remote remove origin
 git push -u origin master
 	on fait un push, jusqu'a maintenant c'etait local, (-u = ?)
@@ -42,10 +42,11 @@ git push
 git pull origin master
 	l'operation inverse, qui permet de recuperer les changements faits par ailleurs
 git pull
-	tout court ?
+	tout court ? oui ça peut marcher
 git diff HEAD
-	HEAD points to your most recent commit
-	il utilise le vrai diff !!! mais entre quoi et quoi ?
+	HEAD points to your most recent commit, il utilise le vrai diff !!! mais entre quoi et quoi ?
+git diff
+	tout court
 git diff --staged
 	diff entre ??(last committed ?) et staged
 git reset mydir/myfile : unstage
@@ -65,5 +66,18 @@ git merge mabranche2 : merge 2 branches (destructif)
 
 git config : gere la config
 	qui habite dans un fichier .git/config pour 1 repo ou ~/.gitconfig pour tous
+git config --global
+           For writing options: to global ~/.gitconfig file rather than the repository .git/config
+git config --global user.name "jln_insa"
+	pas pour le login, juste pour identifier l'auteur d'un commit
+git config --global user.email "chipyards@gmail.com"
+git config --global push.default simple
+git config --global credential.helper cache
+git config --global credential.helper 'cache --timeout=14400'
+	tranquille pour 4 heures, c'est pour que git ne redemande pas le pwd a chaque push - parcequ'on est en HTTPS
+	(en SSH on utiliserait une key : https://help.github.com/articles/caching-your-github-password-in-git/)
+git config --global credential.helper store
+	permanent, plus risque : The storage format is a .git-credentials file, stored in plaintext.
+
 
 stash = planquer
