@@ -1,0 +1,62 @@
+
+git init : 
+	cree un repo dans le dir courant, c'est a dire cree un dir .git qui va heberger toutes
+	les references que git utilise pour gerer les versions
+git add mydir/myfile : starts the tracking of the file (put on the stage ?)
+	je suppose que mydir/myfile est dans le dir courant (?) et que cette operation ne
+	fait que referencer, pas de copie de data so far
+git add '*.cpp' : wildcards welcome (subdirs included) ou meme --all (tout quoi ?)
+git status : ben, le status
+git commit -m "bla bla" : commit, i.e. "confir, remettre"
+	ce qui n'est pas committed est sur le stage, ou "staged"
+	staged = ready to be committed
+	important : le blabla servira a reperer le commit dans l'historique
+git log : l'historique des commits
+git log --summary : le meme moins resume !
+
+account
+	jl-noullet
+	chipyards@gmail.com
+	mbag...
+
+https://github.com/jl-noullet/
+https://help.github.com/
+http://git-scm.com/docs
+http://git-scm.com/book
+Note : git c'est le soft de scm, github c'est l'hebergement
+
+http://gitreal.codeschool.com/?utm_source=github&utm_medium=codeschool_option&utm_campaign=trygit
+
+git help <command name>
+
+git remote add origin https://github.com/jl-noullet/lilas
+	on a cree un repo qui s'appelle "origin", avec une branche "master"
+	ceci enregistre l'URL. si on s'est trompe : gite remote remove origin
+git push -u origin master
+	on fait un push, jusqu'a maintenant c'etait local, (-u = remember ?)
+git pull origin master
+	l'operation inverse, qui permet de recuperer les changements faits par ailleurs
+git diff HEAD
+	HEAD points to your most recent commit
+	il utilise le vrai diff !!! mais entre quoi et quoi ?
+git diff --staged
+	diff entre ??(last committed ?) et staged
+git reset mydir/myfile : unstage
+	le contraire de add
+git checkout -- myfile
+	get rid of all the changes since the last commit for myfile
+git branch mabranche : cree mabranche (en local)
+git branch : liste les branches
+git checkout mabranche : changer de branche (modal) (note : pas de -- ici)
+git status : pour savoir sur quelle branche on est
+	     pour voir ce qui a change depuis le dernier commit
+git rm myfile : efface fichier (widcards are recursive, -r efface ausi les dirs)
+	je crois que cela veut dire enlever du stage, pas detruire physiquement
+git merge mabranche2 : merge 2 branches (destructif)
+	il merge mabranche2 dans la branche courante (en local)
+	il ne merge pas les fichiers, il merge les changes, meme destructifs !
+
+git config : gere la config
+	qui habite dans un fichier .git/config pour 1 repo ou ~/.gitconfig pour tous
+
+stash = planquer
