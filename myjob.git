@@ -11,6 +11,8 @@ git commit -m "bla bla" : commit, i.e. "confir, remettre"
 	ce qui n'est pas committed est sur le stage, ou "staged"
 	staged = ready to be committed
 	important : le blabla servira a reperer le commit dans l'historique
+git commit -a -m "blabla"
+	-a add automatiquement les fichiers modifies depuis le dernier commit (mais pas de nouveau)
 git log : l'historique des commits
 git log --summary : le meme moins resume !
 
@@ -33,7 +35,9 @@ git remote add origin https://github.com/jl-noullet/lilas
 	on a cree un repo qui s'appelle "origin", avec une branche "master"
 	ceci enregistre l'URL. si on s'est trompe : gite remote remove origin
 git push -u origin master
-	on fait un push, jusqu'a maintenant c'etait local, (-u = remember ?)
+	on fait un push, jusqu'a maintenant c'etait local, (-u = ?)
+git push
+	tout court
 git pull origin master
 	l'operation inverse, qui permet de recuperer les changements faits par ailleurs
 git diff HEAD
