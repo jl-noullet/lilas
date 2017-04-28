@@ -42,7 +42,7 @@ git push
 git pull origin master
 	l'operation inverse, qui permet de recuperer les changements faits par ailleurs
 git pull
-	tout court
+	tout court ?
 git diff HEAD
 	HEAD points to your most recent commit
 	il utilise le vrai diff !!! mais entre quoi et quoi ?
