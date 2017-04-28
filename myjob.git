@@ -37,9 +37,12 @@ git remote add origin https://github.com/jl-noullet/lilas
 git push -u origin master
 	on fait un push, jusqu'a maintenant c'etait local, (-u = ?)
 git push
-	tout court
+	tout court, a condition d'avoir fait :
+		git config --global push.default simple (ou matching ...)
 git pull origin master
 	l'operation inverse, qui permet de recuperer les changements faits par ailleurs
+git pull
+	tout court
 git diff HEAD
 	HEAD points to your most recent commit
 	il utilise le vrai diff !!! mais entre quoi et quoi ?
