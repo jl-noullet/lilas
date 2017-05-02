@@ -1,0 +1,52 @@
+    	ORG	0
+	WORD	0x0400  ; initialisation SP
+	WORD	debut	; initialisation PC
+somme:	EQU	0x0200
+Digit:	EQU	0x4004
+ModeLed:EQU	0x4002
+Mode:EQU	0x4003
+DigitGrL:EQU 0x4006
+DigitGrH:EQU 0x4008
+
+table:
+    word	0x22FC
+    word	0x9C42
+    word	0xEC0A
+    word	0x6A4A
+    word    0x2606
+    word	0xE07C
+    word	0x1CF0
+    word	0x6E4E
+debut:	
+	LDI	R1, #1
+	LDI	R2, #0
+	LDI	R3, #0
+	STB R1, [#Mode]
+boucle: ADD	R2, R1
+	BNC	boucle
+	ADD	R3, R1
+	; puis on l'affiche sur les digits
+	;ST      R3, [#Digit]
+	;ST      R3, [#DigitGrL]
+	MOV	R5, R3
+	LDI	R7, #DigitGrL
+	call #affiche
+	call #affiche
+	call #affiche
+	call #affiche
+ 	B    	boucle
+ 	
+ affiche: 
+ 	LDI	R6, #0x000F
+	AND	R6, R5
+	LDI	R8, #table
+	ADD	R6, R8
+	LDRB	R6, [R6]
+	STRB R6, [R7]
+	LSR R5
+	LSR R5
+	LSR R5
+	LSR R5
+	ADD R7, R1
+	return
+	
