@@ -84,6 +84,9 @@ simulation
 lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=awtEtape3 -script=initEtape3 -test
 --> etape3/ControleGPIO.lilas a ete compile dans 2 classes
 
+UWAGA : faire shift-clic-droit pour changer l'etat d'une pin du GPIO dans le simu
+Bug : si la pin est en out elle ne marche plus meme si on met Z
+
 compilation vers VHDL puis test sur carte
 lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=debugAWT -script=initEtape3 -remote
 --> etape3/ControleGPIO.lilas a ete compile en vhdl

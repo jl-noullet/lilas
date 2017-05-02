@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module>
+	<!-- côté bus -->
+	<signal mode="in" init="0x0000" name="InAdresse" type="lilas.type.StdLogic"/>
+	<signal mode="out" init="0x0000" name="OutDonnee" type="lilas.type.StdLogic"/>
+	<signal mode="in" init="0x0000" name="InDonnee" type="lilas.type.StdLogic"/>
+	<signal mode="in" init="0b0" name="InLE" type="lilas.type.StdLogic"/>
+	<signal mode="in" init="0b0" name="InMO" type="lilas.type.StdLogic"/>
+	<signal mode="in" init="0b0" name="InDR" type="lilas.type.StdLogic"/>
+	<signal mode="out" init="0b0" name="OutDA" type="lilas.type.StdLogic"/>
+	<signal mode="in" init="0b0" name="InDA" type="lilas.type.StdLogic"/>
+	<signal mode="out" init="0b0" name="OutBusError" type="lilas.type.StdLogic"/>
+	<signal mode="in" init="0b0" name="InBusError" type="lilas.type.StdLogic"/>
+				
+	<signal mode="in" init="0b0" name="Ei" type="lilas.type.StdLogic"/>
+
+	<!-- côté gpio -->
+	<signal mode="out" name="Din" type="lilas.type.StdLogic" size="8"/>
+	<signal mode="in" name="Dout" type="lilas.type.StdLogic" size="8"/>
+	<signal mode="out" name="ceCR" type="lilas.type.StdLogic" size="1"/>
+	<signal mode="out" name="ceODR" type="lilas.type.StdLogic" size="1"/>
+			
+ <code language="logic" duréeActivation="1ns"><![CDATA[
+ 	
+    // inDA est inclus dans Ei
+    // JLN version
+	 
+    OutDonnee <= 0x00 & Dout;
+    Din <= InDonnee[7:0];
+
+local adr0 <= (not InAdresse[1]) and (not InAdresse[0]) and Ei;
+local adr1 <= (not InAdresse[1]) and (    InAdresse[0]) and Ei;
+local adr2 <= (    InAdresse[1]) and (not InAdresse[0]) and Ei;
+local adr3 <= (    InAdresse[1]) and (    InAdresse[0]) and Ei;
+
+local error <=	( not InMO ) or
+		( ( adr0 or adr2 ) and (not InLE) ) or
+		(   adr1           and      InLE  ) or
+		    adr3;
+local  CR <= adr2 and (not error);
+local ODR <= adr0 and (not error);
+
+    OutDA <= Ei and not error;
+    OutBusError <= error;
+
+    ceCR  <= CR;
+    ceODR <= ODR;
+   
+ 		  
+  ]]></code>
+		
+
+</module>

@@ -1,0 +1,37 @@
+; JLN version
+		WORD	0x0400	; initialisation SP (premier mot suivant le dernier mot de la ram)
+		WORD	debut	; initialisation PC
+		WORD    PtrIT0  ; initialisation Début Table Handler IT (Registre R14)
+
+PtrIT0: WORD	errIT
+PtrIT1: WORD	errIT
+PtrIT2: WORD	errIT
+PtrIT3: WORD	errIT
+PtrIT4: WORD	errIT
+PtrIT5: WORD	errIT
+PtrIT6: WORD	errIT
+PtrIT7: WORD	errIT
+
+errIT:	B	errIT ; pour bloquer le programme si une IT imprévue est levée
+
+
+SW:	EQU	0x4000
+LED:	EQU	0x4002
+Digit:	EQU	0x4004
+
+CR:	EQU	0x3002
+IDR:	EQU	0x3001
+ODR:	EQU	0x3000
+
+debut:	LDI	R1, #SW
+	LDI	R2, #Digit
+	LDI	R3, #CR
+	LDI	R4, #IDR
+	LDI	R5, #ODR
+	LDI	R0, #1
+	STRB	R0, [R3]
+loop:	LDR	R0, [R1]
+	STRB	R0, [R5]
+	LDRB	R0, [R4]
+	STR	R0, [R2]
+	B	loop
