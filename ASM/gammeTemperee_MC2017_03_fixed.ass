@@ -1,0 +1,251 @@
+        ORG	0
+		WORD	0x0400	; initialisation SP (premier mot suivant le dernier mot de la ram)
+		WORD	debut	; initialisation PC
+; Gamme tempérée : la 440hz -> 45 1/2 tons au dessus du 1er do grave (
+; calcul de y = sin(2pi*freq*t)
+;             = sin(((2pi*440x2**(n/12))/(2**(45/12)))*k*20.48*10**(-6))
+;             = sin(freq(n)*k) avec n=nbr de 1/2 tons et k=temps
+;			  = sin(time)
+; 
+DataSPI:	EQU	0x1000
+DataPWM:	EQU	0x1001
+StatusAudio: EQU 0x1002
+
+SW:	EQU	0x4000
+BTN:	EQU	0x4001
+LED:	EQU	0x4002
+Digit:	EQU	0x4004
+
+time:   EQU	0x0200; variable indiquant le temps dans y=sin(time)(à chaque échantillon, time+=freq(n))
+timeFP: EQU	0x0201
+
+freq: ; table indiquant le coef a appliquer pour chaque frequence:
+Do:    WORD 0x15f
+Ré:    WORD 0x18a
+Mi:    WORD 0x1ba
+Fa:    WORD 0x1d4
+Sol:   WORD 0x20e
+La:    WORD 0x24e
+Si:    WORD 0x296
+Do1:   WORD 0x2be
+finTable:
+
+debut:	
+	LDI	R0, #0x0000
+	ST	R0, [#time] ; raz Time
+loop:	
+	LDB 	R0, [#StatusAudio] ; lecture Status Audio
+	COPY	R0
+	BZ      loop
+	; traitement d'un nouveau son
+	LDI	R1, #finTable
+sw:	LDB	R0, [#SW] ; lecture des switch (increment)
+	STB	R0, [#LED]
+	ST	R0, [#Digit]
+	COPY	R0
+	BNZ	decal
+	B	sw
+	; on recherche le premier switch levé (de la gauche vers la droite)
+	; pour déterminer la frequence de la note à émettre
+decal:	
+	LDI	R5, #0x0002
+	SUB	R1, R5
+	CSRC	R0
+	BNC	decal
+	LDR	R0, [R1]
+finDecal: 
+	ST	R0, [#Digit] ; R0 = increment de temps pour la frequence
+	LDI R5, #0x00FF
+	LD	R3, [#time]
+	CSL R3
+	CSL R3
+	LDI R2, #0x0003
+	AND R2, R3 ; R2 = mode
+	CSL R3
+	CSL R3
+	CSL R3
+	CSL R3
+	CSL R3
+	CSL R3
+	CSL R3
+	CSL R3
+	AND R3, R5 ; R3 = temps mod pi/2
+	LDI	R5, #tableSinus
+	LDI R6, #0x0001
+	AND R6, R2
+	BZ et1
+	LDI R6, #0x00FF ; mode 1 ou 3
+	SUB	R6, R3 ; R3= 255-R3
+	MOV R3, R6
+	;ST	R3, [#Digit]
+et1: ;call #attenteBouton
+	ADD	R3, R5  ;; R3 = @TAB +t
+	LDRB	R3, [R3]  ;; R3 = sinus(timeFP)
+	;LSR	R3  ; pour baisser le son
+	;LSR	R3  ; pour baisser le son
+	; traitement du signe du sinus
+	LDI R6, #0x0002
+	AND R6, R2
+	BZ et2
+	LDI	R1, #0x0000 ; mode 2 ou 3
+	SUB R1, R3 ; R3 = -R3
+	MOV R3, R1
+et2:	STB	R3, [#DataPWM]
+	ST	R3, [#Digit]
+	;call #attenteBouton
+	LDB	R1, [#DataSPI] ; pour effacer le status de la carte son
+	LD	R1, [#time]
+	; on ajoute l'increment
+	ADD R1, R0
+	ST	R1, [#time]
+	LDI	R15, #loop; B	loop
+
+attenteBouton:
+	PUSH R0
+attenteBoutonOn:
+	STB R2, [#LED]
+	ST  R3, [#Digit]
+	LDB	R0, [#BTN]
+	AND	R0
+	BZ attenteBoutonOn
+attenteBoutonOff:	
+	LDB	R0, [#BTN]
+	AND	R0
+	BNZ attenteBoutonOff
+	pop R0
+	return
+	
+	org 	0x0100
+tableSinus: ; 127*sin(x) est représenté par un tableau de n valeurs codée sur 1 octet
+			; tableSinus[0] = 0, tableSinus[i]=sin[i*pi/n], tableSinus[n-1] = 127
+	WORD	0x100
+	WORD	0x202
+	WORD	0x403
+	WORD	0x505
+	WORD	0x706
+	WORD	0x908
+	WORD	0xa09
+	WORD	0xc0b
+	WORD	0xd0c
+	WORD	0xf0e
+	WORD	0x1010
+	WORD	0x1211
+	WORD	0x1313
+	WORD	0x1514
+	WORD	0x1616
+	WORD	0x1817
+	WORD	0x1a19
+	WORD	0x1b1a
+	WORD	0x1d1c
+	WORD	0x1e1d
+	WORD	0x201f
+	WORD	0x2120
+	WORD	0x2322
+	WORD	0x2423
+	WORD	0x2625
+	WORD	0x2726
+	WORD	0x2928
+	WORD	0x2a29
+	WORD	0x2c2b
+	WORD	0x2d2c
+	WORD	0x2e2e
+	WORD	0x302f
+	WORD	0x3131
+	WORD	0x3332
+	WORD	0x3433
+	WORD	0x3635
+	WORD	0x3736
+	WORD	0x3838
+	WORD	0x3a39
+	WORD	0x3b3a
+	WORD	0x3d3c
+	WORD	0x3e3d
+	WORD	0x3f3f
+	WORD	0x4140
+	WORD	0x4241
+	WORD	0x4343
+	WORD	0x4544
+	WORD	0x4645
+	WORD	0x4747
+	WORD	0x4848
+	WORD	0x4a49
+	WORD	0x4b4a
+	WORD	0x4c4c
+	WORD	0x4e4d
+	WORD	0x4f4e
+	WORD	0x504f
+	WORD	0x5151
+	WORD	0x5252
+	WORD	0x5453
+	WORD	0x5554
+	WORD	0x5655
+	WORD	0x5756
+	WORD	0x5858
+	WORD	0x5959
+	WORD	0x5a5a
+	WORD	0x5b5b
+	WORD	0x5d5c
+	WORD	0x5e5d
+	WORD	0x5f5e
+	WORD	0x605f
+	WORD	0x6160
+	WORD	0x6261
+	WORD	0x6362
+	WORD	0x6463
+	WORD	0x6564
+	WORD	0x6665
+	WORD	0x6666
+	WORD	0x6767
+	WORD	0x6868
+	WORD	0x6969
+	WORD	0x6a6a
+	WORD	0x6b6a
+	WORD	0x6c6b
+	WORD	0x6d6c
+	WORD	0x6d6d
+	WORD	0x6e6e
+	WORD	0x6f6f
+	WORD	0x706f
+	WORD	0x7070
+	WORD	0x7171
+	WORD	0x7271
+	WORD	0x7272
+	WORD	0x7373
+	WORD	0x7473
+	WORD	0x7474
+	WORD	0x7575
+	WORD	0x7675
+	WORD	0x7676
+	WORD	0x7776
+	WORD	0x7777
+	WORD	0x7878
+	WORD	0x7878
+	WORD	0x7979
+	WORD	0x7979
+	WORD	0x7a7a
+	WORD	0x7a7a
+	WORD	0x7b7a
+	WORD	0x7b7b
+	WORD	0x7b7b
+	WORD	0x7c7c
+	WORD	0x7c7c
+	WORD	0x7c7c
+	WORD	0x7d7d
+	WORD	0x7d7d
+	WORD	0x7d7d
+	WORD	0x7e7d
+	WORD	0x7e7e
+	WORD	0x7e7e
+	WORD	0x7e7e
+	WORD	0x7e7e
+	WORD	0x7e7e
+	WORD	0x7f7f
+	WORD	0x7f7f
+	WORD	0x7f7f
+	WORD	0x7f7f
+	WORD	0x7f7f
+	WORD	0x7f7f
+	WORD	0x7f7f
+
+
+		
