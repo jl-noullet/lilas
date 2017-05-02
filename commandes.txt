@@ -101,7 +101,21 @@ lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=debugAWT -script=
 		- un .log
 		- un .bit
 --------------------------------------------------------------------------------------------------
+"RAMDISK"
+fichier template ASM avec toutes les adresses definies
+lilas /etape4/RomProgramme.ass -extract
 
+simulation
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=awtEtape4 -script=initEtape4 -test
+
+test sur carte
+lilas /arch/processeurComplet/ProcesseurComplet2015.lilas -awt=debugAWT -script=initEtape4 -remote
+
+UWAGA : remettre le bit start aka CMD[0] a zero quand le transfert est fini, il ne revient pas tout seul
+Cf le schéma de l'automate
+
+UWAGA : max numero de bloc poids fort : 7 en simu, F sur Nexys
+--------------------------------------------------------------------------------------------------
 links
 guts
 http://intranet-gei.insa-toulouse.fr:8181/Git/gitLILASV4tst/LILASV4tst/src/arch/index.html
