@@ -15,7 +15,7 @@ HAK 2017-02 :
 	elle a le bug plus 3 differences
 
 Doute Aalu :
-la fonction 0x0E "Aalu <--> Y" est supposée faire un truc qui n'est pas compatible avec la figure de la doc.
+la fonction 0x0E "Aalu <--> Y" est supposÃ©e faire un truc qui n'est pas compatible avec la figure de la doc.
 le code UAL16bMD.lilas :
 	aIn <=  with fct select (zero, y, 
                            a[14:0] & not F17, // div
@@ -24,7 +24,7 @@ le code UAL16bMD.lilas :
                            zero, zero, zero, zero, zero, zero, zero, zero);
 indique que pour fct = 0x0E, aIn recevra y.
 Ce "with .. select" est une sorte de switch ou les valeurs du selecteur sont appliquees dans l'ordre decroissant,
-on retrouve bien x pour fct = 0x08 soit "P←0, Aalu←X, Balu←Y"
+on retrouve bien x pour fct = 0x08 soit "Pâ†0, Aaluâ†X, Baluâ†Y"
 
 -----------------------------------------------------------------------------------------------------------------
 doc secrete du Cortex Mitch+ :
@@ -76,7 +76,7 @@ R.E. du lilas principal du simulateur :
 		carteCoeur : arch_coeur_CarteCoeur2a
 	  qui matche \DEZIP\appsfo\arch\coeur\CarteCoeur2a.vhd
   on trouve les instances des auttres "cartes" t.q. ROM, RAM, Audio, NVIC, etc...
-- un element <code language="logic" duréeActivation="1ns"> qui contient en CDATA du HDL concurrent
+- un element <code language="logic" durÃ©eActivation="1ns"> qui contient en CDATA du HDL concurrent
   a la maniere du lilas HDL vu a l'etape 3 GPIO. Ici il s'agit de la gestion du bus.
 - des elements <awt name="fulano"> qui sont des blocs graphiques hierarchises, avec une hierarchie
   differente de celle du HDL.
@@ -115,7 +115,7 @@ Notes :
 		entity arch_seqMicroProg_CtrDown
 		genere d'apres \arch\seqMicroProg\CtrDown.lilas
 	  
-- AWT = Abstract Window Toolkit (AWT) est une biblioth�que graphique pour Java
+- AWT = Abstract Window Toolkit (AWT) est une bibliothèque graphique pour Java
   mais en fait c'est presque totalement masque par Lilas et SVG
 	https://fr.wikipedia.org/wiki/Abstract_Window_Toolkit
 	https://www.jmdoudoux.fr/java/dej/chap-awt.htm
@@ -136,12 +136,12 @@ Notes :
 	 debug mydesign_boardName_pc.lilas
 	-to=vhdl (question : est-ce recursif ?)
 	-to=bit
-	-to=xml serait un template d'instanciation en Lilas (question : c'est �a ?)
+	-to=xml serait un template d'instanciation en Lilas (question : c'est ça ?)
 	-to=tst : il fait un module de test (un testbench) mydesign_tst.lilas
 	 ce module a une variable de config isRemoteExecution
   operations auxiliaires :
 	-to=list
-	-to=xml serait un template d'instanciation en Lilas (question : c'est �a ?)
+	-to=xml serait un template d'instanciation en Lilas (question : c'est ça ?)
   etc...
 
 - options a tester :
@@ -198,6 +198,12 @@ Notes :
 	zip -d ~/ailleurs/monzip.zip truc/chose/bidule.png	<-- supprime bidule
 	rm -r arch; unzip -u ~/ailleurs/monzip.zip arch <-- refresh la branche arch
 -----------------------------------------------------------------------------------------------------------------
+RE du code source de Lilas V4 (archive LILASV4.zip de 144 031 599 bytes)
+	LILASV4\doc : doc exhaustive generee en html - contient un tree mais c'est le tree des heritages, pas des appels
+	LILASV4\src : contint du code source mais aussi des demos avec des illustrations
+	LILASV4\src\jni : jni est l'interface avec le C (Java Native Interface)
+	LILASV4\src\lilas : l'essentiel est la, dans seult 3 Mbytes de code...
+-----------------------------------------------------------------------------------------------------------------
 Ant et Eclipse
 www.vogella.com/tutorials/ApacheAnt/article.html
 https://www.tutorialspoint.com/ant/ant_eclipse_integration.htm
@@ -209,7 +215,7 @@ http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.platform.doc.user%2F
 --------------------------------------------------------------------------------------------------
 typical problems sur CentOS :
 
-al�atoire :
+aléatoire :
 *** SEVERE from lilas.base.Port.postActivation:91 : Error Port, it is impossible to postActivate
  for variable valIn associated to signal /instanceVariable/circuit/carteBus/InDA in module arch.bus.ConnexionET
  (/instanceVariable/circuit/carteBus/ib/DAET) :
