@@ -203,6 +203,94 @@ RE du code source de Lilas V4 (archive LILASV4.zip de 144 031 599 bytes)
 	LILASV4\src : contint du code source mais aussi des demos avec des illustrations
 	LILASV4\src\jni : jni est l'interface avec le C (Java Native Interface)
 	LILASV4\src\lilas : l'essentiel est la, dans seult 3 Mbytes de code...
+	
+La racine des packages de lilas c'est
+/LILASV4/src
+
+2 fichiers package-info.java : FBI sert a rien
+	dans lilas/ il dit : package lilas;
+	dans lilas/base il dit : package lilas.base;
+
+La classe Main contient le point d'entree :
+	public static void main (String[] args)
+mais aussi :
+	public Main (String[] args)
+qui est donc son constructeur, non ? mais on ne voit pas d'instance de la classe Main.
+Cela serait-il que la classe qui possede la methode main est instanciee implicitement ? NON
+grep -r "new Main" .
+rien, alors peut etre que simplement cette classe ne sert pas.
+
+Y a-t-il d'autres points d'entree ?
+grep -r 'public static void main' . > ../JLN_list_of_mains
+oui ! il y en a 74 dont 25 dans la lilas/
+Cela justifie de faire un tree, a moins que javac sache compiler recursivement a partir
+d'une classe de depart...
+
+points d'entree remarquables :
+./lilas/logic/Compilateur.java:	public static void main (String[] args) throws DOMException, ExceptionLilas, ParseException, ParserConfigurationException, TransformerException, IOException {
+./lilas/logic/CompilateurToJava.java:	public static void main (String[] args) throws DOMException, ExceptionLilas, ParseException, ParserConfigurationException, TransformerException, IOException {
+./lilas/logic/CompilateurToVHDL.java:	public static void main (String[] args) throws DOMException, ExceptionLilas, ParseException, ParserConfigurationException, TransformerException, IOException {
+./lilas/logic/parser/Parser.java:  protected JJTParserState jjtree = new JJTParserState();public static void main(String args [])
+./lilas/logic/parser/Parser.jj:  public static void main(String args [])
+./lilas/logic/parser/Parser.jjt:  public static void main(String args [])
+
+Pour exemple, la classe lilas.Main, elle importe :
+packages externes :
+	java.*
+	javax.*
+	org.w3c.dom
+package presents dans le tree LILASV4
+	external.xilinx
+	lilas
+	lilas.awt
+	lilas.awt.tree
+	lilas.awt.treetable
+	lilas.base
+	lilas.util
+	lilas.util.compiler
+	lilas.xml
+
+On envisage de faire un tree base sur les imports :
+
+Question 1 : est-ce que toutes les importations se font classe par classe ?
+$ grep -r 'import lilas[.].*[*]' .
+./lilas/awt/MemoryDisplay.java:import lilas.awt.treetable.*;	<-- 21 classes
+./lilas/awt/TypeDrawStandard.java:import lilas.type.*;		<--  8 classes
+C'est gerable a la main en modifiant ces 2 fichiers
+
+Question 2 : est-ce qu'il faut gerer les commentaires java ?
+grep -r '[/].*import ' .
+- rien -
+
+Question 3 : Y a-t-il des invocations de classe non importees avec un chemin complet ?
+
+oui. il faut rechercher les chaines t.q. lilas.awt.[A-Z], lilas.base.[A-Z],... etc ...
+donc avoir la liste des packages
+grep -r  --no-filename '^package ' lilas | sort | uniq
+	lilas.awt.tree;
+	lilas.awt.treetable;
+	lilas.awt;
+	lilas.base;
+	lilas.bib.awt;
+	lilas.bib.logic.clock;
+	lilas.bib.logic.memoire;
+	lilas.bib.miniSpartan6.genClk;
+	lilas.bib.nexys3.ram128Mb;
+	lilas.bib.nexys3;
+	lilas.bib.nexys3Old.genClk;
+	lilas.cmm.parser;
+	lilas.cmm.parser;
+	lilas.cmm;
+	lilas.edit;
+	lilas.logic.parser;
+	lilas.logic.parser;
+	lilas.logic;
+	lilas.type;
+	lilas.util.compiler;
+	lilas.util;
+	lilas.xml;
+	lilas;
+
 -----------------------------------------------------------------------------------------------------------------
 Ant et Eclipse
 www.vogella.com/tutorials/ApacheAnt/article.html
