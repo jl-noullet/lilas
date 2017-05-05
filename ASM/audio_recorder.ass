@@ -1,0 +1,219 @@
+; single track audio recorder by JLN - avec vumetre
+; polling model
+; full memory 1<<20 blocs soit 5mn44s
+; switch 1 : record, switch 0 : play
+        ORG	0
+	WORD	0x0400	; initialisation SP
+	WORD	debut	; initialisation PC
+pause:	RETURN
+
+; déclarations pour Nexys3IO
+SW:	EQU 	0x4000
+BTN:	EQU 	0x4001
+LED:    EQU 	0x4002
+MODE:    EQU 	0x4003
+DigitHexa:	EQU 	0x4004
+SegsRight:	EQU	0x4006
+SegsLeft:	EQU	0x4008
+
+; déclarations pour carte Audio
+DataSPI:EQU	0x1000
+DataPWM:EQU	0x1001
+Status:	EQU	0x1002
+Format:	EQU	0x1003
+
+; déclarations pour carte NVIC
+ITVR:   EQU     0x2000
+IMR:	EQU	0x2001
+
+; déclarations pour carte GPIO
+ODR:    EQU     0x3000;
+IDR:    EQU     0x3001;
+CR:     EQU     0x3002;
+
+; déclarations pour carte RamDisk
+NoBlocPoidsForts: EQU 0x5000
+NoBlocPoidsFaibles: EQU 0x5002
+AdrZone:EQU 	0x5004
+CMD: 	EQU     0x5006
+STATUS:	EQU	0x5008
+
+TabIT:  WORD    errIT ; HandlerIT0 
+	WORD 	errIT ; HandlerIT1 
+	WORD 	errIT ; HandlerIT2 
+	WORD 	errIT ; HandlerIT3 
+	WORD 	errIT ; HandlerIT4 
+	WORD 	errIT ; HandlerIT5 
+	WORD 	errIT ; HandlerIT6 
+	WORD 	errIT ; HandlerIT7 
+
+errIT: 	B    	errIT ; pour bloquer le programme si une IT imprévue est levée 
+
+; table de segments pour vumetre a 8 barres sur 4 digits --> 9 positions
+; segments	a b c d e f g p		2 barres par byte
+; barre		  2 2   1 1
+TabVu:	WORD	0x0000
+	WORD	0x0000	; 0 barre
+	WORD	0x0C00
+	WORD	0x0000	; 1 barre
+	WORD	0x6C00
+	WORD	0x0000	; 2 barres
+	WORD	0x6C0C
+	WORD	0x0000	; 3 barres
+	WORD	0x6C6C
+	WORD	0x0000	; 4 barres
+	WORD	0x6C6C	
+	WORD	0x0C00	; 5 barres
+	WORD	0x6C6C
+	WORD	0x6C00	; 6 barres
+	WORD	0x6C6C
+	WORD	0x6C0C	; 7 barres
+	WORD	0x6C6C
+	WORD	0x6C6C	; 8 barres
+
+;;;
+;;; initialiser
+;;;
+init:	XOR	R0, R0
+	ST 	R0, [#DigitHexa]
+	MOV	R12, R0			; MSBs bloc #
+	ST	R12, [#NoBlocPoidsForts]
+	MOV	R11, R0			; LSBs bloc #
+	ST	R11, [#NoBlocPoidsFaibles]
+	ST 	R0, [#CMD]
+	LDI	R4, #0x0200		; adresse en RAM
+	LDI	R5, #0x021F		; masque pour adresse en RAM
+	LDI	R6, #0x000F		; masque pour test adresse
+	LDI	R7, #0x0010		; masque pour changer de buffer
+	LDI	R1, #1			; constante
+	LDI	R2, #2			; constante
+	LDI	R3, #3			; constante
+	RETURN
+
+;;;
+;;;	afficher 0 a 8 barres, pleine echelle 8, avec ecretage
+;;;
+affbar:	LDI	R9, #8
+	CMP	R0, R9
+	BLE	vuok
+	LDI	R0, #8
+vuok:	LSL	R0, R0
+	LSL	R0, R0		; index * 4
+	LDI	R9, #TabVu
+	ADD	R9, R0		; adresse
+	LDR	R0, [R9]
+	STB	R1, [#MODE]
+	ST	R0, [#SegsLeft]
+	ADD	R9, R2
+	LDR	R0, [R9]
+ 	ST	R0, [#SegsRight]
+  	RETURN
+
+;;;
+;;;	afficher status : !!! utilise R9 comme tmp
+;;;
+affi:	LD 	R0, [#SW]	; mode selon SW7
+	LDI	R9, #0x0080
+	AND	R9, R0
+	BNZ	vumet
+	LSR	R0, R11		; NoBlocPoidsFaibles
+	LSR	R0, R0
+	LSR	R0, R0
+	LSR	R0, R0
+	CSR	R9, R12
+	CSR	R9, R9
+	CSR	R9, R9
+	CSR	R9, R9
+	OR	R0, R9
+	ST 	R0, [#DigitHexa] ; affichage de temps
+	XOR	R0, R0
+	STB	R0, [#MODE]
+	RETURN
+;
+vumet:	COPY	R0, R8		; tester signe audio
+	BNN	sigpos
+	XOR	R0, R0
+	SUB	R0, R8		; change signe
+sigpos: LSR	R0, R0
+	LSR	R0, R0
+	LSR	R0, R0		; pleine echelle 15
+	CALL	#affbar		; sature apres 8
+	RETURN
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+debut: 	LDI 	R14, #TabIT
+	CALL	#init
+	STB	R1, [#CR]		; sortir sur 1 LED
+
+; boucle audio, tourne toujours pour faciliter migration vers interruption
+
+loop:	STB	R1, [#ODR]		; profilage LED "idle time"
+loopi:	LDB	R0, [#Status]
+	CSRC 	R0
+	BNC	loopi	; attente SPI pret
+;	call	#pause  ; seult pour simu
+	XOR	R0, R0
+	STB	R0, [#ODR]		; profilage LED
+
+; on récupère l'échantillon dans R1
+	LDB  	R8, [#DataSPI]
+
+; test UI
+	LD 	R0, [#SW]
+	AND	R0, R3		; tester 2 bits seult
+	CMP 	R1, R0
+	BZ 	play		; SW0 : play
+	CMP 	R2, R0
+	BZ 	record		; SW1 : record
+	CALL	#init
+	B 	loop
+; --------------------------------------------------------------------
+record:
+	STRB	R8, [R4]	; copier echantillon en RAM
+	ADD	R4, R1 		; incrementer adresse
+	AND	R4, R5
+	MOV	R0, R4
+	AND 	R0, R6		; tester fin de buffer
+	BZ 	eorb
+	CALL	#affi
+	B 	loop
+;				; end of recorded block
+eorb:	XOR	R0, R0
+	ST 	R0, [#CMD]
+	MOV	R0, R4
+	XOR	R0, R7		; base du buffer qu'on vient de quitter
+	ST	R0, [#AdrZone]
+	ADD	R11, R1			; LSBs bloc #
+	ST	R11, [#NoBlocPoidsFaibles]
+	BNZ	cmdr
+	ADD	R12, R1			; MSBs bloc #
+	AND	R12, R6
+	ST	R12, [#NoBlocPoidsForts]
+cmdr:	ST 	R3, [#CMD]
+	B	loop
+; --------------------------------------------------------------------
+play:
+	LDRB	R8, [R4]	; copier echantillon de la RAM
+	STB	R8, [#DataPWM]
+	ADD	R4, R1 		; incrementer adresse
+	AND	R4, R5
+	MOV	R0, R4
+	AND 	R0, R6		; tester fin de buffer
+	BZ 	eopb
+	CALL	#affi
+	B 	loop
+;				; end of recorded block
+eopb:	XOR	R0, R0
+	ST 	R0, [#CMD]
+	MOV	R0, R4
+	XOR	R0, R7		; base du buffer qu'on vient de quitter
+	ST	R0, [#AdrZone]
+	ADD	R11, R1			; LSBs bloc #
+	ST	R11, [#NoBlocPoidsFaibles]
+	BNZ	cmdp
+	ADD	R12, R1			; MSBs bloc #
+	AND	R12, R6
+	ST	R12, [#NoBlocPoidsForts]
+cmdp:	ST 	R1, [#CMD]
+;
+	LDI	R15, #loop; B	loop
