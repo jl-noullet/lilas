@@ -21,6 +21,7 @@
 	- superclass : c'est la classe parent
 	- constructeur : comme en C++ mais : tout initialiser dans {} en appelant le constructeur
 	  de la classe parente : super(...);
+	  N.B. faut pas de type de retour - void MyClass() fait rien sans warning.
 	  un constructeur peut appeler un autre de la meme classe (avec une signature differente) : this()
 	- interface : c'est une declaration des methodes, comme fait le .h d'une classe en C++
 	  avec une syntaxe similaire (les methodes, pas les donnees)
@@ -86,10 +87,13 @@
 		  de fichiers, pas de packages (sourcecode n'est PAS un package)
 		- curieusement le trail Oracle conseille d'invoquer le compilateur depuis le repertoire commun
 		  a plusieurs package, par exemple fr/sourcecode
-		- javac prendrait 3 arguments essentiels :
-			-d : destination dir  ? mais what ? le parent du ou des packages a creer
-			-cp : classpath pour les dependances
-			-sourcepath pour les sources
+		- javac prend 4 arguments essentiels pour faire la compilation recursive de tout un arbre :
+			-d : destination dir - il doit exister, ensuite javac est capable d'y recreer l'arbre des packages
+			     pour y mettre les classes
+			-cp : classpath pour les dependances - doit inclure le destination dir plus d'autres si necessaire
+			-sourcepath : racine de l'arbre des packages, pour chercher les sources
+			le pathname unix complet du .java de la classe principale (sourcecpath n'est pas pris en compte)
+		  il ne dit pas ce qu'il fait, sauf avec -verbose, alors c'est trop (rediriger avec 2>)
 	- javap
 		- espionne le contenu des classes !!!
 
@@ -114,6 +118,30 @@
 - autres
 	https://www.tutorialspoint.com/compile_java8_online.php		// marche que avec Chrome
 ---------------------------------------------------------------------------------------------------
+Exemple de compilation recursive
+on prepare
+src/koki/Main.java
+	package koki;
+	import koki.calcul.Sum;
+src/koki/calcul/Sum.java
+	package koki.calcul;
+
+mkdir bin;
+javac -sourcepath ./src -d ./bin -cp ./bin src/koki/Main.java
+java -cp ./bin koki.Main
+
+--> et ça marche !!!
+
+Autre experience : on oblige le compilateur a compiler seulement 1 classe a la fois
+rm -r ./bin/*
+javac -sourcepath ./src -d ./bin src/koki/calcul/Sum.java
+mv src/koki/calcul/Sum.java pipo.j
+javac -sourcepath ./src -d ./bin -cp ./bin src/koki/Main.java
+java -cp ./bin koki.Main
+mv pipo.j src/koki/calcul/Sum.java
+
+---------------------------------------------------------------------------------------------------
+Exemples d'execution
 on fait une classe HelloWorld dans le fichier /home_pers/noullet/DEV/JAVA/Hello/bin/HelloWorld.class
 
 SUCCESS :
