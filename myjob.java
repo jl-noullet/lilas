@@ -1,8 +1,14 @@
-- doc de ref :
-	https://docs.oracle.com/javase/8/docs/api/index.html
+- doc de ref API
+	https://docs.oracle.com/javase/8/docs/api/
+- tutos Oracle ou "trails"
+	http://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html
+	- Getting started : comme eclipse mais sans eclipse ! javac HelloWorldApp.java c'est tout
+	- Learning the Java language
+	- Essential Classes
+	- etc... JL a D/L tous les trails dans 1 archive javatutorials.zip
 
 - conventions
-	- nom de classe commence par majuscule, methode par minuscule
+	- nom de classe commence par majuscule, methode par minuscule, constante toute en majuscules
 	- nom de methode commence par un verbe !!!
 
 - classpath :
@@ -97,13 +103,38 @@
 	- javap
 		- espionne le contenu des classes !!!
 
-- tutos Oracle ou "trails"
-	http://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html
-	- Getting started : comme eclipse mais sans eclipse ! javac HelloWorldApp.java c'est tout
-	- Learning the Java language
-	- Essential Classes
-	- etc... JL a D/L tous les trails dans 1 archive javatutorials.zip
+- types primitifs :
+	byte : s8
+	short : s16
+	char : u16 for Unicode 16
+	int : s32 (has unsigned methods)
+	long : s64 (has unsigned methods)
+	float, double : IEEE 754
+	boolean : true, false
+- Array : taille fixe
+	int myArray[] = new int[10];
+	int herArray[] = { 1, 3, 5, 7, 11 };
+	longueur : a.length()
+- String : const (immutable) sequence of Unicode 16
+	"une methode qui doit modifier la string retourne une nouvelle string"
+	concatenation : +
+	char[] to String : s = String(charArray)
+	String to char[] : s.toCharArray() ou s.getChars(sBegin, sEnd, charArray, dBegin )
+	String to char : s.charAt(i)
+	byte[] to String : String( byteArray )		(with platform local charset)
+	String to bytes : s.getBytes ou s.getBytes(sBegin, sEnd, byteArray, dBegin )
+	longueur : s.length, s.isEmpty()
+	regex : s.matches(String regex)
+ 	split : s.split(String regex)
+ 	substring : s.substring( iBegin ) ou s.substring( iBegin, iEnd )
+	trim whitespace : s.trim()
+	conversion : s = valueOf( truc ) convertit truc en texte comme il peut (dump)
+- Vector :
+	par defaut, capacity increment par un facteur 2 (sinon par addition de capacityIncrement)
 
+- Maps : plusieurs types : Hashtable, HashMap, TreeMap (uses the natural ordering of its keys)
+
+-------------------------------------------------------------------------------------------------------
 - tutos Eclipse
 	- avec HelloWorld : public static void main(String[] args)
 		- creation projet depuis File->New
