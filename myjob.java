@@ -115,6 +115,7 @@
 	int myArray[] = new int[10];
 	int herArray[] = { 1, 3, 5, 7, 11 };
 	longueur : a.length()
+	iteration : exemple sur un array de String : for ( String elem: myArray ) { }
 - String : const (immutable) sequence of Unicode 16
 	"une methode qui doit modifier la string retourne une nouvelle string"
 	concatenation : +
@@ -128,7 +129,15 @@
  	split : s.split(String regex)
  	substring : s.substring( iBegin ) ou s.substring( iBegin, iEnd )
 	trim whitespace : s.trim()
-	conversion : s = valueOf( truc ) convertit truc en texte comme il peut (dump)
+	conversion to String : s = valueOf( truc ) convertit truc en texte comme il peut (dump)
+	conversion from String : i = Integer.parseInt(mystring); d = Double.parseDouble( mystring );
+- File I/O
+	- la classe Path
+		Path p1 = Paths.get("/home/joe/foo");		// Paths avec un 's' !! sert a creer un path ?!?
+		methodes d'epluchage : toString(), getFileName(), getName(0), getNameCount(), subpath(0,2), getParent(), getRoot()
+		assemblage : Path p1 = Paths.get("/home/joe/foo"); p2 = p1.resolve("bar")); // /home/joe/foo/bar
+		operation enverse : relativize() 
+	The FileVisitor Interface : To walk a file tree
 - Vector :
 	par defaut, capacity increment par un facteur 2 (sinon par addition de capacityIncrement)
 
