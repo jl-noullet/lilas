@@ -17,7 +17,7 @@
 	  il trouve le fichier mais refuse d'executer la classe !!! (wrong name: HelloWorld)
 	- le separateur de chemin est ':' dans le classpath
 	- pour specifier un jar, le nommer completement
-	- pour specifier tous les .jar de MyDir, mettre MyDir/*
+	- pour specifier tous les .jar de MyDir, // mettre MyDir/*
 	- l'option -classpath (aka -cp) override $CLASSPATH
 	- l'option -classpath et $CLASSPATH overrident le path par defaut qui est '.'
 	  (pas garanti sous windows, ils recommandent -cp .)
@@ -131,13 +131,23 @@
 	trim whitespace : s.trim()
 	conversion to String : s = valueOf( truc ) convertit truc en texte comme il peut (dump)
 	conversion from String : i = Integer.parseInt(mystring); d = Double.parseDouble( mystring );
+	N.B. Integer et Double sont les wrapper classes des types primitifs int et double
 - File I/O
 	- la classe Path
 		Path p1 = Paths.get("/home/joe/foo");		// Paths avec un 's' !! sert a creer un path ?!?
 		methodes d'epluchage : toString(), getFileName(), getName(0), getNameCount(), subpath(0,2), getParent(), getRoot()
 		assemblage : Path p1 = Paths.get("/home/joe/foo"); p2 = p1.resolve("bar")); // /home/joe/foo/bar
-		operation enverse : relativize() 
-	The FileVisitor Interface : To walk a file tree
+		operation enverse : relativize()
+	  N.B. Paths est une classe qui ne contient que des methodes statiques, Path sert a creer des objets.
+		teste existence d'un fichier : Files.exists( myPath )
+		rend la taille d'un fichier : Files.size( myPath )
+	  La classe Files a des methodes statiques pour copier, mouvoir, effacer des fichiers, ainsi
+	  que pour scruter les repertoires : The FileVisitor Interface : To walk a file tree
+	- Options d'ouverture :
+		WRITE, CREATE_NEW, CREATE
+		APPEND with WRITE or CREATE
+		TRUNCATE_EXISTING with WRITE				
+	  
 - Vector :
 	par defaut, capacity increment par un facteur 2 (sinon par addition de capacityIncrement)
 
