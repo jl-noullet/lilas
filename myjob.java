@@ -132,6 +132,7 @@
 	conversion to String : s = valueOf( truc ) convertit truc en texte comme il peut (dump)
 	conversion from String : i = Integer.parseInt(mystring); d = Double.parseDouble( mystring );
 	N.B. Integer et Double sont les wrapper classes des types primitifs int et double
+	
 - File I/O
 	- la classe Path
 		Path p1 = Paths.get("/home/joe/foo");		// Paths avec un 's' !! sert a creer un path ?!?
@@ -147,8 +148,15 @@
 		WRITE, CREATE_NEW, CREATE
 		APPEND with WRITE or CREATE
 		TRUNCATE_EXISTING with WRITE
+	- small file at once :
+		byte[] fileArray;
+		fileArray = Files.readAllBytes( myPath );
+		String[] stringArray;
+		stringArray = readAllLines( myPath, StandardCharsets.UTF_8 )
+	  (assure ouverture et fermeture du fichier)
+	  il y a aussi un truc similaire pour l'ecriture.
 	- lecture bufferisee a la stdio :
-		try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8) {
+		try (BufferedReader reader = Files.newBufferedReader( myPath, StandardCharsets.UTF_8) {
 			String line = null;
 			while ( (line = reader.readLine() ) != null ) {
 				// do someting with the line, like :
@@ -157,7 +165,18 @@
 		} catch (IOException x) {
 			System.err.format("IOException: %s%n", x);
 			}
-	  
+- Regex (Perl compatible :-)
+	Pattern myPat = Pattern.compile( myString, Pattern.CASE_INSENSITIVE ); ou sans flag
+	Pattern myPat = Pattern.compile( myString );
+  N.B. il y a des embedded flags qui font la meme chose, e.g; (?i) pour case insensitive
+  	Matcher myMatch = Pattern.matcher( myStringToMatch );
+  Et alors :
+	if ( myPat.find() ) { do something }
+  par exemple :
+	myCapturedString = myPat.group( i ) rend la capture d'index i
+  le matchage entier a l'indice 0. ( myPat.group() est equivalent a myPat.group(0) )
+	myPat.groupCount() rend le nombre de captures ( group(0) non inclus )
+		     
 - Vector :
 	par defaut, capacity increment par un facteur 2 (sinon par addition de capacityIncrement)
 
