@@ -81,3 +81,6 @@ git config --global credential.helper store
 
 
 stash = planquer
+https://help.github.com/articles/removing-sensitive-data-from-a-repository/
+https://help.github.com/articles/removing-files-from-a-repository-s-history/
+
