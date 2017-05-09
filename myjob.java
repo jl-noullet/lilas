@@ -146,7 +146,17 @@
 	- Options d'ouverture :
 		WRITE, CREATE_NEW, CREATE
 		APPEND with WRITE or CREATE
-		TRUNCATE_EXISTING with WRITE				
+		TRUNCATE_EXISTING with WRITE
+	- lecture bufferisee a la stdio :
+		try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8) {
+			String line = null;
+			while ( (line = reader.readLine() ) != null ) {
+				// do someting with the line, like :
+				System.out.println(line);
+			}
+		} catch (IOException x) {
+			System.err.format("IOException: %s%n", x);
+			}
 	  
 - Vector :
 	par defaut, capacity increment par un facteur 2 (sinon par addition de capacityIncrement)
