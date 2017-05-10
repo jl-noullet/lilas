@@ -178,7 +178,13 @@
 	myPat.groupCount() rend le nombre de captures ( group(0) non inclus )
 		     
 - Vector :
+	"If a thread-safe implementation is not needed, it is recommended to use ArrayList in place of Vector"
+- ArrayList :
+	ArrayList< MyType > myVector = new ArrayList( 100 ); // initial capacity
 	par defaut, capacity increment par un facteur 2 (sinon par addition de capacityIncrement)
+	myVector.add( myTruc );		// ajouter un objet a la fin
+	myChose = myVector.get( i );	// lire un objet
+	myCnt = myVector.size();	// la taille
 
 - Maps : plusieurs types : Hashtable, HashMap, TreeMap (uses the natural ordering of its keys)
 
