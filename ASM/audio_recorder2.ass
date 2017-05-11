@@ -3,9 +3,9 @@
 ; full memory 1<<20 blocs soit 5mn44s
 ; switch 1 : record, switch 0 : play
 ; switch 7 : aff. Vu-metre, sinon num de bloc/16
-; profilage sur GPIO : duree idle
+; profilage sur GPIO : duree transfert DMA
 ;
- 	ORG	0
+        ORG	0
 	WORD	0x0400	; initialisation SP
 	WORD	debut	; initialisation PC
 pause:	RETURN
@@ -150,13 +150,12 @@ debut: 	LDI 	R14, #TabIT
 
 ; boucle audio, tourne toujours pour faciliter migration vers interruption
 
-loop:	STB	R1, [#ODR]		; profilage LED "idle time"
+loop:	LD	R0, [#STATUS]		; profilage LED "DMA"
+	STB	R0, [#ODR]
 loopi:	LDB	R0, [#Status]
 	CSRC 	R0
 	BNC	loopi	; attente SPI pret
 ;	call	#pause  ; seult pour simu
-	XOR	R0, R0
-	STB	R0, [#ODR]		; profilage LED
 
 ; on récupère l'échantillon dans R1
 	LDB  	R8, [#DataSPI]

@@ -1,8 +1,9 @@
 ; single track audio recorder by JLN - avec vumetre
-; polling model
+; polling model - ecoute pendant l'enregistrement
 ; full memory 1<<20 blocs soit 5mn44s
 ; switch 1 : record, switch 0 : play
 ; switch 7 : aff. Vu-metre, sinon num de bloc/16
+; switch 6 : lecture acceleree
 ; profilage sur GPIO : duree idle
 ;
  	ORG	0
@@ -173,6 +174,7 @@ loopi:	LDB	R0, [#Status]
 ; --------------------------------------------------------------------
 record:
 	STRB	R8, [R4]	; copier echantillon en RAM
+	STB	R8, [#DataPWM]
 	ADD	R4, R1 		; incrementer adresse
 	AND	R4, R5
 	MOV	R0, R4
@@ -198,13 +200,20 @@ cmdr:	ST 	R3, [#CMD]
 play:
 	LDRB	R8, [R4]	; copier echantillon de la RAM
 	STB	R8, [#DataPWM]
-	ADD	R4, R1 		; incrementer adresse
+	; effet lecture acceleree	
+	LD 	R0, [#SW]	; lecture SW6
+	LDI	R9, #0x0040
+	AND	R9, R0
+	BZ	normal
+	ADD	R4, R1 		; lecture acceleree
+	; fin effet
+normal:	ADD	R4, R1 		; incrementer adresse
 	AND	R4, R5
 	MOV	R0, R4
 	AND 	R0, R6		; tester fin de buffer
 	BZ 	eopb
 	CALL	#affi
-	B 	loop
+	LDI	R15, #loop; B	loop
 ;				; end of recorded block
 eopb:	XOR	R0, R0
 	ST 	R0, [#CMD]
