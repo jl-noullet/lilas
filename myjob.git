@@ -2,6 +2,9 @@
 git init : 
 	cree un repo dans le dir courant, c'est a dire cree un dir .git qui va heberger toutes
 	les references que git utilise pour gerer les versions
+git clone https://github.com/jl-noullet/lilas
+	cree un repo dans le dir courant en clonant le distant (pas besoin d'init)
+
 git add mydir/myfile : starts the tracking of the file (put on the stage ?)
 	je suppose que mydir/myfile est dans le dir courant (?) et que cette operation ne
 	fait que referencer, pas de copie de data so far
@@ -19,7 +22,7 @@ git log --summary : le meme moins resume !
 account
 	jl-noullet
 	chipyards@gmail.com
-	mbag...
+	zkf45Q
 
 https://github.com/jl-noullet/
 https://help.github.com/
