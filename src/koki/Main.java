@@ -10,8 +10,13 @@ public class Main {
 	public Main( double newX ) { X = newX; };
 
 	public static void main(String[] args) {
-        System.out.println("C'est imposant pour mon petit corps" );
-
+        System.out.println("C'est imposant :" );
+        int argc, i;
+        argc = args.length;
+        System.out.println( argc + " arguments" );
+        for ( i = 0; i < argc; ++i ) {
+        	System.out.println( "   " + args[i] );
+        }
 	Main pipo = null;
 	pipo = new Main();
 	Main pipo2 = new Main( 2.2 );
