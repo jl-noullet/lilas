@@ -114,7 +114,7 @@
 - Array : taille fixe
 	int myArray[] = new int[10];
 	int herArray[] = { 1, 3, 5, 7, 11 };
-	longueur : a.length()
+	longueur : a.length;	// attention length est un attribut, pas une methode, car array n'est pas une classe
 	iteration : exemple sur un array de String : for ( String elem: myArray ) { }
 - String : const (immutable) sequence of Unicode 16
 	"une methode qui doit modifier la string retourne une nouvelle string"
