@@ -1,5 +1,8 @@
-- doc de ref API
+- doc de ref API, en ligne ou downloadable
 	https://docs.oracle.com/javase/8/docs/api/
+	http://www.oracle.com/technetwork/java/javase/documentation/jdk8-doc-downloads-2133158.html
+- demos and samples
+	http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 - tutos Oracle ou "trails"
 	http://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html
 	- Getting started : comme eclipse mais sans eclipse ! javac HelloWorldApp.java c'est tout
