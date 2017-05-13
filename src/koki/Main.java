@@ -4,9 +4,9 @@ import koki.calcul.Sum;
 import koki.Vectu;
 import koki.Regu;
 import koki.Mapu;
+import koki.Mapuh;
 
 public class Main {
-
 	double X;
 
 	public Main() { X = 1.5; };
@@ -24,6 +24,7 @@ if (argc > 0 )
 Regu.test( args[0] );
 Vectu.test();
 Mapu.test();
+Mapuh.test();
 	Main pipo = null;
 	pipo = new Main();
 	Main pipo2 = new Main( 2.2 );

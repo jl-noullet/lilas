@@ -1,16 +1,16 @@
 package koki;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.Iterator;
 
-class Mapu {
+class Mapuh {
 public static void test() {
-TreeMap<String,Integer> mop = new TreeMap<String,Integer>();
+HashMap<String,Integer> mop = new HashMap<String,Integer>();
 mop.put("Magda", 11 );
 mop.put("Koumba", new Integer(69) );
 int siz = mop.size();
-System.out.println( "treemap de " + siz + " elements" );
+System.out.println( "hashmap de " + siz + " elements" );
 System.out.println( mop.toString() );
 int i = mop.get("Magda");
 System.out.println("Magda -> " + i );
