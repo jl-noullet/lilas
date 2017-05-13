@@ -1,6 +1,9 @@
 package koki;
 
 import koki.calcul.Sum;
+import koki.Vectu;
+import koki.Regu;
+import koki.Mapu;
 
 public class Main {
 
@@ -17,6 +20,10 @@ public class Main {
         for ( i = 0; i < argc; ++i ) {
         	System.out.println( "   " + args[i] );
         }
+if (argc > 0 )
+Regu.test( args[0] );
+Vectu.test();
+Mapu.test();
 	Main pipo = null;
 	pipo = new Main();
 	Main pipo2 = new Main( 2.2 );
