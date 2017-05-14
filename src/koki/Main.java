@@ -5,6 +5,7 @@ import koki.Vectu;
 import koki.Regu;
 import koki.Mapu;
 import koki.Mapuh;
+import koki.Filu;
 
 public class Main {
 	double X;
@@ -25,6 +26,7 @@ Regu.test( args[0] );
 Vectu.test();
 Mapu.test();
 Mapuh.test();
+Filu.test();
 	Main pipo = null;
 	pipo = new Main();
 	Main pipo2 = new Main( 2.2 );
