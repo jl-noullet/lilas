@@ -15,10 +15,12 @@
 	- nom de methode commence par un verbe !!!
 
 - classpath :
-	- java prend un nom de classe comme argument (sans le .class)
+	- java prend un le nom de la classe qui a la fonction main() comme argument (sans le .class)
 	- si on lui donne un chemin t.q. Hello/bin/HelloWorld ou Hello.bin.HelloWorld
-	  il trouve le fichier mais refuse d'executer la classe !!! (wrong name: HelloWorld), sauf
-	  si le chemin est la root du package.
+	  il trouve le fichier mais refuse d'executer la classe !!! (wrong name: HelloWorld),
+	  sauf si le chemin est la root du package.
+	- avec l'option -jar, le choix de la classe qui a la fonction main() est dans META-INF/MANIFEST.MF
+	  (stance Main-Class: myPackage.Main)
 	- le separateur de chemin est ':' dans le classpath
 	- pour specifier un jar, le nommer completement
 	- pour specifier tous les .jar de MyDir, // mettre MyDir/*
