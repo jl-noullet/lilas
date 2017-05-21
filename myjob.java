@@ -17,7 +17,8 @@
 - classpath :
 	- java prend un nom de classe comme argument (sans le .class)
 	- si on lui donne un chemin t.q. Hello/bin/HelloWorld ou Hello.bin.HelloWorld
-	  il trouve le fichier mais refuse d'executer la classe !!! (wrong name: HelloWorld)
+	  il trouve le fichier mais refuse d'executer la classe !!! (wrong name: HelloWorld), sauf
+	  si le chemin est la root du package.
 	- le separateur de chemin est ':' dans le classpath
 	- pour specifier un jar, le nommer completement
 	- pour specifier tous les .jar de MyDir, // mettre MyDir/*
@@ -43,7 +44,7 @@
 	- local classe encore plus inner, definie dans un bloc {}
 	  "Local Classes Are Similar To Inner Classes"
 
-- instanciantion :
+- objectification :
 	- statique (i.e. dans un membre) : 2 phases
 		- creation membre dans la classe : Myclass myObject; 
 		- initialisation dans le constructeur : myObject = new Myclass( args );
