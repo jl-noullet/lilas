@@ -3,6 +3,7 @@ package koki;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -43,7 +44,10 @@ String line; int linecnt = 0;
 // on essaie d'eviter :
 // unreported exception IOException; must be caught or declared to be thrown
 if ( Files.exists(p2) ) {
-   try (BufferedReader bu = Files.newBufferedReader( p2 ) ) { 
+   // seulement en 1.8
+   // try (BufferedReader bu = Files.newBufferedReader( p2 ) ) {
+   // toutes versions
+   try (BufferedReader bu = Files.newBufferedReader( p2, StandardCharsets.UTF_8 ) ) { 
        while( ( line = bu.readLine() ) != null ) {
          if ( ++linecnt > 4 ) break;
          System.out.println( " [" + line + "]" );
