@@ -8,6 +8,8 @@
 	- Getting started : comme eclipse mais sans eclipse ! javac HelloWorldApp.java c'est tout
 	- Learning the Java language
 	- Essential Classes
+	- XML kit : JAXP qui contient les packqges javax.xml.*, org.w3c.*, org.xml.sax ...
+		http://docs.oracle.com/javase/tutorial/jaxp/
 	- etc... JL a D/L tous les trails dans 1 archive javatutorials.zip
 
 - conventions
