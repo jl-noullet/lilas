@@ -1,8 +1,10 @@
 - doc de ref API, en ligne ou downloadable
 	https://docs.oracle.com/javase/8/docs/api/
 	http://www.oracle.com/technetwork/java/javase/documentation/jdk8-doc-downloads-2133158.html
+	JL a D/L une grosse archive jdk-8u131-docs_all.zip
 - demos and samples
 	http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+	il y a du binaire dans ces demos...
 - tutos Oracle ou "trails"
 	http://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html
 	- Getting started : comme eclipse mais sans eclipse ! javac HelloWorldApp.java c'est tout
@@ -10,7 +12,7 @@
 	- Essential Classes
 	- XML kit : JAXP qui contient les packqges javax.xml.*, org.w3c.*, org.xml.sax ...
 		http://docs.oracle.com/javase/tutorial/jaxp/
-	- etc... JL a D/L tous les trails dans 1 archive javatutorials.zip
+	JL a D/L tous les trails dans 1 archive javatutorials.zip
 
 - conventions
 	- nom de classe commence par majuscule, methode par minuscule, constante toute en majuscules
