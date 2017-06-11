@@ -186,13 +186,22 @@ package presents dans le tree LILASV4
 	lilas.util.compiler
 	lilas.xml
 
-On envisage de faire un tree base sur les imports :
+On envisage de faire un tree base sur les imports --> classe LilasTree :
 
 Question 1 : est-ce que toutes les importations se font classe par classe ?
 $ grep -r 'import lilas[.].*[*]' .
 ./lilas/awt/MemoryDisplay.java:import lilas.awt.treetable.*;	<-- 21 classes
 ./lilas/awt/TypeDrawStandard.java:import lilas.type.*;		<--  8 classes
 C'est gerable a la main en modifiant ces 2 fichiers
+
+D'autre part il y a des imports qui concernent des enums, dont la clase est nommée "au dessus"
+==> 6 messages d'erreur de LilasTree
+	not found lilas.Main.MSG (/home/jln/LILASV4/src/lilas/Main/MSG.java)
+	not found lilas.base.Port.Mode (/home/jln/LILASV4/src/lilas/base/Port/Mode.java)
+	not found lilas.edit.Plot.Position (/home/jln/LILASV4/src/lilas/edit/Plot/Position.java)
+	not found lilas.type.StdLogic.ValeurBit (/home/jln/LILASV4/src/lilas/type/StdLogic/ValeurBit.java)
+	not found lilas.base.ValModuleStatus.Status (/home/jln/LILASV4/src/lilas/base/ValModuleStatus/Status.java)
+	not found lilas.base.Port.Propagate (/home/jln/LILASV4/src/lilas/base/Port/Propagate.java)
 
 Question 2 : est-ce qu'il faut gerer les commentaires java ?
 grep -r '[/].*import ' .

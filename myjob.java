@@ -135,6 +135,7 @@
 	byte[] to String : String( byteArray )		(with platform local charset)
 	String to bytes : s.getBytes ou s.getBytes(sBegin, sEnd, byteArray, dBegin )
 	longueur : s.length, s.isEmpty()
+	comparaison : s.equals(String other), s.startsWith(String other), etc...
 	regex : s.matches(String regex)
  	split : s.split(String regex)
  	substring : s.substring( iBegin ) ou s.substring( iBegin, iEnd )
