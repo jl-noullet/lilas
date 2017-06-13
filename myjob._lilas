@@ -193,15 +193,9 @@ $ grep -r 'import lilas[.].*[*]' .
 ./lilas/awt/MemoryDisplay.java:import lilas.awt.treetable.*;	<-- 21 classes
 ./lilas/awt/TypeDrawStandard.java:import lilas.type.*;		<--  8 classes
 C'est gerable a la main en modifiant ces 2 fichiers
-
-D'autre part il y a des imports qui concernent des enums, dont la clase est nommée "au dessus"
-==> 6 messages d'erreur de LilasTree
-	not found lilas.Main.MSG (/home/jln/LILASV4/src/lilas/Main/MSG.java)
-	not found lilas.base.Port.Mode (/home/jln/LILASV4/src/lilas/base/Port/Mode.java)
-	not found lilas.edit.Plot.Position (/home/jln/LILASV4/src/lilas/edit/Plot/Position.java)
-	not found lilas.type.StdLogic.ValeurBit (/home/jln/LILASV4/src/lilas/type/StdLogic/ValeurBit.java)
-	not found lilas.base.ValModuleStatus.Status (/home/jln/LILASV4/src/lilas/base/ValModuleStatus/Status.java)
-	not found lilas.base.Port.Propagate (/home/jln/LILASV4/src/lilas/base/Port/Propagate.java)
+D'autre part il y a des imports qui concernent des enums, dont la classe est nommée par l'avant-dernier nom
+On peut les identifier au fait que l'avant-dernier nom commencent par un majuscule, alors c'est celui-ci
+qui doit servir a engendrer le nom de fichier .java
 
 Question 2 : est-ce qu'il faut gerer les commentaires java ?
 grep -r '[/].*import ' .
@@ -250,10 +244,23 @@ Spec de la methode explore de la classe LilasTree :
 	lilas
 	inconnu
   et elle range le nom de classe dans 1 map parmi 5 crees dans la classe LilasTree
-- si c'est du lilas :
-	si finit par * : message d'alerte
-	sinon, se rappelle recursivement
-   
+- si c'est d'un package lilas :
+	- engendre un file pathname .java
+	- si fichier existe, se rappelle recursivement, sinon message "not found"
+
+Resultat premiere experience LilasTree.explore
+   ==> 6 messages "not found" dus a des enums
+	not found lilas.Main.MSG (/home/jln/LILASV4/src/lilas/Main/MSG.java)
+	not found lilas.base.Port.Mode (/home/jln/LILASV4/src/lilas/base/Port/Mode.java)
+	not found lilas.edit.Plot.Position (/home/jln/LILASV4/src/lilas/edit/Plot/Position.java)
+	not found lilas.type.StdLogic.ValeurBit (/home/jln/LILASV4/src/lilas/type/StdLogic/ValeurBit.java)
+	not found lilas.base.ValModuleStatus.Status (/home/jln/LILASV4/src/lilas/base/ValModuleStatus/Status.java)
+	not found lilas.base.Port.Propagate (/home/jln/LILASV4/src/lilas/base/Port/Propagate.java)
+   ==> 2 messages not found" dus a des '/*' <-- ce qui etait attendu
+	not found lilas.type.* (/home/jln/LILASV4/src/lilas/type/*.java)
+	not found lilas.awt.treetable.* (/home/jln/LILASV4/src/lilas/awt/treetable/*.java)
+Boucle trouvee par hasard : lilas.base.Module importe lilas.Main qui importe lilas.base.Module !!!!
+
 -----------------------------------------------------------------------------------------------------------------
 Ant et Eclipse
 www.vogella.com/tutorials/ApacheAnt/article.html
