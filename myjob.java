@@ -46,11 +46,11 @@
 	  syntaxe : class MaClasse implements MonInterface
 	- nested class : classe declaree dans une autre !!!
 		"Nesting small classes within top-level classes places the code closer to where it is used"
-	  inner class : une nested class non static
+	- inner class : une nested class non static
 	- local classe encore plus inner, definie dans un bloc {}
 	  "Local Classes Are Similar To Inner Classes"
 
-- objectification :
+- objectification (c'est JLN qui a invente le mot, avant il disait instanciation mais en Java cela a un autre sens) :
 	- statique (i.e. dans un membre) : 2 phases
 		- creation membre dans la classe : Myclass myObject; 
 		- initialisation dans le constructeur : myObject = new Myclass( args );
@@ -70,7 +70,14 @@
 
 - generics
 	c'est les templates du C++
-
+							  
+- binary files
+	c'est les .class
+	apparemment javac en fait 1 par classe, donc un .java peut engendrer plusieurs .class,
+	notamment s'il y a des enums, des inner class ou des anonymous class, dans ce cas un $ apparait dans le nom du
+	fichier .class, exemples : Myclass$Myenum.class, Myclass$Myinner.class MyclassContainingAnonymous&1.class
+	(rappel : si on objectifie directement une interface, cela peut creer une classe anonyme)
+							    
 - package
 	"A package is a namespace for organizing classes and interfaces in a logical manner"
 	"At first, packages appear to be hierarchical, but they are not"
