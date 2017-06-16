@@ -94,12 +94,14 @@ public void explore( String zeclass, int depth ) {
 		}
 	// lire ce fichier ligne par ligne
 	String line; int linecnt = 0;
-	Pattern papa; Matcher mama;
+	Pattern papa, pali; Matcher mama;
+	papa = Pattern.compile( "^\\s*import\\s+([0-9A-Za-z_.*]+)" );
+	pali = Pattern.compile( "lilas[.][0-9A-Za-z_.]+" );
 	String targetClass;
 	try	( BufferedReader bu = Files.newBufferedReader( lepath, StandardCharsets.UTF_8 ) ) {
 		while	( ( line = bu.readLine() ) != null ) {
 			// d'abord traiter les lignes import
-			papa = Pattern.compile( "^\\s*import\\s+([0-9A-Za-z_.*]+)" );
+
 			mama = papa.matcher( line );
 			if	( mama.find() ) {
 				targetClass = mama.group(1);
@@ -129,7 +131,6 @@ public void explore( String zeclass, int depth ) {
 									ililenum.put( targetClass, 1 );
 								else	ililenum.put( targetClass, ililenum.get( targetClass ) + 1 );
 								// on doit retirer le dernier nom pour avoir la classe
-								System.out.println("ENUM " + targetClass);
 								Pattern papa2; Matcher mama2;
 								papa2 = Pattern.compile( "^(.+)[.][0-9A-Za-z_]+$" );
 								mama2 = papa2.matcher( targetClass );
@@ -149,6 +150,12 @@ public void explore( String zeclass, int depth ) {
 							iinconnu.put( targetClass, 1 );
 						else	iinconnu.put( targetClass, iinconnu.get( targetClass ) + 1 );
 						}
+					}
+				}
+			else	{	// si ce n'est pas import on essaie de trouver lilas.quelquechose (fully qualified)
+				mama = pali.matcher( line );
+				while	( mama.find() ) {
+					System.out.println("pali-->" + mama.group(0) );
 					}
 				}
 			++linecnt;

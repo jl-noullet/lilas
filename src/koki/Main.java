@@ -21,8 +21,9 @@ public class Main {
         for ( i = 0; i < argc; ++i ) {
         	System.out.println( "   " + args[i] );
         }
-if (argc > 0 )
-Regu.test( args[0] );
+if	(argc > 0 )
+	Regu.test( args[0] );
+else	Regu.test( "voila _c'est imposant_ pour mon petir c..." );
 Vectu.test();
 Mapu.test();
 Mapuh.test();
