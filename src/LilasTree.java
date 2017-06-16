@@ -152,10 +152,16 @@ public void explore( String zeclass, int depth ) {
 						}
 					}
 				}
-			else	{	// si ce n'est pas import on essaie de trouver lilas.quelquechose (fully qualified)
+			else	{	// si ce n'est pas import on essaie de trouver lilas.quelquechose.Majuscule (fully qualified)
 				mama = pali.matcher( line );
 				while	( mama.find() ) {
-					System.out.println("pali-->" + mama.group(0) );
+					//System.out.println("pali-->" + mama.group(0) );
+					splut = mama.group(0).split("[.]");
+					targetClass = splut[0];
+					for	( int i = 1; i < splut.length; ++i ) {
+						targetClass = targetClass + "." + splut[i];
+						}
+					System.out.println("pali-->" + targetClass );
 					}
 				}
 			++linecnt;
