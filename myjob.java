@@ -19,7 +19,7 @@
 	- nom de methode commence par un verbe !!!
 
 - classpath :
-	- java prend un le nom de la classe qui a la fonction main() comme argument (sans le .class)
+	- java prend comme argument le nom de la classe qui a la fonction main() (sans le .class)
 	- si on lui donne un chemin t.q. Hello/bin/HelloWorld ou Hello.bin.HelloWorld
 	  il trouve le fichier mais refuse d'executer la classe !!! (wrong name: HelloWorld),
 	  sauf si le chemin est la root du package.
@@ -37,8 +37,8 @@
 	- superclass : c'est la classe parent
 	- constructeur : comme en C++ mais : tout initialiser dans {} en appelant le constructeur
 	  de la classe parente : super(...);
-	  N.B. faut pas de type de retour - void MyClass() fait rien sans warning.
-	  un constructeur peut appeler un autre de la meme classe (avec une signature differente) : this()
+	  N.B. constructeur n'a pas de type de retour - void MyClass() ==> echec, mais sans warning.
+	  Un constructeur peut en appeler un autre de la meme classe (avec une signature differente) : this()
 	- interface : c'est une declaration des methodes, comme fait le .h d'une classe en C++
 	  avec une syntaxe similaire (les methodes, pas les donnees)
 	  en effet la classe proprement dite contient le corps des methodes.
@@ -49,6 +49,8 @@
 	- inner class : une nested class non static
 	- local classe encore plus inner, definie dans un bloc {}
 	  "Local Classes Are Similar To Inner Classes"
+	- anonymous classe : quand on cree un object directement à partir d'une interface, cela cree impicitement
+	  une classe anonyme qui instancie cette interface.
 
 - objectification (c'est JLN qui a invente le mot, avant il disait instanciation mais en Java cela a un autre sens) :
 	- statique (i.e. dans un membre) : 2 phases
@@ -74,9 +76,20 @@
 - binary files
 	c'est les .class
 	apparemment javac en fait 1 par classe, donc un .java peut engendrer plusieurs .class,
-	notamment s'il y a des enums, des inner class ou des anonymous class, dans ce cas un $ apparait dans le nom du
-	fichier .class, exemples : Myclass$Myenum.class, Myclass$Myinner.class MyclassContainingAnonymous&1.class
+	dans ce cas un $ apparait dans le nom du fichier .class, exemples :
+		enum		--> Myclass$Myenum.class
+		inner class	--> Myclass$Myinner.class
+		anonymous class --> MyclassContainingAnonymous&1.class
 	(rappel : si on objectifie directement une interface, cela peut creer une classe anonyme)
+
+- dependances
+	Supposons qu'une classe A depende d'une classe B (je veux dire que A cree ou manipule des objets de classe B,
+	ou herite de la classe B ou appelle des methodes statiques de la classe B).
+	Quand le compilateur compile la classe A, il cherche le binaire B.class et le code source B.java
+		- s'il n'en trouve aucun : bloquage sur erreur
+		- s'il trouve seulement B.class : Ok il est content
+		- s'il trouve seulement B.java, il le compile recursivement
+		- s'il trouve les deux, il va recompiler B.java seulement s'il est plus recent que B.class
 							    
 - package
 	"A package is a namespace for organizing classes and interfaces in a logical manner"
@@ -86,15 +99,17 @@
 	  (mais il peut contenir des classes non-public t.q. par defaut package private).
 	- chaque fichier DOIT commencer par :
 		package fr.sourcecode.all_lower_case_my_package;
-	- reference a un membre d'un package :
+	- reference a une classe d'un package :
 		- simple nom si on est dans le meme package
 		- fully qualified : fr.sourcecode.all_lower_case_my_package.Myclass
-		- simple nom si le membre a ete importe :
+		- simple nom si la classe a ete importe :
 			import fr.sourcecode.my_package.Myclass
 		- simple nom si le package entier a ete importe : (sauf ambiguite, alors use fully qualified)
 			import fr.sourcecode.my_package.*
 		- importation des nested classes publiques de Myclass :
 			import fr.sourcecode.my_package.Myclass.*  (n'importe pas Myclass)
+		- importation d'une enum publique de Myclass :
+			import fr.sourcecode.my_package.Myclass.Myenum
 		- import static : importe static constants and methods
 			import static java.lang.Math.*;
 		  permet de faire

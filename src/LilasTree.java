@@ -24,6 +24,7 @@ TreeMap<String,Integer> iorg;
 TreeMap<String,Integer> iexternal;
 TreeMap<String,Integer> ililas;
 TreeMap<String,Integer> iinconnu;
+TreeMap<String,Integer> ililenum;
 
 // constructeur
 public LilasTree( String srcpath ) { 
@@ -33,24 +34,41 @@ public LilasTree( String srcpath ) {
 	iexternal = new TreeMap<String,Integer>();
 	ililas	  = new TreeMap<String,Integer>();
 	iinconnu  = new TreeMap<String,Integer>();
+	ililenum  = new TreeMap<String,Integer>();
 	}
 
 public void dump() {
 	System.out.println( "java et javax : " + ijava.size() + " elements" );
-	System.out.println( ijava.toString() );
+
 	System.out.println( "org : " + iorg.size() + " elements" );
-	System.out.println( iorg.toString() );
+
 	System.out.println( "external : " + iexternal.size() + " elements" );
-	System.out.println( iexternal.toString() );
+
 	System.out.println( "lilas : " + ililas.size() + " elements" );
-	System.out.println( ililas.toString() );
+	mapdump( ililas );
+
+	System.out.println( "ililenum : " + ililenum.size() + " elements" );
+	mapdump( ililenum );
+
 	System.out.println( "inconnu : " + iinconnu.size() + " elements" );
-	System.out.println( iinconnu.toString() );
+	mapdump( iinconnu );
 	}
 
 private static void indent( int depth ) {
 	for	( int i = 0; i < depth; ++ i)
-		System.out.print("|   ");
+		System.out.print("| ");
+	}
+
+private static void mapdump( TreeMap<String,Integer> mama ) {
+	Set clefs = mama.keySet();
+	// System.out.println("keys " + clefs );
+	Iterator itu = clefs.iterator();
+	String k, v;
+	while	(itu.hasNext()) {
+		k = itu.next().toString();  // sais pas pkoi il faut faire cela, c dja String...
+		v = mama.get(k).toString();  // la ok, c Integer
+		System.out.println("  " + k + " -> " + v );
+		}
 	}
 
 public void explore( String zeclass, int depth ) {
@@ -68,7 +86,7 @@ public void explore( String zeclass, int depth ) {
 	// affichage
 	indent( depth );
 	if	( !Files.exists( lepath ) ) {
-		System.out.println( "not found " + zeclass + " (" + lepath +")" );
+		System.out.println( "NOT FOUND " + zeclass + " (" + lepath +")" );
 		return; 
 		}
 	else	{
@@ -103,6 +121,23 @@ public void explore( String zeclass, int depth ) {
 						else	iexternal.put( targetClass, iexternal.get( targetClass ) + 1 );
 						}
 					else if	( splut[0].equals("lilas") ) {
+						// ici on doit detecter les enums eventuelles
+						if	( splut.length > 2 ) {
+							if	( splut[splut.length-2].matches("^[A-Z].*") ) {
+								// avant dernier nom est 1 class, donc dernier est enum
+								if	( ililenum.get( targetClass ) == null )
+									ililenum.put( targetClass, 1 );
+								else	ililenum.put( targetClass, ililenum.get( targetClass ) + 1 );
+								// on doit retirer le dernier nom pour avoir la classe
+								System.out.println("ENUM " + targetClass);
+								Pattern papa2; Matcher mama2;
+								papa2 = Pattern.compile( "^(.+)[.][0-9A-Za-z_]+$" );
+								mama2 = papa2.matcher( targetClass );
+								if	( mama2.find() ) {
+									targetClass = mama2.group(1);
+									}
+								}
+							} 
 						if	( ililas.get( targetClass ) == null ) {
 							ililas.put( targetClass, 1 );
 							explore( targetClass, depth+1 );		// recursion ici !
@@ -114,9 +149,7 @@ public void explore( String zeclass, int depth ) {
 							iinconnu.put( targetClass, 1 );
 						else	iinconnu.put( targetClass, iinconnu.get( targetClass ) + 1 );
 						}
-					// System.out.println( " [" + splut[0] + " | " + targetClass + "]" );
 					}
-				// System.out.println( " [" + targetClass + "]" );
 				}
 			++linecnt;
 			}
