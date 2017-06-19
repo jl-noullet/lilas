@@ -257,8 +257,22 @@ Resultat premiere experience LilasTree.explore
 	lilas.edit.Plot.Position -> 5
 	lilas.type.StdLogic.ValeurBit -> 3
    ==> 2 messages not found" dus a des '/*' <-- ce qui etait attendu
-	not found lilas.type.* (/home/jln/LILASV4/src/lilas/type/*.java)
-	not found lilas.awt.treetable.* (/home/jln/LILASV4/src/lilas/awt/treetable/*.java)
+	NOT FOUND lilas.type.* (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/type/*.java)
+	ERR line 19 in lilas.awt.TypeDrawStandard
+	NOT FOUND lilas.awt.treetable.* (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/awt/treetable/*.java)
+	ERR line 33 in lilas.awt.MemoryDisplay
+   ==> 5 autres en incluant les fully qualified names rencontres partout dans le texte
+	NOT FOUND lilas.base.Memory (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/base/Memory.java)
+	ERR line 179 in lilas.awt.MemoryDisplay <-- c'est string
+	NOT FOUND lilas.doc.UsageCleaner (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/doc/UsageCleaner.java)
+	ERR line 171 in lilas.util.Cleaner
+	NOT FOUND lilas.base.Value (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/base/Value.java)
+	ERR line 3314 in lilas.xml.DefModule
+	NOT FOUND lilas.bib.logic.clock.GenerateurHorloge (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/bib/logic/clock/GenerateurHorloge.java)
+	ERR line 3769 in lilas.xml.DefModule
+	NOT FOUND lilas.doc.Usage (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/doc/Usage.java)
+	ERR line 1437 in lilas.Main
+ 
 Boucle trouvee par hasard : lilas.base.Module importe lilas.Main qui importe lilas.base.Module !!!!
 
 -----------------------------------------------------------------------------------------------------------------

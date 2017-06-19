@@ -1,5 +1,6 @@
 /* invocation type :
    java LilasTree /home/jln/LILASV4/src lilas.Main
+   java LilasTree ~/DEV/SFO/DEZIPPED/LILASV4/src lilas.Main
 */
 
 import java.nio.file.Path;
@@ -71,12 +72,12 @@ private static void mapdump( TreeMap<String,Integer> mama ) {
 		}
 	}
 
-public void explore( String zeclass, int depth ) {
+public int explore( String zeclass, int depth ) {
 	// elaborer les pathname du fichier source de cette classe
 	String splut[] = zeclass.split("[.]");
 	int cnt = splut.length;
 	if	( cnt < 1 )
-		return;
+		return 1;
 	String laclass = splut[cnt-1] + ".java";
 	Path lepath = Paths.get( lilas_src );
 	for	( int i = 0; i < (cnt-1); ++i ) {
@@ -87,7 +88,7 @@ public void explore( String zeclass, int depth ) {
 	indent( depth );
 	if	( !Files.exists( lepath ) ) {
 		System.out.println( "NOT FOUND " + zeclass + " (" + lepath +")" );
-		return; 
+		return 2; 
 		}
 	else	{
 		System.out.println( zeclass );
@@ -141,7 +142,8 @@ public void explore( String zeclass, int depth ) {
 							} 
 						if	( ililas.get( targetClass ) == null ) {
 							ililas.put( targetClass, 1 );
-							explore( targetClass, depth+1 );		// recursion ici !
+							if	( explore( targetClass, depth+1 ) > 0 )		// recursion ici !
+								System.out.println("ERR line " + linecnt + " in " + zeclass );
 							}
 						else	ililas.put( targetClass, ililas.get( targetClass ) + 1 );
 						}
@@ -160,8 +162,17 @@ public void explore( String zeclass, int depth ) {
 					targetClass = splut[0];
 					for	( int i = 1; i < splut.length; ++i ) {
 						targetClass = targetClass + "." + splut[i];
+						if	( splut[i].matches("^[A-Z].*") ) {
+							// System.out.println("pali-->" + targetClass );
+							if	( ililas.get( targetClass ) == null ) {
+								ililas.put( targetClass, 1 );
+								if	( explore( targetClass, depth+1 ) > 0 )		// recursion ici !
+									System.out.println("ERR line " + linecnt + " in " + zeclass );
+								}
+							else	ililas.put( targetClass, ililas.get( targetClass ) + 1000 );
+							break;
+							}
 						}
-					System.out.println("pali-->" + targetClass );
 					}
 				}
 			++linecnt;
@@ -170,6 +181,7 @@ public void explore( String zeclass, int depth ) {
 		System.err.format("IOException: %s%n", x);
 		}
 	indent( depth ); System.out.println( "vu " + linecnt + " lignes" );
+	return 0;
 	} // explore
 
 public static void main(String[] args) {
