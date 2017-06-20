@@ -192,7 +192,43 @@ Question 1 : est-ce que toutes les importations se font classe par classe ?
 $ grep -r 'import lilas[.].*[*]' .
 ./lilas/awt/MemoryDisplay.java:import lilas.awt.treetable.*;	<-- 21 classes
 ./lilas/awt/TypeDrawStandard.java:import lilas.type.*;		<--  8 classes
-C'est gerable a la main en modifiant ces 2 fichiers
+C'est gerable a la main en modifiant ces 2 fichiers, voici :
+
+	liste des classes lilas.type.* :
+		ArrayByte.java    ArrayFloat.java    ArrayLong.java      StdLogic.java
+		ArrayDouble.java  ArrayInteger.java  ArrayStdLogic.java  StdLogicTest.java
+
+	recherche des classes lilas.type.* utilisees par lilas.awt.TypeDrawStandard :
+		grep Std /home/jln/LILASV4/src/lilas/awt/TypeDrawStandard.java
+		grep Array /home/jln/LILASV4/src/lilas/awt/TypeDrawStandard.java
+	rien... aucune n'est utilisee
+
+	liste des classes lilas.awt.treetable.* 
+		AbstractCellEditor.java        MemoryTableEditorRenderer.java
+		AbstractMemoryTableModel.java  MemoryTableModel.java
+		AbstractTreeTableModel.java    RendererBoolean.java
+		EditorBoolean.java             RendererHistoricStandard.java
+		EditorHistoricStandard.java    RendererStandard.java
+		EditorStandard.java            RendererStdLogic.java
+		EditorStdLogic.java            SignalEditorRenderer.java
+		EditorValue.java               TreeNode.java
+		JTreeTable.java                TreeTableModelAdapter.java
+		LilasSystemModel.java          TreeTableModel.java
+		LilasTreeModel.java
+
+	recherche des classes lilas.awt.treetable.* dans lilas.awt.MemoryDisplay :
+		grep Abstract /home/jln/LILASV4/src/lilas/awt/MemoryDisplay.java
+		grep Editor /home/jln/LILASV4/src/lilas/awt/MemoryDisplay.java
+		grep Tree /home/jln/LILASV4/src/lilas/awt/MemoryDisplay.java
+		grep SystemModel /home/jln/LILASV4/src/lilas/awt/MemoryDisplay.java
+		grep MemoryTableModel /home/jln/LILASV4/src/lilas/awt/MemoryDisplay.java
+		grep Renderer /home/jln/LILASV4/src/lilas/awt/MemoryDisplay.java
+	2 hits : SignalEditorRenderer et MemoryTableEditorRenderer
+	Donc avant de continuer, on ajoute ces 2 imports dans /lilas/awt/MemoryDisplay.java :
+		import lilas.awt.treetable.SignalEditorRenderer
+		import lilas.awt.treetable.MemoryTableEditorRenderer
+	et on exclut les classes en ".*"
+
 D'autre part il y a des imports qui concernent des enums, dont la classe est nommée par l'avant-dernier nom
 On peut les identifier au fait que l'avant-dernier nom commencent par un majuscule, alors c'est celui-ci
 qui doit servir a engendrer le nom de fichier .java
@@ -201,10 +237,58 @@ Question 2 : est-ce qu'il faut gerer les commentaires java ?
 grep -r '[/].*import ' .
 - rien -
 
-Question 3 : Y a-t-il des invocations de classe non importees avec un chemin complet ?
+Question 3 : Y a-t-il des invocations de classe non importees avec un chemin complet (fully qualified) ?
 
 oui. il faut rechercher les chaines t.q. lilas.awt.[A-Z], lilas.base.[A-Z],... etc ...
-donc avoir la liste des packages
+
+Spec phase 1 methode explore de la classe LilasTree :
+- la methode prend comme arg un nom de classe en style java, donc relatif a src, exemples :
+	lilas.base.Module
+	lilas.Main
+- elle convertit en un file path t.q.
+	/home/jln/LILASV4/src/lilas/base/Module.java
+- elle lit le fichier ligne par ligne en cherchant les import
+- pour chaque import elle trie en fonction du premier nom :
+	java et javax
+	org
+	external
+	lilas
+	inconnu
+  et elle range le nom de classe dans 1 map parmi 5 crees dans la classe LilasTree
+- si c'est d'un package lilas qui n'a pas deja ete traite :
+	- engendre un file pathname .java
+	- si fichier existe, se rappelle recursivement, sinon message "NOT FOUND"
+- elle trace l'arbre parcouru avec indentations - mais l'arbre est incomplet car chaque branche n'est exploree
+  que la premiere fois qu'elle est parcourue (sinon on ne finirait jamais a cause des boucles) 
+
+Resultat phase 1 LilasTree.explore
+   ==> 6 enums identifiee au fait que le nom precedent commence par majuscule
+	lilas.Main.MSG -> 2
+	lilas.base.Port.Mode -> 10
+	lilas.base.Port.Propagate -> 1
+	lilas.base.ValModuleStatus.Status -> 1
+	lilas.edit.Plot.Position -> 5
+	lilas.type.StdLogic.ValeurBit -> 3
+   ==> 2 messages not found" dus a des '/*' <-- ce qui etait attendu
+	NOT FOUND lilas.type.* (/home/jln/LILASV4/src/lilas/type/*.java)
+	ERR line 19 in lilas.awt.TypeDrawStandard
+	NOT FOUND lilas.awt.treetable.* (/home/jln/LILASV4/src/lilas/awt/treetable/*.java)
+	ERR line 33 in lilas.awt.MemoryDisplay
+   ==> 5 autres en incluant les fully qualified names rencontres partout dans le texte
+	apres filtrage des lilas precedes par '"', '\t" qui appartiennent à des strings et ceux precedes par '/' (comments)
+	il reste :
+	NOT FOUND lilas.base.Value (/home/jln/LILASV4/src/lilas/base/Value.java)
+	ERR line 3314 in lilas.xml.DefModule
+	c'est encore une chaine - il semble que dans le java genere il y ait potentiellement des classes inexistantes
+   ==> 100 classes lilas.*, dont 97 ont un fichier .java identifie, a comparer avec 177 fichiers .java dans /LILASV4/src/lilas
+	OBS. aucun package lilas.bib ne figure dans la liste	
+
+Boucle trouvee par hasard : lilas.base.Module importe lilas.Main qui importe lilas.base.Module !!!!
+
+
+-----------------------------------------------------------------------------------------------------------------
+la liste des packages de la branche lilas :
+
 grep -r  --no-filename '^package ' lilas | sort | uniq
 	lilas.awt.tree;
 	lilas.awt.treetable;
@@ -229,51 +313,6 @@ grep -r  --no-filename '^package ' lilas | sort | uniq
 	lilas.util;
 	lilas.xml;
 	lilas;
-
-Spec de la methode explore de la classe LilasTree :
-- la methode prend comme arg un nom de classe en style java, donc relatif a src, exemples :
-	lilas.base.Module
-	lilas.Main
-- elle convertit en un file path t.q.
-	/home/jln/LILASV4/src/lilas/base/Module.java
-- elle lit le fichier ligne par ligne en cherchant les import
-- pour chaque import elle trie en fonction du premier nom :
-	java et javax
-	org
-	external
-	lilas
-	inconnu
-  et elle range le nom de classe dans 1 map parmi 5 crees dans la classe LilasTree
-- si c'est d'un package lilas :
-	- engendre un file pathname .java
-	- si fichier existe, se rappelle recursivement, sinon message "not found"
-
-Resultat premiere experience LilasTree.explore
-   ==> 6 enums identifiee au fait que le nom precedent commence par majuscule
-	lilas.Main.MSG -> 2
-	lilas.base.Port.Mode -> 10
-	lilas.base.Port.Propagate -> 1
-	lilas.base.ValModuleStatus.Status -> 1
-	lilas.edit.Plot.Position -> 5
-	lilas.type.StdLogic.ValeurBit -> 3
-   ==> 2 messages not found" dus a des '/*' <-- ce qui etait attendu
-	NOT FOUND lilas.type.* (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/type/*.java)
-	ERR line 19 in lilas.awt.TypeDrawStandard
-	NOT FOUND lilas.awt.treetable.* (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/awt/treetable/*.java)
-	ERR line 33 in lilas.awt.MemoryDisplay
-   ==> 5 autres en incluant les fully qualified names rencontres partout dans le texte
-	NOT FOUND lilas.base.Memory (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/base/Memory.java)
-	ERR line 179 in lilas.awt.MemoryDisplay <-- c'est string
-	NOT FOUND lilas.doc.UsageCleaner (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/doc/UsageCleaner.java)
-	ERR line 171 in lilas.util.Cleaner
-	NOT FOUND lilas.base.Value (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/base/Value.java)
-	ERR line 3314 in lilas.xml.DefModule
-	NOT FOUND lilas.bib.logic.clock.GenerateurHorloge (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/bib/logic/clock/GenerateurHorloge.java)
-	ERR line 3769 in lilas.xml.DefModule
-	NOT FOUND lilas.doc.Usage (/home_pers/noullet/DEV/SFO/DEZIPPED/LILASV4/src/lilas/doc/Usage.java)
-	ERR line 1437 in lilas.Main
- 
-Boucle trouvee par hasard : lilas.base.Module importe lilas.Main qui importe lilas.base.Module !!!!
 
 -----------------------------------------------------------------------------------------------------------------
 Ant et Eclipse

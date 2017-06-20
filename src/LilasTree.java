@@ -97,7 +97,7 @@ public int explore( String zeclass, int depth ) {
 	String line; int linecnt = 0;
 	Pattern papa, pali; Matcher mama;
 	papa = Pattern.compile( "^\\s*import\\s+([0-9A-Za-z_.*]+)" );
-	pali = Pattern.compile( "lilas[.][0-9A-Za-z_.]+" );
+	pali = Pattern.compile( "[^\"t/](lilas[.][0-9A-Za-z_.]+)" );	// on vise filtrer classes prefixees par : '"', '\t' et "//"
 	String targetClass;
 	try	( BufferedReader bu = Files.newBufferedReader( lepath, StandardCharsets.UTF_8 ) ) {
 		while	( ( line = bu.readLine() ) != null ) {
@@ -139,13 +139,20 @@ public int explore( String zeclass, int depth ) {
 									targetClass = mama2.group(1);
 									}
 								}
-							} 
-						if	( ililas.get( targetClass ) == null ) {
-							ililas.put( targetClass, 1 );
-							if	( explore( targetClass, depth+1 ) > 0 )		// recursion ici !
-								System.out.println("ERR line " + linecnt + " in " + zeclass );
 							}
-						else	ililas.put( targetClass, ililas.get( targetClass ) + 1 );
+						if	( splut[splut.length-1].equals("*") ) {
+							indent( depth+1 ); System.out.println("ETOILE " + targetClass );
+							}
+						else	{	
+							if	( ililas.get( targetClass ) == null ) {
+								ililas.put( targetClass, 1 );
+								if	( explore( targetClass, depth+1 ) > 0 )	{	// recursion ici !
+									indent( depth+1 );
+									System.out.println("ERR line " + linecnt + " in " + zeclass );
+									}
+								}
+							else	ililas.put( targetClass, ililas.get( targetClass ) + 1 );
+							}
 						}
 					else    {
 						if	( iinconnu.get( targetClass ) == null )
@@ -157,8 +164,8 @@ public int explore( String zeclass, int depth ) {
 			else	{	// si ce n'est pas import on essaie de trouver lilas.quelquechose.Majuscule (fully qualified)
 				mama = pali.matcher( line );
 				while	( mama.find() ) {
-					//System.out.println("pali-->" + mama.group(0) );
-					splut = mama.group(0).split("[.]");
+					// System.out.println("pali-->" + mama.group(0) );
+					splut = mama.group(1).split("[.]");
 					targetClass = splut[0];
 					for	( int i = 1; i < splut.length; ++i ) {
 						targetClass = targetClass + "." + splut[i];
@@ -166,8 +173,10 @@ public int explore( String zeclass, int depth ) {
 							// System.out.println("pali-->" + targetClass );
 							if	( ililas.get( targetClass ) == null ) {
 								ililas.put( targetClass, 1 );
-								if	( explore( targetClass, depth+1 ) > 0 )		// recursion ici !
+								if	( explore( targetClass, depth+1 ) > 0 )	{	// recursion ici !
+									indent( depth+1 );
 									System.out.println("ERR line " + linecnt + " in " + zeclass );
+									}
 								}
 							else	ililas.put( targetClass, ililas.get( targetClass ) + 1000 );
 							break;
