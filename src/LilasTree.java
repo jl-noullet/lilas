@@ -13,13 +13,22 @@ import java.io.IOException;
 import java.util.TreeMap;
 import java.util.Set;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class LilasTree {
 
+static class LilasNode {
+	String classname;
+	int Rank;
+	ArrayList<Integer> referes;
+	ArrayList<Integer> referants;
+	}
+
 String lilas_src;
+ArrayList<LilasNode>    noeuds;
 TreeMap<String,Integer> ijava;
 TreeMap<String,Integer> iorg;
 TreeMap<String,Integer> iexternal;

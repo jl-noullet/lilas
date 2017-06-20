@@ -274,13 +274,14 @@ Resultat phase 1 LilasTree.explore
 	ERR line 19 in lilas.awt.TypeDrawStandard
 	NOT FOUND lilas.awt.treetable.* (/home/jln/LILASV4/src/lilas/awt/treetable/*.java)
 	ERR line 33 in lilas.awt.MemoryDisplay
+	resolu en ignorant les .* apres modif de lilas.awt.MemoryDisplay
    ==> 5 autres en incluant les fully qualified names rencontres partout dans le texte
 	apres filtrage des lilas precedes par '"', '\t" qui appartiennent à des strings et ceux precedes par '/' (comments)
 	il reste :
 	NOT FOUND lilas.base.Value (/home/jln/LILASV4/src/lilas/base/Value.java)
 	ERR line 3314 in lilas.xml.DefModule
 	c'est encore une chaine - il semble que dans le java genere il y ait potentiellement des classes inexistantes
-   ==> 100 classes lilas.*, dont 97 ont un fichier .java identifie, a comparer avec 177 fichiers .java dans /LILASV4/src/lilas
+   ==> 100 classes lilas.*, dont 99 ont un fichier .java identifie, a comparer avec 177 fichiers .java dans /LILASV4/src/lilas
 	OBS. aucun package lilas.bib ne figure dans la liste	
 
 Boucle trouvee par hasard : lilas.base.Module importe lilas.Main qui importe lilas.base.Module !!!!
