@@ -285,7 +285,11 @@ Resultat phase 1 LilasTree.explore
 	OBS. aucun package lilas.bib ne figure dans la liste	
 
 Boucle trouvee par hasard : lilas.base.Module importe lilas.Main qui importe lilas.base.Module !!!!
+autre boucle soupçonnee : lilas.Parameter vs lilas.awt.tree.MainFrame
 
+Spec phase 2 : stockage des donnees
+	- inner-classe LilasNode
+	- au cours du parcours d'arbre initial, les infos des classes identifiees sont stockées dans un array de LilasNode
 
 -----------------------------------------------------------------------------------------------------------------
 la liste des packages de la branche lilas :

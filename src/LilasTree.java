@@ -20,11 +20,18 @@ import java.util.regex.Matcher;
 
 public class LilasTree {
 
-static class LilasNode {
+class LilasNode {
 	String classname;
-	int Rank;
+	int rank;
 	ArrayList<Integer> referes;
 	ArrayList<Integer> referants;
+	// constructeur
+	LilasNode( String name ) {
+		classname = name;
+		rank = -1;
+		referes = new ArrayList<Integer>();
+		referants = new ArrayList<Integer>();
+		}
 	}
 
 String lilas_src;
@@ -39,6 +46,7 @@ TreeMap<String,Integer> ililenum;
 // constructeur
 public LilasTree( String srcpath ) { 
 	lilas_src = srcpath;
+	noeuds	  = new ArrayList<LilasNode>();
 	ijava	  = new TreeMap<String,Integer>();
 	iorg	  = new TreeMap<String,Integer>();
 	iexternal = new TreeMap<String,Integer>();
@@ -55,7 +63,7 @@ public void dump() {
 	System.out.println( "external : " + iexternal.size() + " elements" );
 
 	System.out.println( "lilas : " + ililas.size() + " elements" );
-	mapdump( ililas );
+	mapdump2( ililas );
 
 	System.out.println( "ililenum : " + ililenum.size() + " elements" );
 	mapdump( ililenum );
@@ -81,12 +89,27 @@ private static void mapdump( TreeMap<String,Integer> mama ) {
 		}
 	}
 
+// verifie aussi les noeuds crees en phase 2
+private void mapdump2( TreeMap<String,Integer> mama ) {
+	Set clefs = mama.keySet();
+	// System.out.println("keys " + clefs );
+	Iterator itu = clefs.iterator();
+	String k; int v;
+	while	(itu.hasNext()) {
+		k = itu.next().toString();  // sais pas pkoi il faut faire cela, c dja String...
+		v = mama.get(k);
+		if	( v >= 0 )
+			System.out.println("  " + k + " -> " + v + " -> " + noeuds.get(v).classname );
+		else 	System.out.println("  " + k + " -> " + v + " -> ERR" );
+		}
+	}
+
 public int explore( String zeclass, int depth ) {
 	// elaborer les pathname du fichier source de cette classe
 	String splut[] = zeclass.split("[.]");
 	int cnt = splut.length;
 	if	( cnt < 1 )
-		return 1;
+		return -3;
 	String laclass = splut[cnt-1] + ".java";
 	Path lepath = Paths.get( lilas_src );
 	for	( int i = 0; i < (cnt-1); ++i ) {
@@ -97,23 +120,27 @@ public int explore( String zeclass, int depth ) {
 	indent( depth );
 	if	( !Files.exists( lepath ) ) {
 		System.out.println( "NOT FOUND " + zeclass + " (" + lepath +")" );
-		return 2; 
+		return -2; 
 		}
 	else	{
 		System.out.println( zeclass );
 		}
+	// creer le noeud
+	LilasNode lenoeud = new LilasNode( zeclass );
+	int zeindex = noeuds.size();
+	noeuds.add( lenoeud );
 	// lire ce fichier ligne par ligne
-	String line; int linecnt = 0;
+	String line; int linecnt = 0; int resu, id;
 	Pattern papa, pali; Matcher mama;
 	papa = Pattern.compile( "^\\s*import\\s+([0-9A-Za-z_.*]+)" );
 	pali = Pattern.compile( "[^\"t/](lilas[.][0-9A-Za-z_.]+)" );	// on vise filtrer classes prefixees par : '"', '\t' et "//"
-	String targetClass;
+	String targetClass; int targetIndex;
 	try	( BufferedReader bu = Files.newBufferedReader( lepath, StandardCharsets.UTF_8 ) ) {
 		while	( ( line = bu.readLine() ) != null ) {
-			// d'abord traiter les lignes import
-
+			// 							d'abord traiter les lignes import
 			mama = papa.matcher( line );
 			if	( mama.find() ) {
+				// System.out.println( "== " + ililas.size() );
 				targetClass = mama.group(1);
 				splut = targetClass.split("[.]");
 				if	( splut.length > 0 ) {
@@ -154,13 +181,15 @@ public int explore( String zeclass, int depth ) {
 							}
 						else	{	
 							if	( ililas.get( targetClass ) == null ) {
-								ililas.put( targetClass, 1 );
-								if	( explore( targetClass, depth+1 ) > 0 )	{	// recursion ici !
+								ililas.put( targetClass, -1 );		// il faut deja marquer avant de recurser, sinon peut boucler !
+								targetIndex = explore( targetClass, depth+1 );	// recursion ici !
+ 								if	( targetIndex < 0 ) {
 									indent( depth+1 );
 									System.out.println("ERR line " + linecnt + " in " + zeclass );
 									}
+								ililas.put( targetClass, targetIndex );
 								}
-							else	ililas.put( targetClass, ililas.get( targetClass ) + 1 );
+							// si on l'a deja traite on ne fait rien c'est tout
 							}
 						}
 					else    {
@@ -170,7 +199,7 @@ public int explore( String zeclass, int depth ) {
 						}
 					}
 				}
-			else	{	// si ce n'est pas import on essaie de trouver lilas.quelquechose.Majuscule (fully qualified)
+			else	{	// puis si ce n'est pas import on essaie de trouver lilas.quelquechose.Majuscule (fully qualified)
 				mama = pali.matcher( line );
 				while	( mama.find() ) {
 					// System.out.println("pali-->" + mama.group(0) );
@@ -179,15 +208,16 @@ public int explore( String zeclass, int depth ) {
 					for	( int i = 1; i < splut.length; ++i ) {
 						targetClass = targetClass + "." + splut[i];
 						if	( splut[i].matches("^[A-Z].*") ) {
-							// System.out.println("pali-->" + targetClass );
 							if	( ililas.get( targetClass ) == null ) {
-								ililas.put( targetClass, 1 );
-								if	( explore( targetClass, depth+1 ) > 0 )	{	// recursion ici !
+								ililas.put( targetClass, -1 );		// il faut deja marquer avant de recurser, sinon peut boucler !
+ 								targetIndex = explore( targetClass, depth+1 );	// recursion ici !
+ 								if	( targetIndex < 0 ) {
 									indent( depth+1 );
 									System.out.println("ERR line " + linecnt + " in " + zeclass );
 									}
+								ililas.put( targetClass, targetIndex );
 								}
-							else	ililas.put( targetClass, ililas.get( targetClass ) + 1000 );
+							// si on l'a deja traite on ne fait rien
 							break;
 							}
 						}
@@ -199,7 +229,7 @@ public int explore( String zeclass, int depth ) {
 		System.err.format("IOException: %s%n", x);
 		}
 	indent( depth ); System.out.println( "vu " + linecnt + " lignes" );
-	return 0;
+	return zeindex;
 	} // explore
 
 public static void main(String[] args) {
@@ -210,7 +240,7 @@ public static void main(String[] args) {
 		return;
 		}
 	LilasTree li = new LilasTree( args[0] );
-	li.ililas.put( args[1], 1 );	// marquer cette classe pour eviter bouclage infini...
+	li.ililas.put( args[1], 0 );	// marquer cette classe pour eviter bouclage infini...
 	li.explore( args[1], 0 );
 	li.dump();
 	} // main()
