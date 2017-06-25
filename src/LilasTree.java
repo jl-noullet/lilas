@@ -137,18 +137,52 @@ private void mapdump2( TreeMap<String,Integer> mama, int detail ) {
 		}
 	}
 
-public int explore( String zeClass, int depth ) {
-	// elaborer les pathname du fichier source de cette classe
+// elaborer le Unix pathname du fichier source de cette classe fully qualified
+private Path class2path( String base, String zeClass ) {
 	String splut[] = zeClass.split("[.]");
 	int cnt = splut.length;
 	if	( cnt < 1 )
-		return -3;
+		return null;
 	String laclass = splut[cnt-1] + ".java";
-	Path lepath = Paths.get( lilas_src );
+	Path lepath = Paths.get( base );
 	for	( int i = 0; i < (cnt-1); ++i ) {
 		lepath = lepath.resolve( splut[i] );
 		}
 	lepath = lepath.resolve( laclass );
+	return lepath;
+	}
+
+// dump des LilasNodes tries par rank croissant
+private void rankdump() {
+	int r = 0; int cnt;
+	Set<String> clefs = ililas.keySet();
+	while	( r < NORANK ) {
+		Iterator<String> itu = clefs.iterator();
+		String k; int v;
+		System.out.println("# rank " + r );
+		cnt = 0;  
+		while	(itu.hasNext()) {
+			k = itu.next();
+			v = ililas.get(k);
+			if	( v < 0 )
+				continue;
+			LilasNode n = noeuds.get(v);
+			if	( n.rank == r ) {
+				// System.out.println("  " + n.classname );
+				System.out.print("javac -Xlint -sourcepath ./src -d ./bin -cp ./bin ");
+				System.out.println( class2path( "./src", n.classname ) );
+				++cnt;
+				}
+			}
+		if	( cnt == 0 )
+			break;
+		++r;
+		} 
+	}
+
+public int explore( String zeClass, int depth ) {
+	// elaborer le pathname du fichier source de cette classe
+	Path lepath = class2path( lilas_src, zeClass );
 	// affichage
 	indent( depth );
 	if	( !Files.exists( lepath ) ) {
@@ -163,7 +197,8 @@ public int explore( String zeClass, int depth ) {
 	int zeIndex = noeuds.size();
 	noeuds.add( lenoeud );
 	// lire ce fichier ligne par ligne
-	String line; int linecnt = 0; int resu, id;
+	String line; String splut[]; 
+	int linecnt = 0; int resu, id;
 	Pattern papa, pali; Matcher mama;
 	papa = Pattern.compile( "^\\s*import\\s+([0-9A-Za-z_.*]+)" );
 	pali = Pattern.compile( "[^\"t/](lilas[.][0-9A-Za-z_.]+)" );	// on vise filtrer classes prefixees par : '"', '\t' et "//"
@@ -364,7 +399,8 @@ public static void main(String[] args) {
 	li.ililas.put( args[1], 0 );	// marquer cette classe pour eviter bouclage infini...
 	li.explore( args[1], 0 );
 	li.rankize();
-	li.dump();
+	li.rankdump();
+	//li.dump();
 	} // main()
 
 } // class

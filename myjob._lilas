@@ -305,7 +305,7 @@ Spec phase 3 : evaluation des ranks :
 	  en finissant avec Main au rank 33 !! Il n'y avait que Main comme cause de boucle
 	  
 Spec phase 4 :
-	- detection des boucles :
+	- detection des boucles : sans objet
 	  methode recursive loopbuster() detecte toutes les boucles passant par le noeud de depart donné
 	  --> inachevee puisque qu'il n'y a qu'une cause de boucle
 	- dump des classes par rank pour generer un script de compilation
