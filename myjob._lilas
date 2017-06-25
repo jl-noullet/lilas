@@ -241,7 +241,7 @@ Question 3 : Y a-t-il des invocations de classe non importees avec un chemin com
 
 oui. il faut rechercher les chaines t.q. lilas.awt.[A-Z], lilas.base.[A-Z],... etc ...
 
-Spec phase 1 methode explore de la classe LilasTree :
+Spec phase 1 : methode recursive explore() de la classe LilasTree :
 - la methode prend comme arg un nom de classe en style java, donc relatif a src, exemples :
 	lilas.base.Module
 	lilas.Main
@@ -261,7 +261,7 @@ Spec phase 1 methode explore de la classe LilasTree :
 - elle trace l'arbre parcouru avec indentations - mais l'arbre est incomplet car chaque branche n'est exploree
   que la premiere fois qu'elle est parcourue (sinon on ne finirait jamais a cause des boucles) 
 
-Resultat phase 1 LilasTree.explore
+Resultat phase 1 :
    ==> 6 enums identifiee au fait que le nom precedent commence par majuscule
 	lilas.Main.MSG -> 2
 	lilas.base.Port.Mode -> 10
@@ -296,17 +296,20 @@ Spec phase 3 : evaluation des ranks :
 	- definition
 		rank = 0 si la classe ne depend d'aucune autre (classe "feuille")
 		rank = N si la classe ne depend que de classes de rank < N
+	- methode rankize : scanne tous les noeuds pour chaque valeur de rank en partant de 0
 	- resultats preliminaires
 		  0 : 27 nodes
 		  1 : 1 nodes
 	  c'est tout ! c'est a cause des boucles, notamment celle de lilas.Main "refered by 56 classes"
-	  on met un hack pour sauter lilas.Main dans le scan des referes :
-		  0 : 27 nodes
-		  1 : 5 nodes
-		  2 : 4 nodes
-		  3 : 1 nodes
-		  4 : 1 nodes
+	  on met un hack pour sauter lilas.Main dans le scan des referes, et toutes les classes ont un rank
+	  en finissant avec Main au rank 33 !! Il n'y avait que Main comme cause de boucle
 	  
+Spec phase 4 :
+	- detection des boucles :
+	  methode recursive loopbuster() detecte toutes les boucles passant par le noeud de depart donné
+	  --> inachevee puisque qu'il n'y a qu'une cause de boucle
+	- dump des classes par rank pour generer un script de compilation
+
 
 -----------------------------------------------------------------------------------------------------------------
 la liste des packages de la branche lilas :

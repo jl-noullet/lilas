@@ -289,7 +289,7 @@ public int explore( String zeClass, int depth ) {
 public int rankize() {
 	int currank = 0; int cnt, iref;
 	System.out.println("RANKS :");
-	while	( currank < 10 ) {
+	while	( currank < 100 ) {
 		cnt = 0;
 		for	( int i = 0; i < noeuds.size(); ++i ) {
 			LilasNode n = noeuds.get(i);
@@ -301,13 +301,15 @@ public int rankize() {
 			Iterator<Integer> itu = n.referes.iterator();
 			while	( itu.hasNext() ) {
 				iref = itu.next();
-				if	( ( iref == 0 ) && ( itu.hasNext() ) )
-					iref = itu.next();	// skip Main
+//				if	( ( iref == 0 ) && ( itu.hasNext() ) )	// il semble que hasNext() ait un effet de bord :-(((
+//					iref = itu.next(); // skip Main
+				if	( iref == 0 )
+					continue;		// skip Main
 				if	( noeuds.get(iref).rank >= currank ) {
 					n.rank = NORANK;	// eliminer ce noeud pour le rank courant
 					break;
 					}
-				}
+				}			// refered nodes loop
 			if	( n.rank < NORANK )
 				++cnt;					
 			} // node loop
@@ -319,6 +321,37 @@ public int rankize() {
 	return 0;
 	}
 
+/*
+// detecter les boucles recursivement en maintenant un array des noeuds parcourus
+// l'array est unique mais chaque contexte de la methode retient l'indice curpos du noeud courant
+// dans cet array ce qui evite de debobiner explicitement 
+public int loopbuster( ArrayList<Integer> chemin, int curpos ) {
+	LilasNode n = noeuds.get( chemin.get(curpos) );
+	// scanner les referes du noeud
+	Iterator<Integer> itu = n.referes.iterator();
+	int iref;
+	while	( itu.hasNext() ) {
+		iref = itu.next();
+		if	( iref == 0 )
+			continue;		// skip Main
+		if	( noeuds.get(iref).rank < NORANK )
+			continue;		// skip rankized
+		// scanner le chemin pour voir si on est deja passe par ce noeud
+		int imark = -1;
+		for	( int i = 0; i <= curpos; ++i ) {
+			if	( chemin.get(i) == iref ) {
+				imark = i; break;
+				}
+			}
+		if	( imark >= 0 ) {
+			System.out.println("LOOP");
+			}
+		else	{			// pas de boucle, on recurse
+			}
+		}			// refered nodes loop
+	return 0;
+	}
+*/
 
 public static void main(String[] args) {
         int argc = args.length;
