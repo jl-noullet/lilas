@@ -16,14 +16,14 @@ int i = mop.get("Magda");
 System.out.println("Magda -> " + i );
 System.out.println("pipo -> " + mop.get("pipo") );
 // i = mop.get("pipo");  // null pointer exception
-Set clefs = mop.keySet();
+Set<String> clefs = mop.keySet();
 System.out.println("keys " + clefs );
-Iterator itu = clefs.iterator();
+Iterator<String> itu = clefs.iterator();
 String k, v;
 while (itu.hasNext()) {
    // k = itu.next().getClass().getName();
-   k = itu.next().toString();  // sais pas pkoi il faut faire cela, c dja String...
-   v = mop.get(k).toString();  // la ok, c Integer
+   k = itu.next();
+   v = mop.get(k).toString();
    System.out.println("iterated : " + k + " -> " + v );
    }
 }

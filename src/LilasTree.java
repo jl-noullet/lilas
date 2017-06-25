@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.Set;
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -23,15 +24,38 @@ public class LilasTree {
 class LilasNode {
 	String classname;
 	int rank;
-	ArrayList<Integer> referes;
-	ArrayList<Integer> referants;
+	TreeSet<Integer> referes;
+	TreeSet<Integer> referants;
 	// constructeur
 	LilasNode( String name ) {
 		classname = name;
 		rank = -1;
-		referes = new ArrayList<Integer>();
-		referants = new ArrayList<Integer>();
+		referes = new TreeSet<Integer>();
+		referants = new TreeSet<Integer>();
 		}
+	// dump d'un set de LilasNodes indexes
+	private void setdump( TreeSet<Integer> s ) {
+		Iterator<Integer> itu = s.iterator();
+		int v;
+		while	(itu.hasNext()) {
+			v = itu.next();
+			LilasNode n = noeuds.get(v);
+			System.out.println("      " + n.classname + " [" + v + "]" );
+			}
+		}
+	// dump du LilasNode en detail
+	private void dump( int detail ) {
+		if	( detail == 0 )
+			System.out.println("  " + classname + " R" + rank +
+					   " [^" + referants.size() + "_" + referes.size() + "]" );
+		else	{
+			System.out.println("  " + classname + " R" + rank );
+			System.out.println("    refered by " + referants.size() + " classes :" );
+			setdump( referants );
+			System.out.println("    refering  " + referes.size() + " classes :" );
+			setdump( referes );
+			}
+		} 	
 	}
 
 String lilas_src;
@@ -62,14 +86,14 @@ public void dump() {
 
 	System.out.println( "external : " + iexternal.size() + " elements" );
 
-	System.out.println( "lilas : " + ililas.size() + " elements" );
-	mapdump2( ililas );
-
 	System.out.println( "ililenum : " + ililenum.size() + " elements" );
 	mapdump( ililenum );
 
 	System.out.println( "inconnu : " + iinconnu.size() + " elements" );
 	mapdump( iinconnu );
+
+	System.out.println( "lilas : " + ililas.size() + " elements" );
+	mapdump2( ililas, 1 );
 	}
 
 private static void indent( int depth ) {
@@ -77,36 +101,42 @@ private static void indent( int depth ) {
 		System.out.print("| ");
 	}
 
+// dump de map assez generique
 private static void mapdump( TreeMap<String,Integer> mama ) {
-	Set clefs = mama.keySet();
+	Set<String> clefs = mama.keySet();
 	// System.out.println("keys " + clefs );
-	Iterator itu = clefs.iterator();
+	Iterator<String> itu = clefs.iterator();
 	String k, v;
 	while	(itu.hasNext()) {
-		k = itu.next().toString();  // sais pas pkoi il faut faire cela, c dja String...
+		k = itu.next();
 		v = mama.get(k).toString();  // la ok, c Integer
 		System.out.println("  " + k + " -> " + v );
 		}
 	}
 
-// verifie aussi les noeuds crees en phase 2
-private void mapdump2( TreeMap<String,Integer> mama ) {
-	Set clefs = mama.keySet();
+// dump de map specifique pour LilasNodes crees en phase 2
+private void mapdump2( TreeMap<String,Integer> mama, int detail ) {
+	Set<String> clefs = mama.keySet();
 	// System.out.println("keys " + clefs );
-	Iterator itu = clefs.iterator();
+	Iterator<String> itu = clefs.iterator();
 	String k; int v;
 	while	(itu.hasNext()) {
-		k = itu.next().toString();  // sais pas pkoi il faut faire cela, c dja String...
+		k = itu.next();
 		v = mama.get(k);
-		if	( v >= 0 )
-			System.out.println("  " + k + " -> " + v + " -> " + noeuds.get(v).classname );
-		else 	System.out.println("  " + k + " -> " + v + " -> ERR" );
+		if	( v < 0 ) {
+			System.out.println("  " + k + " -> " + v + " -> ERR" );
+			continue;
+			}
+		LilasNode n = noeuds.get(v);
+		if	( !k.equals( n.classname ) )
+			System.out.println("  " + k + " -> " + v + " -> " + n.classname + " -> ERR AAAARGH bad dico" );
+		n.dump( detail );
 		}
 	}
 
-public int explore( String zeclass, int depth ) {
+public int explore( String zeClass, int depth ) {
 	// elaborer les pathname du fichier source de cette classe
-	String splut[] = zeclass.split("[.]");
+	String splut[] = zeClass.split("[.]");
 	int cnt = splut.length;
 	if	( cnt < 1 )
 		return -3;
@@ -119,15 +149,15 @@ public int explore( String zeclass, int depth ) {
 	// affichage
 	indent( depth );
 	if	( !Files.exists( lepath ) ) {
-		System.out.println( "NOT FOUND " + zeclass + " (" + lepath +")" );
+		System.out.println( "NOT FOUND " + zeClass + " (" + lepath +")" );
 		return -2; 
 		}
 	else	{
-		System.out.println( zeclass );
+		System.out.println( zeClass );
 		}
 	// creer le noeud
-	LilasNode lenoeud = new LilasNode( zeclass );
-	int zeindex = noeuds.size();
+	LilasNode lenoeud = new LilasNode( zeClass );
+	int zeIndex = noeuds.size();
 	noeuds.add( lenoeud );
 	// lire ce fichier ligne par ligne
 	String line; int linecnt = 0; int resu, id;
@@ -181,15 +211,24 @@ public int explore( String zeclass, int depth ) {
 							}
 						else	{	
 							if	( ililas.get( targetClass ) == null ) {
-								ililas.put( targetClass, -1 );		// il faut deja marquer avant de recurser, sinon peut boucler !
+								// il faut deja marquer avant de recurser, sinon peut boucler !
+								ililas.put( targetClass, -1 );
 								targetIndex = explore( targetClass, depth+1 );	// recursion ici !
  								if	( targetIndex < 0 ) {
 									indent( depth+1 );
-									System.out.println("ERR line " + linecnt + " in " + zeclass );
+									System.out.println("ERR line " + linecnt + " in " + zeClass );
 									}
+								// marquage definitif
 								ililas.put( targetClass, targetIndex );
 								}
-							// si on l'a deja traite on ne fait rien c'est tout
+							else	{	// si on l'a deja traite il faut qd meme l'index
+								targetIndex = ililas.get( targetClass );
+								}
+							// dependances
+							if	( targetIndex >= 0 ) {
+								noeuds.get(targetIndex).referants.add(zeIndex);
+								noeuds.get(zeIndex).referes.add(targetIndex);
+								}
 							}
 						}
 					else    {
@@ -209,15 +248,24 @@ public int explore( String zeclass, int depth ) {
 						targetClass = targetClass + "." + splut[i];
 						if	( splut[i].matches("^[A-Z].*") ) {
 							if	( ililas.get( targetClass ) == null ) {
-								ililas.put( targetClass, -1 );		// il faut deja marquer avant de recurser, sinon peut boucler !
+								// il faut deja marquer avant de recurser, sinon peut boucler !
+								ililas.put( targetClass, -1 );
  								targetIndex = explore( targetClass, depth+1 );	// recursion ici !
  								if	( targetIndex < 0 ) {
 									indent( depth+1 );
-									System.out.println("ERR line " + linecnt + " in " + zeclass );
+									System.out.println("ERR line " + linecnt + " in " + zeClass );
 									}
+								// marquage definitif
 								ililas.put( targetClass, targetIndex );
 								}
-							// si on l'a deja traite on ne fait rien
+							else	{	// si on l'a deja traite il faut qd meme l'index
+								targetIndex = ililas.get( targetClass );
+								}
+							// dependances
+							if	( targetIndex >= 0 ) {
+								noeuds.get(targetIndex).referants.add(zeIndex);
+								noeuds.get(zeIndex).referes.add(targetIndex);
+								}
 							break;
 							}
 						}
@@ -229,7 +277,7 @@ public int explore( String zeclass, int depth ) {
 		System.err.format("IOException: %s%n", x);
 		}
 	indent( depth ); System.out.println( "vu " + linecnt + " lignes" );
-	return zeindex;
+	return zeIndex;
 	} // explore
 
 public static void main(String[] args) {

@@ -1,0 +1,1363 @@
+lilas.Main
+| lilas.awt.BoutonListeScripts
+| | lilas.base.ExceptionLilas
+| | | lilas.Parameter
+| | | | lilas.awt.tree.MainFrame
+| | | | | lilas.base.InternationalMessage
+| | | | | vu 5 lignes
+| | | | | lilas.base.Port
+| | | | | | lilas.base.Sensibility
+| | | | | | vu 110 lignes
+| | | | | vu 136 lignes
+| | | | | lilas.util.LilasPath
+| | | | | | lilas.xml.DefModule
+| | | | | | | lilas.awt.Assembleur
+| | | | | | | | lilas.xml.DocumentXML
+| | | | | | | | vu 634 lignes
+| | | | | | | vu 13 lignes
+| | | | | | | lilas.awt.ImageSVG
+| | | | | | | | lilas.base.Module
+| | | | | | | | | lilas.awt.CmdDisplay
+| | | | | | | | | | lilas.awt.treetable.EditorValue
+| | | | | | | | | | | lilas.awt.MemoryDisplay
+| | | | | | | | | | | | lilas.base.ModuleExternalEvent
+| | | | | | | | | | | | vu 69 lignes
+| | | | | | | | | | | | lilas.base.Signal
+| | | | | | | | | | | | | lilas.awt.treetable.EditorHistoricStandard
+| | | | | | | | | | | | | | lilas.awt.DisplayScrollBar
+| | | | | | | | | | | | | | | lilas.base.SystemL
+| | | | | | | | | | | | | | | | lilas.util.Chronometer
+| | | | | | | | | | | | | | | | vu 147 lignes
+| | | | | | | | | | | | | | | vu 478 lignes
+| | | | | | | | | | | | | | | lilas.base.DateListener
+| | | | | | | | | | | | | | | vu 5 lignes
+| | | | | | | | | | | | | | | lilas.util.VectorError
+| | | | | | | | | | | | | | | | lilas.xml.DefXML
+| | | | | | | | | | | | | | | | | lilas.awt.MemoryDisplayable
+| | | | | | | | | | | | | | | | | vu 33 lignes
+| | | | | | | | | | | | | | | | | lilas.base.ArrayLilas
+| | | | | | | | | | | | | | | | | | lilas.awt.MemoryModel
+| | | | | | | | | | | | | | | | | | | lilas.awt.treetable.MemoryTableModel
+| | | | | | | | | | | | | | | | | | | vu 104 lignes
+| | | | | | | | | | | | | | | | | | | lilas.base.SignalListener
+| | | | | | | | | | | | | | | | | | | vu 5 lignes
+| | | | | | | | | | | | | | | | | | vu 114 lignes
+| | | | | | | | | | | | | | | | | | lilas.awt.ModifiedStatusListener
+| | | | | | | | | | | | | | | | | | vu 5 lignes
+| | | | | | | | | | | | | | | | | | lilas.xml.DefSignal
+| | | | | | | | | | | | | | | | | | | lilas.edit.Plot
+| | | | | | | | | | | | | | | | | | | | lilas.xml.DefModuleCall
+| | | | | | | | | | | | | | | | | | | | | lilas.edit.Editeur
+| | | | | | | | | | | | | | | | | | | | | | lilas.awt.tree.JDialogResourceTree
+| | | | | | | | | | | | | | | | | | | | | | vu 99 lignes
+| | | | | | | | | | | | | | | | | | | | | vu 396 lignes
+| | | | | | | | | | | | | | | | | | | | | lilas.edit.ListeSignaux
+| | | | | | | | | | | | | | | | | | | | | vu 40 lignes
+| | | | | | | | | | | | | | | | | | | | | lilas.edit.ModuleImageSVG
+| | | | | | | | | | | | | | | | | | | | | vu 458 lignes
+| | | | | | | | | | | | | | | | | | | | | lilas.edit.ModuleSVG
+| | | | | | | | | | | | | | | | | | | | | | lilas.awt.ElementSVG
+| | | | | | | | | | | | | | | | | | | | | | | lilas.type.StdLogic
+| | | | | | | | | | | | | | | | | | | | | | | vu 1136 lignes
+| | | | | | | | | | | | | | | | | | | | | | | lilas.base.EventLilas
+| | | | | | | | | | | | | | | | | | | | | | | vu 27 lignes
+| | | | | | | | | | | | | | | | | | | | | | vu 670 lignes
+| | | | | | | | | | | | | | | | | | | | | vu 2278 lignes
+| | | | | | | | | | | | | | | | | | | | | lilas.util.HistoricValue
+| | | | | | | | | | | | | | | | | | | | | | lilas.awt.TypeDrawStandard
+| | | | | | | | | | | | | | | | | | | | | | | lilas.util.DatedObject
+| | | | | | | | | | | | | | | | | | | | | | | vu 11 lignes
+| | | | | | | | | | | | | | | | | | | | | | | ETOILE lilas.type.*
+| | | | | | | | | | | | | | | | | | | | | | vu 92 lignes
+| | | | | | | | | | | | | | | | | | | | | vu 98 lignes
+| | | | | | | | | | | | | | | | | | | | vu 296 lignes
+| | | | | | | | | | | | | | | | | | | vu 187 lignes
+| | | | | | | | | | | | | | | | | | vu 602 lignes
+| | | | | | | | | | | | | | | | | | lilas.type.ArrayStdLogic
+| | | | | | | | | | | | | | | | | | vu 54 lignes
+| | | | | | | | | | | | | | | | | vu 469 lignes
+| | | | | | | | | | | | | | | | vu 622 lignes
+| | | | | | | | | | | | | | | vu 82 lignes
+| | | | | | | | | | | | | | | lilas.xml.DefAWT
+| | | | | | | | | | | | | | | | lilas.awt.Panel
+| | | | | | | | | | | | | | | | | lilas.awt.TabChangeListener
+| | | | | | | | | | | | | | | | | vu 26 lignes
+| | | | | | | | | | | | | | | | vu 192 lignes
+| | | | | | | | | | | | | | | vu 409 lignes
+| | | | | | | | | | | | | | vu 99 lignes
+| | | | | | | | | | | | | | lilas.awt.TypeDrawBoolean
+| | | | | | | | | | | | | | vu 68 lignes
+| | | | | | | | | | | | | | lilas.awt.TypeDrawCharge
+| | | | | | | | | | | | | | vu 73 lignes
+| | | | | | | | | | | | | | lilas.awt.TypeDrawStdLogic
+| | | | | | | | | | | | | | vu 99 lignes
+| | | | | | | | | | | | | vu 137 lignes
+| | | | | | | | | | | | | lilas.awt.treetable.EditorStandard
+| | | | | | | | | | | | | | lilas.awt.CustomPopupMenu
+| | | | | | | | | | | | | | vu 73 lignes
+| | | | | | | | | | | | | vu 204 lignes
+| | | | | | | | | | | | | lilas.awt.treetable.EditorStdLogic
+| | | | | | | | | | | | | vu 157 lignes
+| | | | | | | | | | | | | lilas.awt.treetable.RendererHistoricStandard
+| | | | | | | | | | | | | | lilas.awt.Display
+| | | | | | | | | | | | | | | lilas.awt.treetable.JTreeTable
+| | | | | | | | | | | | | | | | lilas.util.DatedObjectsList
+| | | | | | | | | | | | | | | | vu 186 lignes
+| | | | | | | | | | | | | | | vu 353 lignes
+| | | | | | | | | | | | | | vu 405 lignes
+| | | | | | | | | | | | | vu 71 lignes
+| | | | | | | | | | | | | lilas.awt.treetable.RendererStandard
+| | | | | | | | | | | | | vu 100 lignes
+| | | | | | | | | | | | | lilas.awt.treetable.RendererStdLogic
+| | | | | | | | | | | | | vu 64 lignes
+| | | | | | | | | | | | | lilas.awt.treetable.SignalEditorRenderer
+| | | | | | | | | | | | | | lilas.base.ValModuleStatus
+| | | | | | | | | | | | | | vu 64 lignes
+| | | | | | | | | | | | | vu 245 lignes
+| | | | | | | | | | | | vu 485 lignes
+| | | | | | | | | | | | lilas.awt.treetable.MemoryTableEditorRenderer
+| | | | | | | | | | | | | lilas.awt.CustomDialog
+| | | | | | | | | | | | | vu 138 lignes
+| | | | | | | | | | | | vu 87 lignes
+| | | | | | | | | | | vu 185 lignes
+| | | | | | | | | | vu 22 lignes
+| | | | | | | | | vu 305 lignes
+| | | | | | | | | lilas.awt.treetable.TreeNode
+| | | | | | | | | vu 188 lignes
+| | | | | | | | | lilas.util.SnapShotSVG
+| | | | | | | | | vu 56 lignes
+| | | | | | | | vu 1660 lignes
+| | | | | | | | lilas.xml.DefSvgElement
+| | | | | | | | vu 171 lignes
+| | | | | | | vu 384 lignes
+| | | | | | | lilas.util.Cleaner
+| | | | | | | vu 179 lignes
+| | | | | | | lilas.util.compiler.CompilateurJavaDynamique
+| | | | | | | vu 113 lignes
+| | | | | | | lilas.util.compiler.DynamicJavaSourceCodeObject
+| | | | | | | vu 81 lignes
+| | | | | | | lilas.logic.Compilateur
+| | | | | | | | lilas.logic.parser.ParseException
+| | | | | | | | vu 187 lignes
+| | | | | | | | lilas.logic.parser.Parser
+| | | | | | | | vu 2581 lignes
+| | | | | | | | lilas.logic.parser.SimpleNode
+| | | | | | | | vu 79 lignes
+| | | | | | | | lilas.logic.parser.Token
+| | | | | | | | vu 131 lignes
+| | | | | | | | lilas.logic.parser.TokenMgrError
+| | | | | | | | vu 147 lignes
+| | | | | | | | lilas.xml.DefCode
+| | | | | | | | | lilas.logic.CompilateurToJava
+| | | | | | | | | | lilas.logic.CompilateurToVHDL
+| | | | | | | | | | vu 993 lignes
+| | | | | | | | | vu 464 lignes
+| | | | | | | | | lilas.cmm.Compilateur
+| | | | | | | | | | lilas.cmm.parser.ParseException
+| | | | | | | | | | vu 187 lignes
+| | | | | | | | | | lilas.cmm.parser.Parser
+| | | | | | | | | | vu 5595 lignes
+| | | | | | | | | | lilas.cmm.parser.SimpleNode
+| | | | | | | | | | vu 79 lignes
+| | | | | | | | | | lilas.cmm.parser.Token
+| | | | | | | | | | vu 131 lignes
+| | | | | | | | | | lilas.cmm.parser.TokenMgrError
+| | | | | | | | | | vu 147 lignes
+| | | | | | | | | | lilas.xml.DefCodeCompilateur
+| | | | | | | | | | vu 23 lignes
+| | | | | | | | | vu 816 lignes
+| | | | | | | | vu 211 lignes
+| | | | | | | vu 1964 lignes
+| | | | | | | lilas.base.Coroutine
+| | | | | | | vu 5 lignes
+| | | | | | | NOT FOUND lilas.base.Value (/home/jln/LILASV4/src/lilas/base/Value.java)
+| | | | | | | ERR line 3314 in lilas.xml.DefModule
+| | | | | | vu 4602 lignes
+| | | | | vu 413 lignes
+| | | | vu 319 lignes
+| | | | lilas.util.LogFormatter
+| | | | vu 94 lignes
+| | | vu 691 lignes
+| | | lilas.xml.LocationData
+| | | vu 90 lignes
+| | vu 147 lignes
+| vu 103 lignes
+| lilas.awt.Fenetre
+| vu 58 lignes
+| lilas.awt.treetable.LilasSystemModel
+| vu 102 lignes
+| lilas.util.FenetreHTML
+| vu 73 lignes
+| lilas.util.JarBib
+| | lilas.xml.LilasTo
+| | vu 331 lignes
+| vu 295 lignes
+| lilas.awt.BoutonSnapshot
+| vu 75 lignes
+| lilas.awt.BoutonPasAPas
+| vu 120 lignes
+| lilas.edit.Main
+| vu 197 lignes
+vu 1443 lignes
+java et javax : 210 elements
+org : 60 elements
+external : 2 elements
+ililenum : 6 elements
+  lilas.Main.MSG -> 2
+  lilas.base.Port.Mode -> 12
+  lilas.base.Port.Propagate -> 1
+  lilas.base.ValModuleStatus.Status -> 1
+  lilas.edit.Plot.Position -> 5
+  lilas.type.StdLogic.ValeurBit -> 3
+inconnu : 6 elements
+  com.sun.org.apache.xpath.internal.axes.HasPositionalPredChecker -> 1
+  com.sun.org.apache.xpath.internal.functions.FunctionDef1Arg -> 1
+  jni.JniException -> 1
+  jni.ResString -> 1
+  lvm.LVM -> 1
+  lvm.SignalColor -> 1
+lilas : 100 elements
+  lilas.Main R-1
+    refered by 56 classes :
+      lilas.Main [0]
+      lilas.awt.BoutonListeScripts [1]
+      lilas.Parameter [3]
+      lilas.awt.tree.MainFrame [4]
+      lilas.base.Port [6]
+      lilas.util.LilasPath [8]
+      lilas.xml.DefModule [9]
+      lilas.xml.DocumentXML [11]
+      lilas.awt.ImageSVG [12]
+      lilas.base.Module [13]
+      lilas.awt.CmdDisplay [14]
+      lilas.awt.MemoryDisplay [16]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.base.Signal [18]
+      lilas.awt.treetable.EditorHistoricStandard [19]
+      lilas.awt.DisplayScrollBar [20]
+      lilas.base.SystemL [21]
+      lilas.xml.DefXML [25]
+      lilas.base.ArrayLilas [27]
+      lilas.awt.MemoryModel [28]
+      lilas.xml.DefSignal [32]
+      lilas.xml.DefModuleCall [34]
+      lilas.edit.Editeur [35]
+      lilas.awt.tree.JDialogResourceTree [36]
+      lilas.edit.ModuleSVG [39]
+      lilas.type.StdLogic [41]
+      lilas.base.EventLilas [42]
+      lilas.util.HistoricValue [43]
+      lilas.awt.TypeDrawStandard [44]
+      lilas.type.ArrayStdLogic [46]
+      lilas.xml.DefAWT [47]
+      lilas.awt.Panel [48]
+      lilas.awt.treetable.EditorStandard [53]
+      lilas.awt.treetable.EditorStdLogic [55]
+      lilas.awt.treetable.RendererHistoricStandard [56]
+      lilas.awt.treetable.JTreeTable [58]
+      lilas.util.DatedObjectsList [59]
+      lilas.awt.treetable.RendererStandard [60]
+      lilas.awt.treetable.RendererStdLogic [61]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.MemoryTableEditorRenderer [64]
+      lilas.awt.CustomDialog [65]
+      lilas.awt.treetable.TreeNode [66]
+      lilas.util.compiler.CompilateurJavaDynamique [70]
+      lilas.util.compiler.DynamicJavaSourceCodeObject [71]
+      lilas.logic.Compilateur [72]
+      lilas.xml.DefCode [78]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+      lilas.cmm.Compilateur [81]
+      lilas.awt.Fenetre [91]
+      lilas.awt.treetable.LilasSystemModel [92]
+      lilas.util.FenetreHTML [93]
+      lilas.util.JarBib [94]
+      lilas.xml.LilasTo [95]
+      lilas.edit.Main [98]
+    refering  27 classes :
+      lilas.Main [0]
+      lilas.awt.BoutonListeScripts [1]
+      lilas.base.ExceptionLilas [2]
+      lilas.Parameter [3]
+      lilas.awt.tree.MainFrame [4]
+      lilas.base.InternationalMessage [5]
+      lilas.base.Port [6]
+      lilas.util.LilasPath [8]
+      lilas.xml.DefModule [9]
+      lilas.xml.DocumentXML [11]
+      lilas.awt.ImageSVG [12]
+      lilas.base.Module [13]
+      lilas.base.SystemL [21]
+      lilas.util.VectorError [24]
+      lilas.xml.DefSignal [32]
+      lilas.awt.treetable.JTreeTable [58]
+      lilas.util.Cleaner [69]
+      lilas.util.compiler.CompilateurJavaDynamique [70]
+      lilas.util.LogFormatter [89]
+      lilas.awt.Fenetre [91]
+      lilas.awt.treetable.LilasSystemModel [92]
+      lilas.util.FenetreHTML [93]
+      lilas.util.JarBib [94]
+      lilas.xml.LilasTo [95]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+      lilas.edit.Main [98]
+  lilas.Parameter R-1
+    refered by 10 classes :
+      lilas.Main [0]
+      lilas.base.ExceptionLilas [2]
+      lilas.xml.LocationData [90]
+      lilas.awt.Fenetre [91]
+      lilas.util.FenetreHTML [93]
+      lilas.util.JarBib [94]
+      lilas.xml.LilasTo [95]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+      lilas.edit.Main [98]
+    refering  7 classes :
+      lilas.Main [0]
+      lilas.awt.tree.MainFrame [4]
+      lilas.base.InternationalMessage [5]
+      lilas.util.LilasPath [8]
+      lilas.xml.DocumentXML [11]
+      lilas.type.StdLogic [41]
+      lilas.util.LogFormatter [89]
+  lilas.awt.Assembleur R-1
+    refered by 3 classes :
+      lilas.xml.DefModule [9]
+      lilas.base.ArrayLilas [27]
+      lilas.type.ArrayStdLogic [46]
+    refering  1 classes :
+      lilas.xml.DocumentXML [11]
+  lilas.awt.BoutonListeScripts R-1
+    refered by 1 classes :
+      lilas.Main [0]
+    refering  9 classes :
+      lilas.Main [0]
+      lilas.base.ExceptionLilas [2]
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.base.Signal [18]
+      lilas.util.VectorError [24]
+      lilas.base.SignalListener [30]
+      lilas.util.HistoricValue [43]
+      lilas.xml.DefAWT [47]
+  lilas.awt.BoutonPasAPas R-1
+    refered by 1 classes :
+      lilas.Main [0]
+    refering  12 classes :
+      lilas.base.ExceptionLilas [2]
+      lilas.Parameter [3]
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.base.Signal [18]
+      lilas.base.SystemL [21]
+      lilas.util.Chronometer [22]
+      lilas.util.VectorError [24]
+      lilas.base.SignalListener [30]
+      lilas.util.HistoricValue [43]
+      lilas.xml.DefAWT [47]
+      lilas.util.SnapShotSVG [67]
+  lilas.awt.BoutonSnapshot R-1
+    refered by 1 classes :
+      lilas.Main [0]
+    refering  12 classes :
+      lilas.base.ExceptionLilas [2]
+      lilas.Parameter [3]
+      lilas.util.LilasPath [8]
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.base.Signal [18]
+      lilas.base.SystemL [21]
+      lilas.util.VectorError [24]
+      lilas.base.SignalListener [30]
+      lilas.util.HistoricValue [43]
+      lilas.xml.DefAWT [47]
+      lilas.util.SnapShotSVG [67]
+  lilas.awt.CmdDisplay R-1
+    refered by 2 classes :
+      lilas.base.Module [13]
+      lilas.awt.treetable.TreeNode [66]
+    refering  7 classes :
+      lilas.Main [0]
+      lilas.awt.treetable.EditorValue [15]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.base.Signal [18]
+      lilas.base.SystemL [21]
+      lilas.base.DateListener [23]
+      lilas.xml.DefAWT [47]
+  lilas.awt.CustomDialog R-1
+    refered by 1 classes :
+      lilas.awt.treetable.MemoryTableEditorRenderer [64]
+    refering  1 classes :
+      lilas.Main [0]
+  lilas.awt.CustomPopupMenu R-1
+    refered by 2 classes :
+      lilas.awt.treetable.EditorStandard [53]
+      lilas.awt.treetable.TreeNode [66]
+    refering  0 classes :
+  lilas.awt.Display R-1
+    refered by 1 classes :
+      lilas.awt.treetable.RendererHistoricStandard [56]
+    refering  9 classes :
+      lilas.util.Chronometer [22]
+      lilas.util.VectorError [24]
+      lilas.base.SignalListener [30]
+      lilas.type.StdLogic [41]
+      lilas.util.HistoricValue [43]
+      lilas.util.DatedObject [45]
+      lilas.xml.DefAWT [47]
+      lilas.awt.treetable.JTreeTable [58]
+      lilas.util.DatedObjectsList [59]
+  lilas.awt.DisplayScrollBar R-1
+    refered by 1 classes :
+      lilas.awt.treetable.EditorHistoricStandard [19]
+    refering  5 classes :
+      lilas.Main [0]
+      lilas.base.SystemL [21]
+      lilas.base.DateListener [23]
+      lilas.util.VectorError [24]
+      lilas.xml.DefAWT [47]
+  lilas.awt.ElementSVG R-1
+    refered by 3 classes :
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.edit.ModuleSVG [39]
+    refering  5 classes :
+      lilas.xml.DocumentXML [11]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.base.SignalListener [30]
+      lilas.type.StdLogic [41]
+      lilas.base.EventLilas [42]
+  lilas.awt.Fenetre R-1
+    refered by 1 classes :
+      lilas.Main [0]
+    refering  3 classes :
+      lilas.Main [0]
+      lilas.Parameter [3]
+      lilas.base.SystemL [21]
+  lilas.awt.ImageSVG R-1
+    refered by 3 classes :
+      lilas.Main [0]
+      lilas.xml.DefModule [9]
+      lilas.edit.Main [98]
+    refering  8 classes :
+      lilas.Main [0]
+      lilas.xml.DocumentXML [11]
+      lilas.base.Module [13]
+      lilas.base.Signal [18]
+      lilas.base.SystemL [21]
+      lilas.util.VectorError [24]
+      lilas.xml.DefAWT [47]
+      lilas.xml.DefSvgElement [68]
+  lilas.awt.MemoryDisplay R-1
+    refered by 1 classes :
+      lilas.awt.treetable.EditorValue [15]
+    refering  12 classes :
+      lilas.Main [0]
+      lilas.base.Sensibility [7]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.base.Signal [18]
+      lilas.base.SystemL [21]
+      lilas.util.VectorError [24]
+      lilas.xml.DefXML [25]
+      lilas.base.SignalListener [30]
+      lilas.xml.DefSignal [32]
+      lilas.xml.DefAWT [47]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.MemoryTableEditorRenderer [64]
+  lilas.awt.MemoryDisplayable R-1
+    refered by 6 classes :
+      lilas.base.Module [13]
+      lilas.xml.DefXML [25]
+      lilas.base.ArrayLilas [27]
+      lilas.type.ArrayStdLogic [46]
+      lilas.awt.treetable.RendererStandard [60]
+      lilas.awt.treetable.RendererStdLogic [61]
+    refering  0 classes :
+  lilas.awt.MemoryModel R-1
+    refered by 3 classes :
+      lilas.base.ArrayLilas [27]
+      lilas.awt.treetable.EditorStandard [53]
+      lilas.awt.treetable.EditorStdLogic [55]
+    refering  5 classes :
+      lilas.Main [0]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.base.SystemL [21]
+      lilas.awt.treetable.MemoryTableModel [29]
+      lilas.base.SignalListener [30]
+  lilas.awt.ModifiedStatusListener R-1
+    refered by 1 classes :
+      lilas.base.ArrayLilas [27]
+    refering  0 classes :
+  lilas.awt.Panel R-1
+    refered by 1 classes :
+      lilas.xml.DefAWT [47]
+    refering  5 classes :
+      lilas.Main [0]
+      lilas.xml.DocumentXML [11]
+      lilas.util.VectorError [24]
+      lilas.xml.DefXML [25]
+      lilas.awt.TabChangeListener [49]
+  lilas.awt.TabChangeListener R-1
+    refered by 1 classes :
+      lilas.awt.Panel [48]
+    refering  2 classes :
+      lilas.base.Port [6]
+      lilas.base.ModuleExternalEvent [17]
+  lilas.awt.TypeDrawBoolean R-1
+    refered by 3 classes :
+      lilas.awt.treetable.EditorHistoricStandard [19]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.TreeNode [66]
+    refering  0 classes :
+  lilas.awt.TypeDrawCharge R-1
+    refered by 3 classes :
+      lilas.awt.treetable.EditorHistoricStandard [19]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.TreeNode [66]
+    refering  0 classes :
+  lilas.awt.TypeDrawStandard R-1
+    refered by 5 classes :
+      lilas.awt.treetable.EditorHistoricStandard [19]
+      lilas.util.HistoricValue [43]
+      lilas.awt.treetable.RendererHistoricStandard [56]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.TreeNode [66]
+    refering  2 classes :
+      lilas.Main [0]
+      lilas.util.DatedObject [45]
+  lilas.awt.TypeDrawStdLogic R-1
+    refered by 3 classes :
+      lilas.awt.treetable.EditorHistoricStandard [19]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.TreeNode [66]
+    refering  1 classes :
+      lilas.type.StdLogic [41]
+  lilas.awt.tree.JDialogResourceTree R-1
+    refered by 1 classes :
+      lilas.edit.Editeur [35]
+    refering  1 classes :
+      lilas.Main [0]
+  lilas.awt.tree.MainFrame R-1
+    refered by 2 classes :
+      lilas.Main [0]
+      lilas.Parameter [3]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+      lilas.base.Port [6]
+      lilas.util.LilasPath [8]
+      lilas.xml.DefModule [9]
+      lilas.xml.DefSignal [32]
+  lilas.awt.treetable.EditorHistoricStandard R-1
+    refered by 1 classes :
+      lilas.base.Signal [18]
+    refering  8 classes :
+      lilas.Main [0]
+      lilas.awt.DisplayScrollBar [20]
+      lilas.base.SystemL [21]
+      lilas.type.StdLogic [41]
+      lilas.awt.TypeDrawStandard [44]
+      lilas.awt.TypeDrawBoolean [50]
+      lilas.awt.TypeDrawCharge [51]
+      lilas.awt.TypeDrawStdLogic [52]
+  lilas.awt.treetable.EditorStandard R-1
+    refered by 1 classes :
+      lilas.base.Signal [18]
+    refering  5 classes :
+      lilas.Main [0]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.awt.MemoryModel [28]
+      lilas.util.HistoricValue [43]
+      lilas.awt.CustomPopupMenu [54]
+  lilas.awt.treetable.EditorStdLogic R-1
+    refered by 1 classes :
+      lilas.base.Signal [18]
+    refering  4 classes :
+      lilas.Main [0]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.awt.MemoryModel [28]
+      lilas.type.StdLogic [41]
+  lilas.awt.treetable.EditorValue R-1
+    refered by 1 classes :
+      lilas.awt.CmdDisplay [14]
+    refering  2 classes :
+      lilas.awt.MemoryDisplay [16]
+      lilas.base.Signal [18]
+  lilas.awt.treetable.JTreeTable R-1
+    refered by 2 classes :
+      lilas.Main [0]
+      lilas.awt.Display [57]
+    refering  5 classes :
+      lilas.Main [0]
+      lilas.base.SystemL [21]
+      lilas.util.HistoricValue [43]
+      lilas.util.DatedObject [45]
+      lilas.util.DatedObjectsList [59]
+  lilas.awt.treetable.LilasSystemModel R-1
+    refered by 1 classes :
+      lilas.Main [0]
+    refering  4 classes :
+      lilas.Main [0]
+      lilas.base.Module [13]
+      lilas.base.Signal [18]
+      lilas.base.SystemL [21]
+  lilas.awt.treetable.MemoryTableEditorRenderer R-1
+    refered by 1 classes :
+      lilas.awt.MemoryDisplay [16]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.Signal [18]
+      lilas.base.SystemL [21]
+      lilas.type.StdLogic [41]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.CustomDialog [65]
+  lilas.awt.treetable.MemoryTableModel R-1
+    refered by 1 classes :
+      lilas.awt.MemoryModel [28]
+    refering  0 classes :
+  lilas.awt.treetable.RendererHistoricStandard R-1
+    refered by 1 classes :
+      lilas.base.Signal [18]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.base.SignalListener [30]
+      lilas.util.HistoricValue [43]
+      lilas.awt.TypeDrawStandard [44]
+      lilas.awt.Display [57]
+  lilas.awt.treetable.RendererStandard R-1
+    refered by 1 classes :
+      lilas.base.Signal [18]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.awt.MemoryDisplayable [26]
+      lilas.base.ArrayLilas [27]
+      lilas.base.SignalListener [30]
+      lilas.util.HistoricValue [43]
+  lilas.awt.treetable.RendererStdLogic R-1
+    refered by 1 classes :
+      lilas.base.Signal [18]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.awt.MemoryDisplayable [26]
+      lilas.base.SignalListener [30]
+      lilas.type.StdLogic [41]
+      lilas.util.HistoricValue [43]
+  lilas.awt.treetable.SignalEditorRenderer R-1
+    refered by 3 classes :
+      lilas.awt.MemoryDisplay [16]
+      lilas.base.Signal [18]
+      lilas.awt.treetable.MemoryTableEditorRenderer [64]
+    refering  8 classes :
+      lilas.Main [0]
+      lilas.base.SystemL [21]
+      lilas.type.StdLogic [41]
+      lilas.awt.TypeDrawStandard [44]
+      lilas.awt.TypeDrawBoolean [50]
+      lilas.awt.TypeDrawCharge [51]
+      lilas.awt.TypeDrawStdLogic [52]
+      lilas.base.ValModuleStatus [63]
+  lilas.awt.treetable.TreeNode R-1
+    refered by 1 classes :
+      lilas.base.Module [13]
+    refering  11 classes :
+      lilas.Main [0]
+      lilas.awt.CmdDisplay [14]
+      lilas.base.Signal [18]
+      lilas.base.ArrayLilas [27]
+      lilas.type.StdLogic [41]
+      lilas.awt.TypeDrawStandard [44]
+      lilas.awt.TypeDrawBoolean [50]
+      lilas.awt.TypeDrawCharge [51]
+      lilas.awt.TypeDrawStdLogic [52]
+      lilas.awt.CustomPopupMenu [54]
+      lilas.base.ValModuleStatus [63]
+  lilas.base.ArrayLilas R-1
+    refered by 3 classes :
+      lilas.xml.DefXML [25]
+      lilas.awt.treetable.RendererStandard [60]
+      lilas.awt.treetable.TreeNode [66]
+    refering  8 classes :
+      lilas.Main [0]
+      lilas.awt.Assembleur [10]
+      lilas.xml.DocumentXML [11]
+      lilas.awt.MemoryDisplayable [26]
+      lilas.awt.MemoryModel [28]
+      lilas.awt.ModifiedStatusListener [31]
+      lilas.xml.DefSignal [32]
+      lilas.type.ArrayStdLogic [46]
+  lilas.base.Coroutine R-1
+    refered by 1 classes :
+      lilas.xml.DefModule [9]
+    refering  0 classes :
+  lilas.base.DateListener R-1
+    refered by 2 classes :
+      lilas.awt.CmdDisplay [14]
+      lilas.awt.DisplayScrollBar [20]
+    refering  0 classes :
+  lilas.base.EventLilas R-1
+    refered by 1 classes :
+      lilas.awt.ElementSVG [40]
+    refering  1 classes :
+      lilas.Main [0]
+  lilas.base.ExceptionLilas R-1
+    refered by 7 classes :
+      lilas.Main [0]
+      lilas.awt.BoutonListeScripts [1]
+      lilas.util.JarBib [94]
+      lilas.xml.LilasTo [95]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+      lilas.edit.Main [98]
+    refering  4 classes :
+      lilas.Parameter [3]
+      lilas.xml.DefModule [9]
+      lilas.xml.DefXML [25]
+      lilas.xml.LocationData [90]
+  lilas.base.InternationalMessage R-1
+    refered by 16 classes :
+      lilas.Main [0]
+      lilas.Parameter [3]
+      lilas.awt.tree.MainFrame [4]
+      lilas.xml.DefModule [9]
+      lilas.xml.DocumentXML [11]
+      lilas.util.VectorError [24]
+      lilas.xml.DefXML [25]
+      lilas.xml.DefSignal [32]
+      lilas.xml.DefAWT [47]
+      lilas.xml.DefSvgElement [68]
+      lilas.logic.Compilateur [72]
+      lilas.xml.DefCode [78]
+      lilas.cmm.Compilateur [81]
+      lilas.util.LogFormatter [89]
+      lilas.xml.LocationData [90]
+      lilas.xml.LilasTo [95]
+    refering  0 classes :
+  lilas.base.Module R-1
+    refered by 9 classes :
+      lilas.Main [0]
+      lilas.awt.BoutonListeScripts [1]
+      lilas.xml.DefModule [9]
+      lilas.awt.ImageSVG [12]
+      lilas.xml.DefSvgElement [68]
+      lilas.awt.treetable.LilasSystemModel [92]
+      lilas.xml.LilasTo [95]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+    refering  15 classes :
+      lilas.Main [0]
+      lilas.base.Port [6]
+      lilas.base.Sensibility [7]
+      lilas.xml.DocumentXML [11]
+      lilas.awt.CmdDisplay [14]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.base.Signal [18]
+      lilas.util.Chronometer [22]
+      lilas.awt.MemoryDisplayable [26]
+      lilas.awt.ElementSVG [40]
+      lilas.type.StdLogic [41]
+      lilas.util.DatedObjectsList [59]
+      lilas.base.ValModuleStatus [63]
+      lilas.awt.treetable.TreeNode [66]
+      lilas.util.SnapShotSVG [67]
+  lilas.base.ModuleExternalEvent R-1
+    refered by 12 classes :
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.awt.CmdDisplay [14]
+      lilas.awt.MemoryDisplay [16]
+      lilas.awt.MemoryModel [28]
+      lilas.awt.ElementSVG [40]
+      lilas.awt.TabChangeListener [49]
+      lilas.awt.treetable.EditorStandard [53]
+      lilas.awt.treetable.EditorStdLogic [55]
+      lilas.awt.treetable.RendererHistoricStandard [56]
+      lilas.awt.treetable.RendererStandard [60]
+      lilas.awt.treetable.RendererStdLogic [61]
+    refering  1 classes :
+      lilas.Main [0]
+  lilas.base.Port R-1
+    refered by 13 classes :
+      lilas.Main [0]
+      lilas.awt.tree.MainFrame [4]
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.xml.DefXML [25]
+      lilas.xml.DefSignal [32]
+      lilas.xml.DefModuleCall [34]
+      lilas.edit.ModuleSVG [39]
+      lilas.type.StdLogic [41]
+      lilas.type.ArrayStdLogic [46]
+      lilas.awt.TabChangeListener [49]
+      lilas.logic.Compilateur [72]
+      lilas.cmm.Compilateur [81]
+    refering  2 classes :
+      lilas.Main [0]
+      lilas.base.Sensibility [7]
+  lilas.base.Sensibility R-1
+    refered by 4 classes :
+      lilas.base.Port [6]
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.awt.MemoryDisplay [16]
+    refering  0 classes :
+  lilas.base.Signal R-1
+    refered by 13 classes :
+      lilas.awt.BoutonListeScripts [1]
+      lilas.xml.DefModule [9]
+      lilas.awt.ImageSVG [12]
+      lilas.base.Module [13]
+      lilas.awt.CmdDisplay [14]
+      lilas.awt.treetable.EditorValue [15]
+      lilas.awt.MemoryDisplay [16]
+      lilas.awt.treetable.MemoryTableEditorRenderer [64]
+      lilas.awt.treetable.TreeNode [66]
+      lilas.xml.DefSvgElement [68]
+      lilas.awt.treetable.LilasSystemModel [92]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+    refering  11 classes :
+      lilas.Main [0]
+      lilas.awt.treetable.EditorHistoricStandard [19]
+      lilas.type.StdLogic [41]
+      lilas.util.HistoricValue [43]
+      lilas.awt.treetable.EditorStandard [53]
+      lilas.awt.treetable.EditorStdLogic [55]
+      lilas.awt.treetable.RendererHistoricStandard [56]
+      lilas.util.DatedObjectsList [59]
+      lilas.awt.treetable.RendererStandard [60]
+      lilas.awt.treetable.RendererStdLogic [61]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+  lilas.base.SignalListener R-1
+    refered by 10 classes :
+      lilas.awt.BoutonListeScripts [1]
+      lilas.awt.MemoryDisplay [16]
+      lilas.awt.MemoryModel [28]
+      lilas.awt.ElementSVG [40]
+      lilas.awt.treetable.RendererHistoricStandard [56]
+      lilas.awt.Display [57]
+      lilas.awt.treetable.RendererStandard [60]
+      lilas.awt.treetable.RendererStdLogic [61]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+    refering  0 classes :
+  lilas.base.SystemL R-1
+    refered by 16 classes :
+      lilas.Main [0]
+      lilas.xml.DefModule [9]
+      lilas.awt.ImageSVG [12]
+      lilas.awt.CmdDisplay [14]
+      lilas.awt.MemoryDisplay [16]
+      lilas.awt.treetable.EditorHistoricStandard [19]
+      lilas.awt.DisplayScrollBar [20]
+      lilas.awt.MemoryModel [28]
+      lilas.awt.treetable.JTreeTable [58]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.MemoryTableEditorRenderer [64]
+      lilas.awt.Fenetre [91]
+      lilas.awt.treetable.LilasSystemModel [92]
+      lilas.util.FenetreHTML [93]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+    refering  2 classes :
+      lilas.Main [0]
+      lilas.util.Chronometer [22]
+  lilas.base.ValModuleStatus R-1
+    refered by 3 classes :
+      lilas.base.Module [13]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.TreeNode [66]
+    refering  0 classes :
+  lilas.base.Value -> -2 -> ERR
+  lilas.cmm.Compilateur R-1
+    refered by 1 classes :
+      lilas.xml.DefCode [78]
+    refering  14 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+      lilas.base.Port [6]
+      lilas.xml.DocumentXML [11]
+      lilas.util.VectorError [24]
+      lilas.xml.DefSignal [32]
+      lilas.type.StdLogic [41]
+      lilas.logic.parser.ParseException [73]
+      lilas.cmm.parser.ParseException [82]
+      lilas.cmm.parser.Parser [83]
+      lilas.cmm.parser.SimpleNode [84]
+      lilas.cmm.parser.Token [85]
+      lilas.cmm.parser.TokenMgrError [86]
+      lilas.xml.DefCodeCompilateur [87]
+  lilas.cmm.parser.ParseException R-1
+    refered by 1 classes :
+      lilas.cmm.Compilateur [81]
+    refering  0 classes :
+  lilas.cmm.parser.Parser R-1
+    refered by 1 classes :
+      lilas.cmm.Compilateur [81]
+    refering  0 classes :
+  lilas.cmm.parser.SimpleNode R-1
+    refered by 1 classes :
+      lilas.cmm.Compilateur [81]
+    refering  0 classes :
+  lilas.cmm.parser.Token R-1
+    refered by 1 classes :
+      lilas.cmm.Compilateur [81]
+    refering  0 classes :
+  lilas.cmm.parser.TokenMgrError R-1
+    refered by 1 classes :
+      lilas.cmm.Compilateur [81]
+    refering  0 classes :
+  lilas.edit.Editeur R-1
+    refered by 2 classes :
+      lilas.xml.DefModule [9]
+      lilas.xml.DefModuleCall [34]
+    refering  3 classes :
+      lilas.Main [0]
+      lilas.xml.DocumentXML [11]
+      lilas.awt.tree.JDialogResourceTree [36]
+  lilas.edit.ListeSignaux R-1
+    refered by 1 classes :
+      lilas.xml.DefModuleCall [34]
+    refering  0 classes :
+  lilas.edit.Main R-1
+    refered by 1 classes :
+      lilas.Main [0]
+    refering  7 classes :
+      lilas.Main [0]
+      lilas.base.ExceptionLilas [2]
+      lilas.Parameter [3]
+      lilas.util.LilasPath [8]
+      lilas.xml.DefModule [9]
+      lilas.xml.DocumentXML [11]
+      lilas.awt.ImageSVG [12]
+  lilas.edit.ModuleImageSVG R-1
+    refered by 2 classes :
+      lilas.xml.DefModule [9]
+      lilas.xml.DefModuleCall [34]
+    refering  0 classes :
+  lilas.edit.ModuleSVG R-1
+    refered by 2 classes :
+      lilas.xml.DefModule [9]
+      lilas.xml.DefModuleCall [34]
+    refering  4 classes :
+      lilas.Main [0]
+      lilas.base.Port [6]
+      lilas.xml.DocumentXML [11]
+      lilas.awt.ElementSVG [40]
+  lilas.edit.Plot R-1
+    refered by 2 classes :
+      lilas.xml.DefModule [9]
+      lilas.xml.DefSignal [32]
+    refering  1 classes :
+      lilas.xml.DefModuleCall [34]
+  lilas.logic.Compilateur R-1
+    refered by 1 classes :
+      lilas.xml.DefModule [9]
+    refering  14 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+      lilas.base.Port [6]
+      lilas.xml.DocumentXML [11]
+      lilas.util.VectorError [24]
+      lilas.xml.DefSignal [32]
+      lilas.type.StdLogic [41]
+      lilas.logic.parser.ParseException [73]
+      lilas.logic.parser.Parser [74]
+      lilas.logic.parser.SimpleNode [75]
+      lilas.logic.parser.Token [76]
+      lilas.logic.parser.TokenMgrError [77]
+      lilas.xml.DefCode [78]
+      lilas.xml.DefCodeCompilateur [87]
+  lilas.logic.CompilateurToJava R-1
+    refered by 1 classes :
+      lilas.xml.DefCode [78]
+    refering  10 classes :
+      lilas.Main [0]
+      lilas.xml.DocumentXML [11]
+      lilas.xml.DefSignal [32]
+      lilas.type.StdLogic [41]
+      lilas.logic.parser.ParseException [73]
+      lilas.logic.parser.Parser [74]
+      lilas.logic.parser.SimpleNode [75]
+      lilas.logic.parser.Token [76]
+      lilas.logic.parser.TokenMgrError [77]
+      lilas.logic.CompilateurToVHDL [80]
+  lilas.logic.CompilateurToVHDL R-1
+    refered by 2 classes :
+      lilas.xml.DefCode [78]
+      lilas.logic.CompilateurToJava [79]
+    refering  9 classes :
+      lilas.Main [0]
+      lilas.xml.DocumentXML [11]
+      lilas.xml.DefSignal [32]
+      lilas.type.StdLogic [41]
+      lilas.logic.parser.ParseException [73]
+      lilas.logic.parser.Parser [74]
+      lilas.logic.parser.SimpleNode [75]
+      lilas.logic.parser.Token [76]
+      lilas.logic.parser.TokenMgrError [77]
+  lilas.logic.parser.ParseException R-1
+    refered by 6 classes :
+      lilas.logic.Compilateur [72]
+      lilas.xml.DefCode [78]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+      lilas.cmm.Compilateur [81]
+      lilas.xml.DefCodeCompilateur [87]
+    refering  0 classes :
+  lilas.logic.parser.Parser R-1
+    refered by 3 classes :
+      lilas.logic.Compilateur [72]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+    refering  0 classes :
+  lilas.logic.parser.SimpleNode R-1
+    refered by 3 classes :
+      lilas.logic.Compilateur [72]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+    refering  0 classes :
+  lilas.logic.parser.Token R-1
+    refered by 3 classes :
+      lilas.logic.Compilateur [72]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+    refering  0 classes :
+  lilas.logic.parser.TokenMgrError R-1
+    refered by 3 classes :
+      lilas.logic.Compilateur [72]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+    refering  0 classes :
+  lilas.type.ArrayStdLogic R-1
+    refered by 2 classes :
+      lilas.xml.DefModule [9]
+      lilas.base.ArrayLilas [27]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.Port [6]
+      lilas.awt.Assembleur [10]
+      lilas.awt.MemoryDisplayable [26]
+      lilas.xml.DefSignal [32]
+      lilas.type.StdLogic [41]
+  lilas.type.StdLogic R-1
+    refered by 23 classes :
+      lilas.Parameter [3]
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.base.Signal [18]
+      lilas.awt.treetable.EditorHistoricStandard [19]
+      lilas.xml.DefXML [25]
+      lilas.xml.DefSignal [32]
+      lilas.xml.DefModuleCall [34]
+      lilas.awt.ElementSVG [40]
+      lilas.type.ArrayStdLogic [46]
+      lilas.awt.TypeDrawStdLogic [52]
+      lilas.awt.treetable.EditorStdLogic [55]
+      lilas.awt.Display [57]
+      lilas.awt.treetable.RendererStdLogic [61]
+      lilas.awt.treetable.SignalEditorRenderer [62]
+      lilas.awt.treetable.MemoryTableEditorRenderer [64]
+      lilas.awt.treetable.TreeNode [66]
+      lilas.xml.DefSvgElement [68]
+      lilas.logic.Compilateur [72]
+      lilas.xml.DefCode [78]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+      lilas.cmm.Compilateur [81]
+    refering  2 classes :
+      lilas.Main [0]
+      lilas.base.Port [6]
+  lilas.util.Chronometer R-1
+    refered by 6 classes :
+      lilas.xml.DefModule [9]
+      lilas.base.Module [13]
+      lilas.base.SystemL [21]
+      lilas.awt.Display [57]
+      lilas.xml.DefCode [78]
+      lilas.awt.BoutonPasAPas [97]
+    refering  0 classes :
+  lilas.util.Cleaner R-1
+    refered by 2 classes :
+      lilas.Main [0]
+      lilas.xml.DefModule [9]
+    refering  1 classes :
+      lilas.xml.DocumentXML [11]
+  lilas.util.DatedObject R-1
+    refered by 3 classes :
+      lilas.awt.TypeDrawStandard [44]
+      lilas.awt.Display [57]
+      lilas.awt.treetable.JTreeTable [58]
+    refering  0 classes :
+  lilas.util.DatedObjectsList R-1
+    refered by 4 classes :
+      lilas.base.Module [13]
+      lilas.base.Signal [18]
+      lilas.awt.Display [57]
+      lilas.awt.treetable.JTreeTable [58]
+    refering  1 classes :
+      lilas.Main [0]
+  lilas.util.FenetreHTML R-1
+    refered by 1 classes :
+      lilas.Main [0]
+    refering  3 classes :
+      lilas.Main [0]
+      lilas.Parameter [3]
+      lilas.base.SystemL [21]
+  lilas.util.HistoricValue R-1
+    refered by 13 classes :
+      lilas.awt.BoutonListeScripts [1]
+      lilas.base.Signal [18]
+      lilas.xml.DefSignal [32]
+      lilas.xml.DefModuleCall [34]
+      lilas.awt.treetable.EditorStandard [53]
+      lilas.awt.treetable.RendererHistoricStandard [56]
+      lilas.awt.Display [57]
+      lilas.awt.treetable.JTreeTable [58]
+      lilas.awt.treetable.RendererStandard [60]
+      lilas.awt.treetable.RendererStdLogic [61]
+      lilas.xml.DefSvgElement [68]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+    refering  2 classes :
+      lilas.Main [0]
+      lilas.awt.TypeDrawStandard [44]
+  lilas.util.JarBib R-1
+    refered by 1 classes :
+      lilas.Main [0]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.ExceptionLilas [2]
+      lilas.Parameter [3]
+      lilas.xml.DefModule [9]
+      lilas.util.compiler.CompilateurJavaDynamique [70]
+      lilas.xml.LilasTo [95]
+  lilas.util.LilasPath R-1
+    refered by 6 classes :
+      lilas.Main [0]
+      lilas.Parameter [3]
+      lilas.awt.tree.MainFrame [4]
+      lilas.xml.LilasTo [95]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.edit.Main [98]
+    refering  3 classes :
+      lilas.Main [0]
+      lilas.xml.DefModule [9]
+      lilas.xml.DocumentXML [11]
+  lilas.util.LogFormatter R-1
+    refered by 2 classes :
+      lilas.Main [0]
+      lilas.Parameter [3]
+    refering  1 classes :
+      lilas.base.InternationalMessage [5]
+  lilas.util.SnapShotSVG R-1
+    refered by 3 classes :
+      lilas.base.Module [13]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+    refering  0 classes :
+  lilas.util.VectorError R-1
+    refered by 17 classes :
+      lilas.Main [0]
+      lilas.awt.BoutonListeScripts [1]
+      lilas.xml.DefModule [9]
+      lilas.awt.ImageSVG [12]
+      lilas.awt.MemoryDisplay [16]
+      lilas.awt.DisplayScrollBar [20]
+      lilas.xml.DefAWT [47]
+      lilas.awt.Panel [48]
+      lilas.awt.Display [57]
+      lilas.xml.DefSvgElement [68]
+      lilas.logic.Compilateur [72]
+      lilas.xml.DefCode [78]
+      lilas.cmm.Compilateur [81]
+      lilas.xml.DefCodeCompilateur [87]
+      lilas.xml.LilasTo [95]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+    refering  3 classes :
+      lilas.base.InternationalMessage [5]
+      lilas.xml.DocumentXML [11]
+      lilas.xml.DefXML [25]
+  lilas.util.compiler.CompilateurJavaDynamique R-1
+    refered by 3 classes :
+      lilas.Main [0]
+      lilas.xml.DefModule [9]
+      lilas.util.JarBib [94]
+    refering  1 classes :
+      lilas.Main [0]
+  lilas.util.compiler.DynamicJavaSourceCodeObject R-1
+    refered by 1 classes :
+      lilas.xml.DefModule [9]
+    refering  1 classes :
+      lilas.Main [0]
+  lilas.xml.DefAWT R-1
+    refered by 8 classes :
+      lilas.awt.BoutonListeScripts [1]
+      lilas.awt.ImageSVG [12]
+      lilas.awt.CmdDisplay [14]
+      lilas.awt.MemoryDisplay [16]
+      lilas.awt.DisplayScrollBar [20]
+      lilas.awt.Display [57]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+    refering  4 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+      lilas.util.VectorError [24]
+      lilas.awt.Panel [48]
+  lilas.xml.DefCode R-1
+    refered by 1 classes :
+      lilas.logic.Compilateur [72]
+    refering  9 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+      lilas.util.Chronometer [22]
+      lilas.util.VectorError [24]
+      lilas.type.StdLogic [41]
+      lilas.logic.parser.ParseException [73]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+      lilas.cmm.Compilateur [81]
+  lilas.xml.DefCodeCompilateur R-1
+    refered by 2 classes :
+      lilas.logic.Compilateur [72]
+      lilas.cmm.Compilateur [81]
+    refering  2 classes :
+      lilas.util.VectorError [24]
+      lilas.logic.parser.ParseException [73]
+  lilas.xml.DefModule R-1
+    refered by 9 classes :
+      lilas.Main [0]
+      lilas.awt.BoutonListeScripts [1]
+      lilas.base.ExceptionLilas [2]
+      lilas.awt.tree.MainFrame [4]
+      lilas.util.LilasPath [8]
+      lilas.util.JarBib [94]
+      lilas.awt.BoutonSnapshot [96]
+      lilas.awt.BoutonPasAPas [97]
+      lilas.edit.Main [98]
+    refering  24 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+      lilas.base.Port [6]
+      lilas.base.Sensibility [7]
+      lilas.awt.Assembleur [10]
+      lilas.awt.ImageSVG [12]
+      lilas.base.Module [13]
+      lilas.base.ModuleExternalEvent [17]
+      lilas.base.Signal [18]
+      lilas.base.SystemL [21]
+      lilas.util.Chronometer [22]
+      lilas.util.VectorError [24]
+      lilas.edit.Plot [33]
+      lilas.edit.Editeur [35]
+      lilas.edit.ModuleImageSVG [38]
+      lilas.edit.ModuleSVG [39]
+      lilas.awt.ElementSVG [40]
+      lilas.type.StdLogic [41]
+      lilas.type.ArrayStdLogic [46]
+      lilas.util.Cleaner [69]
+      lilas.util.compiler.CompilateurJavaDynamique [70]
+      lilas.util.compiler.DynamicJavaSourceCodeObject [71]
+      lilas.logic.Compilateur [72]
+      lilas.base.Coroutine [88]
+  lilas.xml.DefModuleCall R-1
+    refered by 1 classes :
+      lilas.edit.Plot [33]
+    refering  8 classes :
+      lilas.Main [0]
+      lilas.base.Port [6]
+      lilas.edit.Editeur [35]
+      lilas.edit.ListeSignaux [37]
+      lilas.edit.ModuleImageSVG [38]
+      lilas.edit.ModuleSVG [39]
+      lilas.type.StdLogic [41]
+      lilas.util.HistoricValue [43]
+  lilas.xml.DefSignal R-1
+    refered by 9 classes :
+      lilas.Main [0]
+      lilas.awt.tree.MainFrame [4]
+      lilas.awt.MemoryDisplay [16]
+      lilas.base.ArrayLilas [27]
+      lilas.type.ArrayStdLogic [46]
+      lilas.logic.Compilateur [72]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+      lilas.cmm.Compilateur [81]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+      lilas.base.Port [6]
+      lilas.edit.Plot [33]
+      lilas.type.StdLogic [41]
+      lilas.util.HistoricValue [43]
+  lilas.xml.DefSvgElement R-1
+    refered by 1 classes :
+      lilas.awt.ImageSVG [12]
+    refering  6 classes :
+      lilas.base.InternationalMessage [5]
+      lilas.base.Module [13]
+      lilas.base.Signal [18]
+      lilas.util.VectorError [24]
+      lilas.type.StdLogic [41]
+      lilas.util.HistoricValue [43]
+  lilas.xml.DefXML R-1
+    refered by 4 classes :
+      lilas.base.ExceptionLilas [2]
+      lilas.awt.MemoryDisplay [16]
+      lilas.util.VectorError [24]
+      lilas.awt.Panel [48]
+    refering  6 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+      lilas.base.Port [6]
+      lilas.awt.MemoryDisplayable [26]
+      lilas.base.ArrayLilas [27]
+      lilas.type.StdLogic [41]
+  lilas.xml.DocumentXML R-1
+    refered by 18 classes :
+      lilas.Main [0]
+      lilas.Parameter [3]
+      lilas.util.LilasPath [8]
+      lilas.awt.Assembleur [10]
+      lilas.awt.ImageSVG [12]
+      lilas.base.Module [13]
+      lilas.util.VectorError [24]
+      lilas.base.ArrayLilas [27]
+      lilas.edit.Editeur [35]
+      lilas.edit.ModuleSVG [39]
+      lilas.awt.ElementSVG [40]
+      lilas.awt.Panel [48]
+      lilas.util.Cleaner [69]
+      lilas.logic.Compilateur [72]
+      lilas.logic.CompilateurToJava [79]
+      lilas.logic.CompilateurToVHDL [80]
+      lilas.cmm.Compilateur [81]
+      lilas.edit.Main [98]
+    refering  2 classes :
+      lilas.Main [0]
+      lilas.base.InternationalMessage [5]
+  lilas.xml.LilasTo R-1
+    refered by 2 classes :
+      lilas.Main [0]
+      lilas.util.JarBib [94]
+    refering  7 classes :
+      lilas.Main [0]
+      lilas.base.ExceptionLilas [2]
+      lilas.Parameter [3]
+      lilas.base.InternationalMessage [5]
+      lilas.util.LilasPath [8]
+      lilas.base.Module [13]
+      lilas.util.VectorError [24]
+  lilas.xml.LocationData R-1
+    refered by 1 classes :
+      lilas.base.ExceptionLilas [2]
+    refering  2 classes :
+      lilas.Parameter [3]
+      lilas.base.InternationalMessage [5]

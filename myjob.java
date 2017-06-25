@@ -14,6 +14,8 @@
 		http://docs.oracle.com/javase/tutorial/jaxp/
 	JL a D/L tous les trails dans 1 archive javatutorials.zip
 
+- compilation
+	javac -Xlint myclass.java	# Xlint est le Wall du java !!!
 - conventions
 	- nom de classe commence par majuscule, methode par minuscule, constante toute en majuscules
 	- nom de methode commence par un verbe !!!
@@ -123,8 +125,8 @@
 			<classpath>/fr/sourcecode/my_package/Myclass.class
 		  i.e. finalement les noms de package refletent bien une hierarchie mais c'est une hierarchie
 		  de fichiers, pas de packages (sourcecode n'est PAS un package)
-		- curieusement le trail Oracle conseille d'invoquer le compilateur depuis le repertoire commun
-		  a plusieurs package, par exemple fr/sourcecode
+		- le trail Oracle conseille d'invoquer le compilateur depuis le repertoire racine des packages
+		  par exemple fr/sourcecode
 		- javac prend 4 arguments essentiels pour faire la compilation recursive de tout un arbre :
 			-d : destination dir - il doit exister, ensuite javac est capable d'y recreer l'arbre des packages
 			     pour y mettre les classes
@@ -218,8 +220,8 @@
 	myVector.add( myTruc );		// ajouter un objet a la fin
 	myChose = myVector.get( i );	// lire un objet
 	myCnt = myVector.size();	// la taille
-
-- Maps : plusieurs types : Hashtable, HashMap, TreeMap (uses the natural ordering of its keys)
+- Set : une interface implementee par plusieurs types : HashSet, TreeSet
+- Map : une interface implementee par plusieurs types : Hashtable, HashMap, TreeMap (uses the natural ordering of its keys)
 
 -------------------------------------------------------------------------------------------------------
 - tutos Eclipse
