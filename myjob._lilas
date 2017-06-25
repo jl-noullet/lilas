@@ -290,6 +290,23 @@ autre boucle soupçonnee : lilas.Parameter vs lilas.awt.tree.MainFrame
 Spec phase 2 : stockage des donnees
 	- inner-classe LilasNode
 	- au cours du parcours d'arbre initial, les infos des classes identifiees sont stockées dans un array de LilasNode
+	- chaque LilasNode a la liste (TreeSet) de ses referants et de ses referes
+
+Spec phase 3 : evaluation des ranks :
+	- definition
+		rank = 0 si la classe ne depend d'aucune autre (classe "feuille")
+		rank = N si la classe ne depend que de classes de rank < N
+	- resultats preliminaires
+		  0 : 27 nodes
+		  1 : 1 nodes
+	  c'est tout ! c'est a cause des boucles, notamment celle de lilas.Main "refered by 56 classes"
+	  on met un hack pour sauter lilas.Main dans le scan des referes :
+		  0 : 27 nodes
+		  1 : 5 nodes
+		  2 : 4 nodes
+		  3 : 1 nodes
+		  4 : 1 nodes
+	  
 
 -----------------------------------------------------------------------------------------------------------------
 la liste des packages de la branche lilas :

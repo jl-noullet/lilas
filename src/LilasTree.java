@@ -21,6 +21,8 @@ import java.util.regex.Matcher;
 
 public class LilasTree {
 
+static final int NORANK = 1000;
+
 class LilasNode {
 	String classname;
 	int rank;
@@ -29,7 +31,7 @@ class LilasNode {
 	// constructeur
 	LilasNode( String name ) {
 		classname = name;
-		rank = -1;
+		rank = NORANK;
 		referes = new TreeSet<Integer>();
 		referants = new TreeSet<Integer>();
 		}
@@ -40,7 +42,7 @@ class LilasNode {
 		while	(itu.hasNext()) {
 			v = itu.next();
 			LilasNode n = noeuds.get(v);
-			System.out.println("      " + n.classname + " [" + v + "]" );
+			System.out.println("      " + n.classname + " R" + n.rank + "," );
 			}
 		}
 	// dump du LilasNode en detail
@@ -49,7 +51,7 @@ class LilasNode {
 			System.out.println("  " + classname + " R" + rank +
 					   " [^" + referants.size() + "_" + referes.size() + "]" );
 		else	{
-			System.out.println("  " + classname + " R" + rank );
+			System.out.println("  " + classname + " R" + rank + "," );
 			System.out.println("    refered by " + referants.size() + " classes :" );
 			setdump( referants );
 			System.out.println("    refering  " + referes.size() + " classes :" );
@@ -66,6 +68,7 @@ TreeMap<String,Integer> iexternal;
 TreeMap<String,Integer> ililas;
 TreeMap<String,Integer> iinconnu;
 TreeMap<String,Integer> ililenum;
+
 
 // constructeur
 public LilasTree( String srcpath ) { 
@@ -280,6 +283,43 @@ public int explore( String zeClass, int depth ) {
 	return zeIndex;
 	} // explore
 
+
+// scanner les LilasNodes pour evaluer leurs ranks
+// on refait un scan pour chaque valeur de rank
+public int rankize() {
+	int currank = 0; int cnt, iref;
+	System.out.println("RANKS :");
+	while	( currank < 10 ) {
+		cnt = 0;
+		for	( int i = 0; i < noeuds.size(); ++i ) {
+			LilasNode n = noeuds.get(i);
+			// sauter le noeud s'il est deja rankised
+			if	( n.rank < NORANK )
+				continue;
+			n.rank = currank;	// rank attribue a priori
+			// scanner les referes du noeud
+			Iterator<Integer> itu = n.referes.iterator();
+			while	( itu.hasNext() ) {
+				iref = itu.next();
+				if	( ( iref == 0 ) && ( itu.hasNext() ) )
+					iref = itu.next();	// skip Main
+				if	( noeuds.get(iref).rank >= currank ) {
+					n.rank = NORANK;	// eliminer ce noeud pour le rank courant
+					break;
+					}
+				}
+			if	( n.rank < NORANK )
+				++cnt;					
+			} // node loop
+		System.out.println("  " + currank + " : " + cnt + " nodes" );
+		if	( cnt == 0 )
+			break;
+		++currank;
+		} // rank loop
+	return 0;
+	}
+
+
 public static void main(String[] args) {
         int argc = args.length;
 	if	( argc < 2 )
@@ -290,6 +330,7 @@ public static void main(String[] args) {
 	LilasTree li = new LilasTree( args[0] );
 	li.ililas.put( args[1], 0 );	// marquer cette classe pour eviter bouclage infini...
 	li.explore( args[1], 0 );
+	li.rankize();
 	li.dump();
 	} // main()
 
