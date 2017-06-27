@@ -42,7 +42,9 @@ class LilasNode {
 		while	(itu.hasNext()) {
 			v = itu.next();
 			LilasNode n = noeuds.get(v);
-			System.out.println("      " + n.classname + " R" + n.rank + "," );
+			if	( n.rank < NORANK )
+				System.out.println("      " + n.classname + " R" + n.rank + "," );
+			else	System.out.println("      " + n.classname );
 			}
 		}
 	// dump du LilasNode en detail
@@ -187,6 +189,7 @@ public int explore( String zeClass, int depth ) {
 	indent( depth );
 	if	( !Files.exists( lepath ) ) {
 		System.out.println( "NOT FOUND " + zeClass + " (" + lepath +")" );
+		ililas.put( zeClass, -1 );
 		return -2; 
 		}
 	else	{
@@ -196,6 +199,7 @@ public int explore( String zeClass, int depth ) {
 	LilasNode lenoeud = new LilasNode( zeClass );
 	int zeIndex = noeuds.size();
 	noeuds.add( lenoeud );
+	ililas.put( zeClass, zeIndex );
 	// lire ce fichier ligne par ligne
 	String line; String splut[]; 
 	int linecnt = 0; int resu, id;
@@ -250,15 +254,11 @@ public int explore( String zeClass, int depth ) {
 						else if	( !targetClass.equals( zeClass ) )	// ignorer self-reference
 							{	
 							if	( ililas.get( targetClass ) == null ) {
-								// il faut deja marquer avant de recurser, sinon peut boucler !
-								ililas.put( targetClass, -1 );
 								targetIndex = explore( targetClass, depth+1 );	// recursion ici !
  								if	( targetIndex < 0 ) {
 									indent( depth+1 );
 									System.out.println("ERR line " + linecnt + " in " + zeClass );
 									}
-								// marquage definitif
-								ililas.put( targetClass, targetIndex );
 								}
 							else	{	// si on l'a deja traite il faut qd meme l'index
 								targetIndex = ililas.get( targetClass );
@@ -269,7 +269,7 @@ public int explore( String zeClass, int depth ) {
 								noeuds.get(zeIndex).referes.add(targetIndex);
 								}
 							else	{
-								System.out.println("LOOPi : " + targetClass + " <--> " + zeClass );
+								System.out.println("ERR : " + targetClass + " index " + targetIndex );
 								}
 							}
 						}
@@ -292,15 +292,11 @@ public int explore( String zeClass, int depth ) {
 							if	( targetClass.equals( zeClass ) )	// ignorer self-reference
 								break;
 							if	( ililas.get( targetClass ) == null ) {
-								// il faut deja marquer avant de recurser, sinon peut boucler !
-								ililas.put( targetClass, -1 );
- 								targetIndex = explore( targetClass, depth+1 );	// recursion ici !
+								targetIndex = explore( targetClass, depth+1 );	// recursion ici !
  								if	( targetIndex < 0 ) {
 									indent( depth+1 );
 									System.out.println("ERR line " + linecnt + " in " + zeClass );
 									}
-								// marquage definitif
-								ililas.put( targetClass, targetIndex );
 								}
 							else	{	// si on l'a deja traite il faut qd meme l'index
 								targetIndex = ililas.get( targetClass );
@@ -311,7 +307,7 @@ public int explore( String zeClass, int depth ) {
 								noeuds.get(zeIndex).referes.add(targetIndex);
 								}
 							else	{
-								System.out.println("LOOPf : " + targetClass + " <--> " + zeClass );
+								System.out.println("ERR : " + targetClass + " index " + targetIndex );
 								}
 							break;
 							}
@@ -347,8 +343,8 @@ public int rankize() {
 				iref = itu.next();
 //				if	( ( iref == 0 ) && ( itu.hasNext() ) )	// il semble que hasNext() ait un effet de bord :-(((
 //					iref = itu.next(); // skip Main
-				if	( iref == 0 )
-					continue;		// skip Main
+//				if	( iref == 0 )
+//					continue;		// skip Main
 				if	( noeuds.get(iref).rank >= currank ) {
 					n.rank = NORANK;	// eliminer ce noeud pour le rank courant
 					break;
@@ -407,9 +403,9 @@ public static void main(String[] args) {
 	LilasTree li = new LilasTree( args[0] );
 	li.ililas.put( args[1], 0 );	// marquer cette classe pour eviter bouclage infini...
 	li.explore( args[1], 0 );
-	//li.rankize();
-	//li.rankdump();
-	//li.dump();
+	li.rankize();
+	li.dump();
+	li.rankdump();
 	} // main()
 
 } // class

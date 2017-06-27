@@ -302,7 +302,7 @@ Spec phase 3 : evaluation des ranks :
 		  1 : 1 nodes
 	  c'est tout ! c'est a cause des boucles, notamment celle de lilas.Main "refered by 56 classes"
 	  on met un hack pour sauter lilas.Main dans le scan des referes, et toutes les classes ont un rank
-	  en finissant avec Main au rank 33 !! Il n'y avait que Main comme cause de boucle
+	  en finissant avec Main au rank 33 !! Il n'y avait que Main comme cause de boucle <-- FAUX :-()
 	  
 Spec phase 4 :
 	- detection des boucles : sans objet
@@ -318,6 +318,11 @@ Spec phase 5 : detection bug de phase 2
 	  les detecter toutes :-((
 	- au cours du developpement de la phase 5 on a aussi decouvert 17 classes se referençant elles memes,
 	  ==> introduction d'une detection precoce
+
+Spec phase 6 : fix du bug de phase 2
+	- mise a jour dictionnaire en debut d'explore()
+	  alors on ne detecte plus les boucles, mais les dependances sont ok.
+	- resultat : seulement 24 nodes en rank 0, avec le hack skip Main
 
 -----------------------------------------------------------------------------------------------------------------
 la liste des packages de la branche lilas :
