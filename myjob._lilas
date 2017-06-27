@@ -319,10 +319,12 @@ Spec phase 5 : detection bug de phase 2
 	- au cours du developpement de la phase 5 on a aussi decouvert 17 classes se referençant elles memes,
 	  ==> introduction d'une detection precoce
 
-Spec phase 6 : fix du bug de phase 2
+Spec phase 6 : fix du bug de phase 2 : deception
 	- mise a jour dictionnaire en debut d'explore()
-	  alors on ne detecte plus les boucles, mais les dependances sont ok.
-	- resultat : seulement 24 nodes en rank 0, avec le hack skip Main
+	  alors on ne detecte plus les boucles, mais les dependances sont ok, resultat :
+		24 nodes en rank 0, avec le hack skip Main
+		20 nodes en rank 0, avec le hack skip Main
+	  c'est tout ! le graphe de ce projet est un plat de spaghetti, on en tirera rien
 
 -----------------------------------------------------------------------------------------------------------------
 la liste des packages de la branche lilas :
