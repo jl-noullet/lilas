@@ -247,7 +247,8 @@ public int explore( String zeClass, int depth ) {
 						if	( splut[splut.length-1].equals("*") ) {
 							indent( depth+1 ); System.out.println("ETOILE " + targetClass );
 							}
-						else	{	
+						else if	( !targetClass.equals( zeClass ) )	// ignorer self-reference
+							{	
 							if	( ililas.get( targetClass ) == null ) {
 								// il faut deja marquer avant de recurser, sinon peut boucler !
 								ililas.put( targetClass, -1 );
@@ -267,6 +268,9 @@ public int explore( String zeClass, int depth ) {
 								noeuds.get(targetIndex).referants.add(zeIndex);
 								noeuds.get(zeIndex).referes.add(targetIndex);
 								}
+							else	{
+								System.out.println("LOOPi : " + targetClass + " <--> " + zeClass );
+								}
 							}
 						}
 					else    {
@@ -285,6 +289,8 @@ public int explore( String zeClass, int depth ) {
 					for	( int i = 1; i < splut.length; ++i ) {
 						targetClass = targetClass + "." + splut[i];
 						if	( splut[i].matches("^[A-Z].*") ) {
+							if	( targetClass.equals( zeClass ) )	// ignorer self-reference
+								break;
 							if	( ililas.get( targetClass ) == null ) {
 								// il faut deja marquer avant de recurser, sinon peut boucler !
 								ililas.put( targetClass, -1 );
@@ -303,6 +309,9 @@ public int explore( String zeClass, int depth ) {
 							if	( targetIndex >= 0 ) {
 								noeuds.get(targetIndex).referants.add(zeIndex);
 								noeuds.get(zeIndex).referes.add(targetIndex);
+								}
+							else	{
+								System.out.println("LOOPf : " + targetClass + " <--> " + zeClass );
 								}
 							break;
 							}
@@ -398,8 +407,8 @@ public static void main(String[] args) {
 	LilasTree li = new LilasTree( args[0] );
 	li.ililas.put( args[1], 0 );	// marquer cette classe pour eviter bouclage infini...
 	li.explore( args[1], 0 );
-	li.rankize();
-	li.rankdump();
+	//li.rankize();
+	//li.rankdump();
 	//li.dump();
 	} // main()
 

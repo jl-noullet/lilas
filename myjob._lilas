@@ -310,6 +310,14 @@ Spec phase 4 :
 	  --> inachevee puisque qu'il n'y a qu'une cause de boucle
 	- dump des classes par rank pour generer un script de compilation
 
+Spec phase 5 : detection bug de phase 2
+	- en phase 2, 3, 4 - l'index de la classe en cours d'exploration n'est mis a jour dans le dictionnaire ililas
+	  que en fin d'exploration, donc si au cours de la recursion cette classe est rencontree a nouveau (boucle),
+	  les dependances qui l'impliquent ne sont pas mises a jour et il n'y a pas d'alerte ("if" sans "else")
+	- en phase 5 cette situation est detectee, ce qui met en lumière 197 incidents de boucles, sans pour autant
+	  les detecter toutes :-((
+	- au cours du developpement de la phase 5 on a aussi decouvert 17 classes se referençant elles memes,
+	  ==> introduction d'une detection precoce
 
 -----------------------------------------------------------------------------------------------------------------
 la liste des packages de la branche lilas :
