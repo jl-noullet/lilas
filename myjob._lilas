@@ -353,7 +353,17 @@ grep -r  --no-filename '^package ' lilas | sort | uniq
 	lilas.util;
 	lilas.xml;
 	lilas;
+-----------------------------------------------------------------------------------------------------------------
+Doc lilas officielle : existe en 2 exemplaires sur le 8181 :
+	intranet-gei.insa-toulouse.fr:8181/Git/gitLILASV4/LILASV4/doc/index.html
+	intranet-gei.insa-toulouse.fr:8181/LILASV4/Eclipse/doc/index.html
+La liste des fichiers et la meme, mais tous different par les scripts js contenus dans le header
+La version "Eclipse" a plus de js et affiche un petit bouton "P" (Publitool ?) qui ne marche pas hors-ligne,
+mais la charge utile semble strictement identique ==> utiliser la version Git/gitLILASV4/LILASV4/doc.
 
+Doc des demos : la doc lilas decrit 3 demos : Hello, SQRT, CtrUpDown (ctrud) et un exemple : fft
+On trouve des traces de 2 autres demos : Eq2ndDeg (equation 2e degre) et Sigma (somme de puissance de x)
+L'archive lilasV4demo.zip contient les sources lilas et les class des 6 demos.
 -----------------------------------------------------------------------------------------------------------------
 Ant et Eclipse
 www.vogella.com/tutorials/ApacheAnt/article.html
